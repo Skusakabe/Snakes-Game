@@ -3,7 +3,7 @@ BasicShot test;
 
 void setup() {
   size(1200,600);
-  test = new BasicShot(20,600,45,60,10,10);
+  test = new BasicShot(20,600,45,30,10,10);
 }
 
 void draw() {
