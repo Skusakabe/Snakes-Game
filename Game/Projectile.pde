@@ -1,11 +1,10 @@
-abstract class Projectile {
+public abstract class Projectile {
   int radius;
   int damage;
   int x;
   int y;
   double xSpeed;
   double ySpeed;
-  static double GRAV = 4.0;
   
   // Will take a Snake as a parameter.
   public abstract void onHit();
@@ -48,14 +47,4 @@ abstract class Projectile {
     float orientation = atan((float)((-1.0 * ySpeed) / xSpeed));
     rotate(orientation);
   }
-}
-
-void setup() {
-  size(600,1200);
-  Projectile test = new Projectile(80,1000,45,60,10,10);
-}
-
-void draw() {
-  test.projectilePhysics();
-  test.display();
 }
