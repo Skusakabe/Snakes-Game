@@ -54,3 +54,8 @@ void setup() {
   size(600,1200);
   Projectile test = new Projectile(80,1000,45,60,10,10);
 }
+
+void draw() {
+  test.projectilePhysics();
+  test.display();
+}
