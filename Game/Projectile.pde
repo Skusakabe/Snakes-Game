@@ -1,11 +1,11 @@
-abstract class Projectile {
+public abstract class Projectile {
   int radius;
   int damage;
   int x;
   int y;
   double xSpeed;
   double ySpeed;
-  static double GRAV = 4.0;
+  PShape sprite;
   
   // Will take a Snake as a parameter.
   public abstract void onHit();
@@ -23,6 +23,8 @@ abstract class Projectile {
     ySpeed = 2 * -Math.sin(radians(angle)) * power;
     radius = newRadius;
     damage = newDamage;
+    sprite = createShape(ELLIPSE,0,0,40,20);
+    sprite.setFill(color(0));
   }
   
   // Later on, add collision detection.
@@ -43,19 +45,8 @@ abstract class Projectile {
   
   //Later replace the shape with a (hopefully imported) image.
   void display() {
-    fill(0);
-    ellipse(x,y,80,40);
-    float orientation = atan((float)((-1.0 * ySpeed) / xSpeed));
-    rotate(orientation);
+    float orientation = atan((float)(ySpeed / xSpeed));
+    sprite.rotate(orientation);
+    shape(sprite,x,y);
   }
-}
-
-void setup() {
-  size(600,1200);
-  Projectile test = new Projectile(80,1000,45,60,10,10);
-}
-
-void draw() {
-  test.projectilePhysics();
-  test.display();
 }
