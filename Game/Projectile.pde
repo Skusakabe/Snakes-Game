@@ -50,7 +50,8 @@ public abstract class Projectile {
   
   //Later replace the shape with a (hopefully imported) image.
   void display() {
-    float orientation = atan((float)(ySpeed / xSpeed));
+    float orientation = -1 * atan((float)((-1 * ySpeed) / xSpeed));
+    sprite.resetMatrix();
     sprite.rotate(orientation);
     shape(sprite,x,y);
   }
