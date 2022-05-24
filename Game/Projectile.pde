@@ -8,7 +8,7 @@ public abstract class Projectile {
   PShape sprite;
   
   // Will take a Snake as a parameter.
-  public abstract void onHit();
+  public abstract void onHit(Snake target);
   // Will take the Terrain ArrayList as a parameter and an index corresponding to the target Terrain.
   public abstract void terrainHit();
   
