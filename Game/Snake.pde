@@ -38,17 +38,13 @@ class Snake{
   public void display(){
     image(model, x, y);
   }
-  //Spawns a projectile object 
-  public void shoot(int angle, int power, Projectile ammo, boolean spawned){ 
-    if(spawned == false){
-      ammo.spawn(x, y, angle, power);
-      spawned = true;
+  // Creates a new projectile based on the parameters, which will be added to the
+  // active projectile ArrayList later where draw() will make it do its stuff.
+  public Projectile shoot(int angle, int power, int ProjectileID, boolean spawned){ 
+    if (ProjectileID == 1) {
+      return new BasicShot(x,y,angle,power,30,30);
     }
-    //replace 0 with terrain. 
-    while(ammo.y < 600){
-    ammo.projectilePhysics();
-    ammo.display();
-    print(" " + ammo.y);
+    return new BasicShot(x,y,angle,power,30,30);
   }
 }
 }
