@@ -27,5 +27,9 @@ class Snake{
       die();
     }
   }
-  
+  public void displayRad(){
+    stroke(color(0,200,0));
+    tint(255,255);
+    circle(x, y, movement_Radius);
+  }
 }
