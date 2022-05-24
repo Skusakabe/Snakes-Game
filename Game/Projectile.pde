@@ -26,7 +26,12 @@ public abstract class Projectile {
     sprite = createShape(ELLIPSE,0,0,40,20);
     sprite.setFill(color(0));
   }
-  
+  void spawn(int xPos, int yPos, int angle, int power){
+    x = xPos;
+    y = yPos;
+    xSpeed = 2 * Math.cos(radians(angle)) * power;
+    ySpeed = 2 * -Math.sin(radians(angle)) * power;
+  }
   // Later on, add collision detection.
   void projectilePhysics() {
     x += xSpeed;
