@@ -1,7 +1,8 @@
 static double GRAV = 4.0;
 Snake TestSnake;
 BasicShot test;
- boolean f;
+boolean f;
+
 void setup() {
   f = true;
   size(1200,600);
@@ -10,13 +11,12 @@ void setup() {
 }
 
 void draw() {
-  if(f){
-  //test.projectilePhysics();
-  //test.display();
+  test.projectilePhysics();
+  test.display();
   //print(" " + test.x);
   TestSnake.display();
-  TestSnake.shoot(45, 30, test, false);
-  print("k");
-  f = false;
-  }
+  TestSnake.shoot(45, 30, 1);
+  print(TestSnake.getHealth());
+  test.onHit(TestSnake);
+  println(" " + TestSnake.getHealth());
 }

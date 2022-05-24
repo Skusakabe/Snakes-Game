@@ -40,11 +40,10 @@ class Snake{
   }
   // Creates a new projectile based on the parameters, which will be added to the
   // active projectile ArrayList later where draw() will make it do its stuff.
-  public Projectile shoot(int angle, int power, int ProjectileID, boolean spawned){ 
+  public Projectile shoot(int angle, int power, int ProjectileID){ 
     if (ProjectileID == 1) {
       return new BasicShot(x,y,angle,power,30,30);
     }
     return new BasicShot(x,y,angle,power,30,30);
   }
-}
 }
