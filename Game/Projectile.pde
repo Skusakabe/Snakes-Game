@@ -1,4 +1,4 @@
-public abstract class Projectile {
+public abstract class Projectile implements Everything, Cloneable{
   int radius;
   int damage;
   int x;
@@ -53,5 +53,8 @@ public abstract class Projectile {
     float orientation = atan((float)(ySpeed / xSpeed));
     sprite.rotate(orientation);
     shape(sprite,x,y);
+  }
+  void deleteDisplay(){
+    
   }
 }

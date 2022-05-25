@@ -1,4 +1,4 @@
-class Snake{
+class Snake implements Everything{
   private int health, movement_Radius, x, y;
   private boolean dead;
   private PImage model;
@@ -39,16 +39,10 @@ class Snake{
     image(model, x, y);
   }
   //Spawns a projectile object 
-  public void shoot(int angle, int power, Projectile ammo, boolean spawned){ 
-    if(spawned == false){
-      ammo.spawn(x, y, angle, power);
-      spawned = true;
+  public Projectile shoot(int angle, int power, Projectile ammo){ 
+      Projectile ammo2 = ammo.clone();
+      ammo.spawn(x+12, y, angle, power);
+      return ammo;
     }
     //replace 0 with terrain. 
-    while(ammo.y < 600){
-    ammo.projectilePhysics();
-    ammo.display();
-    print(" " + ammo.y);
-  }
-}
 }
