@@ -10,7 +10,7 @@ public abstract class Projectile implements Everything, Cloneable{
   // Will take a Snake as a parameter.
   public abstract void onHit(Snake target);
   // Will take the Terrain ArrayList as a parameter and an index corresponding to the target Terrain.
-  public abstract void terrainHit();
+  public abstract void terrainHit(Terrain target);
   
   /*
   The number before the sin/cos is just a random constant

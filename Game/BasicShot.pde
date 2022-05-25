@@ -6,6 +6,6 @@ public class BasicShot extends Projectile implements Everything{
     target.takeDamage(damage);
   }
   void terrainHit(Terrain target) {
-    
+    target.changeType(0);
   }
 }
