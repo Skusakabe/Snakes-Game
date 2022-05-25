@@ -3,7 +3,6 @@ static double GRAV = 4.0;
 Snake TestSnake;
 BasicShot test;
 int timer;
-boolean f;
 Terrain background;
 ArrayList<Terrain> blocks = new ArrayList<Terrain>();
 ArrayList<Everything> Elements = new ArrayList<Everything>();
@@ -26,7 +25,6 @@ void setup() {
       blocks.add(block);
     }
   }
-  f = true;
   size(1200, 600);
   test = new BasicShot(60, 600, 45, 30, 10, 10);
   TestSnake = new Snake(50, 350);
@@ -54,7 +52,7 @@ void draw() {
     if (timer == 2) {
       a.projectilePhysics();
     }
-    a.terrainHit(blocks.get((int)random(200)));
+    a.terrainHit(blocks.get(140 * (int)random(200)));
     a.display();
     if (a.y > 400) {
       Bullets2.remove(a);
