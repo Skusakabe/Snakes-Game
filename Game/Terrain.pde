@@ -2,7 +2,7 @@ class Terrain{
   int size, x, y;
   int id;
   int health;
-  boolean permable;
+  boolean permeable;
   PImage texture;
   boolean destroyed;
   //id 0 = air;
@@ -31,6 +31,26 @@ class Terrain{
       }
     }
   }
+  int getType() {
+    return id;
+  }
+  
+  void changeType(int newType) {
+    id = newType;
+    if (id == 0) {
+      permeable = true;
+      destroyed = true;
+    }
+    if (id == 1) {
+      permeable = false;
+      destroyed = false;
+    }
+    if (id == 2) {
+      permeable = false;
+      destroyed = false;
+    }
+  }
+  
   void display(){
     image(texture, x, y);
   }
