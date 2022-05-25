@@ -12,13 +12,19 @@ ArrayList<Projectile> Bullets = new ArrayList<Projectile>();
 void setup() {
   timer = 0;
   background = new Terrain(-1, 0, 0);
-  for (int j = height - 5; j >= 400; j-=5) {
+  for (int j = 0; j < 400; j+=5) {
     for (int k = 0; k < width; k+=5) {
-      Terrain block = new Terrain(2, k, j);
+      Terrain block = new Terrain(0,k,j);
       block.display();
       blocks.add(block);
     }
-    //print(" " + j);
+  }
+  for (int j = 400; j < height; j+= 5) {
+    for (int k = 0; k < width; k+=5) {
+      Terrain block = new Terrain(2,k,j);
+      block.display();
+      blocks.add(block);
+    }
   }
   f = true;
   size(1200, 600);
@@ -48,7 +54,7 @@ void draw() {
     if (timer == 2) {
       a.projectilePhysics();
     }
-    a.terrainHit(blocks.get(1 + (int)random(200)));
+    a.terrainHit(blocks.get((int)random(200)));
     a.display();
     if (a.y > 400) {
       Bullets2.remove(a);
