@@ -20,3 +20,4 @@ void draw() {
   print(TestSnake.getHealth());
   test.onHit(TestSnake);
   println(" " + TestSnake.getHealth());
+}

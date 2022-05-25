@@ -55,7 +55,4 @@ public abstract class Projectile implements Everything, Cloneable{
     sprite.rotate(orientation);
     shape(sprite,x,y);
   }
-  void deleteDisplay(){
-    
-  }
 }
