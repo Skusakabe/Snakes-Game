@@ -8,7 +8,7 @@ public abstract class Projectile implements Everything, Cloneable{
   PShape sprite;
   
   // Will take a Snake as a parameter.
-  public abstract void onHit();
+  public abstract void onHit(Snake target);
   // Will take the Terrain ArrayList as a parameter and an index corresponding to the target Terrain.
   public abstract void terrainHit();
   
@@ -50,7 +50,8 @@ public abstract class Projectile implements Everything, Cloneable{
   
   //Later replace the shape with a (hopefully imported) image.
   void display() {
-    float orientation = atan((float)(ySpeed / xSpeed));
+    float orientation = -1 * atan((float)((-1 * ySpeed) / xSpeed));
+    sprite.resetMatrix();
     sprite.rotate(orientation);
     shape(sprite,x,y);
   }

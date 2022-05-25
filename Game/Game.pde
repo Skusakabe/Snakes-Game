@@ -1,9 +1,14 @@
 static double GRAV = 4.0;
 Snake TestSnake;
 BasicShot test;
+<<<<<<< HEAD
 ArrayList<Everything> Elements = new ArrayList<Everything>();
 ArrayList<Projectile> Bullets = new ArrayList<Projectile>();
  boolean f;
+=======
+boolean f;
+
+>>>>>>> main
 void setup() {
   frameRate(10);
   f = true;
@@ -17,6 +22,7 @@ void keyPressed(){
   Bullets.add(TestSnake.shoot(45, 30, test));
 }
 void draw() {
+<<<<<<< HEAD
   background(255);
   print(Bullets.size());
   ArrayList<Projectile> Bullets2 = new ArrayList<Projectile>();;
@@ -38,4 +44,14 @@ void draw() {
   //print("k");
   f = false;
   
+=======
+  test.projectilePhysics();
+  test.display();
+  //print(" " + test.x);
+  TestSnake.display();
+  TestSnake.shoot(45, 30, 1);
+  print(TestSnake.getHealth());
+  test.onHit(TestSnake);
+  println(" " + TestSnake.getHealth());
+>>>>>>> main
 }
