@@ -1,4 +1,4 @@
-class Terrain{
+class Terrain {
   int size, x, y;
   int id;
   int health;
@@ -8,28 +8,27 @@ class Terrain{
   //id 0 = air;
   //id 1 = dirt;
   //id 2 = earth;
-  public Terrain(int id, int x, int y){
+  public Terrain(int id, int x, int y) {
     this.x = x;
     this.y = y;
     this.id = id;
-    if(id == -1){
+    if (id == -1) {
       health = 1;
       permeable = true;
       size = 5000;
       texture = loadImage("Background.png");
-      texture.resize(1200,600);
-    }else if (id == 0) {
+      texture.resize(1200, 600);
+    } else if (id == 0) {
       permeable = true;
       size = 5;
       texture = loadImage("Air.png");
-    }
-    else{
+    } else {
       size = 5;
       permeable = false;
-      if(id == 1){
+      if (id == 1) {
         health = 1;
         texture = loadImage("Dirt.png");
-      }else if(id  == 2){
+      } else if (id  == 2) {
         health = 100;
         texture = loadImage("Rock.png");
       }
@@ -38,7 +37,15 @@ class Terrain{
   int getType() {
     return id;
   }
-  
+
+  int getX() {
+    return x;
+  }
+
+  int getY() {
+    return y;
+  }
+
   void changeType(int newType) {
     id = newType;
     if (id == 0) {
@@ -54,8 +61,8 @@ class Terrain{
       texture = loadImage("Rock.png");
     }
   }
-  
-  void display(){
+
+  void display() {
     image(texture, x, y);
   }
 }
