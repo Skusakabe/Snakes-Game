@@ -10,7 +10,7 @@ ArrayList<Projectile> Bullets = new ArrayList<Projectile>();
  
 void setup(){
   timer = 0;
-  Terrain background = new Terrain(0, 0, 0);
+  Terrain background = new Terrain(-1, 0, 0);
   blocks.add(background);
   for(int j = height - 5; j >= 400; j-=5){
     for(int k = 0; k < width; k+=5){
@@ -47,7 +47,7 @@ void draw() {
     if (timer == 2) {
       a.projectilePhysics();
     }
-    a.terrainHit(blocks.get((int)random(100)));
+    a.terrainHit(blocks.get(1 + (int)random(200)));
     a.display();
     if(a.y > 400){
       Bullets2.remove(a);
