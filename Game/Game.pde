@@ -1,7 +1,8 @@
- //<>// //<>// //<>//
+ //<>// //<>// //<>// //<>//
 static double GRAV = 4.0;
-Snake TestSnake;
+Snake toMove;
 BasicShot test;
+boolean move;
 int timer;
 boolean f;
 ArrayList<Snake> EverySnake = new ArrayList<Snake>();
@@ -10,8 +11,20 @@ ArrayList<Everything> Elements = new ArrayList<Everything>();
 ArrayList<Projectile> Bullets = new ArrayList<Projectile>();
 //eventually with Random map, edit uppercord to check for bounds.
 ArrayList<Integer> uppercord = new ArrayList<Integer>();
+Player player1;
+Player player2;
+Player turn;
 void setup(){
+  move = true;
+  player1 = new Player(1);
+  player2 = new Player(2);
+  player1.addSnake(3);
+  player2.addSnake(3);
+  turn = player1;
   timer = 0;
+  for(Snake a:EverySnake){
+    a.display();
+  }
   Terrain background = new Terrain(0, 0, 0);
   blocks.add(background);
   for(int j = height - 5; j >= 400; j-=5){
@@ -25,25 +38,33 @@ void setup(){
   f = true;
   size(1200,600);
   test = new BasicShot(60,600,45,30,10,10);
-  TestSnake = new Snake(50, 350);
 }
-void keyPressed(){
-   Bullets.add(TestSnake.shoot(45, 30, 1));
- }
+void move(Snake s){
+  
+}
+void mousePressed(){
+  if(move){
+    for(Snake a:turn.team){
+      if(a.isin(mouseX, mouseY)){
+        toMove = a;
+        move = false;
+        break;
+      }
+    }
+   }else{
+     
+   }
+}
 void draw() {
   background(255);
   test.projectilePhysics();
   test.display();
-  //print(" " + test.x);
   ArrayList<Projectile> Bullets2 = new ArrayList<Projectile>();
   //Copying Array Over to a second Array
   //running and displaying bullet on path
    for(Terrain a: blocks){
      a.display();
    }
-  //print(TestSnake.getHealth());
-  test.onHit(TestSnake);
-  TestSnake.display();
   for(Projectile a: Bullets){
     Bullets2.add(a);
     if (timer == 2) {
@@ -62,6 +83,7 @@ void draw() {
   else {
     timer++;
   }
-   
-  //println(" " + TestSnake.getHealth());
+  for(Snake a:EverySnake){
+    a.display();
+  }  
 }
