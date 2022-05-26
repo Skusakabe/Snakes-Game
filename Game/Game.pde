@@ -1,12 +1,14 @@
- //<>// //<>//
+ //<>// //<>// //<>//
 static double GRAV = 4.0;
 Snake TestSnake;
 BasicShot test;
 boolean f;
+ArrayList<Snake> EverySnake = new ArrayList<Snake>();
 ArrayList<Terrain> blocks = new ArrayList<Terrain>();
 ArrayList<Everything> Elements = new ArrayList<Everything>();
 ArrayList<Projectile> Bullets = new ArrayList<Projectile>();
- 
+//eventually with Random map, edit uppercord to check for bounds.
+ArrayList<Integer> uppercord = new ArrayList<Integer>();
 void setup(){
   Terrain background = new Terrain(0, 0, 0);
   blocks.add(background);
