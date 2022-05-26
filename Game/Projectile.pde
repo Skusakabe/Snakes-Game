@@ -19,24 +19,33 @@ public abstract class Projectile implements Everything, Cloneable {
   Projectile(int xPos, int yPos, int angle, int power, int newRadius, int newDamage) {
     x = xPos;
     y = yPos;
-    xSpeed = 2 * Math.cos(radians(angle)) * power;
-    ySpeed = 2 * -Math.sin(radians(angle)) * power;
+    xSpeed = 1 * Math.cos(radians(angle)) * power;
+    ySpeed = 1 * -Math.sin(radians(angle)) * power;
     radius = newRadius;
     damage = newDamage;
-    sprite = createShape(ELLIPSE, 0, 0, 40, 20);
+    sprite = createShape(ELLIPSE, 0, 0, 20, 10);
     sprite.setFill(color(0));
   }
-  void spawn(int xPos, int yPos, int angle, int power) {
-    x = xPos;
-    y = yPos;
-    xSpeed = 2 * Math.cos(radians(angle)) * power;
-    ySpeed = 2 * -Math.sin(radians(angle)) * power;
-  }
 
-  void projectilePhysics() {
+  boolean projectilePhysics() {
     x += xSpeed;
     y += ySpeed;
     ySpeed += GRAV;
+    if (x > width - 25 || y > height - 15 || x < 25 || y < 15) {
+      scanEffectRadius();
+      print("aaaaaa");
+      return true;
+    }
+    for (int j = (y / 5) * 5; j < (y / 5) * 5 + 15; j+=5) {
+      for (int i = (x / 5) * 5; i < (x / 5) * 5 + 25; i+=5) {
+        if (blocks.get((j / 5) * (width / 5) + (i / 5)).x == x && blocks.get((j / 5) * (width / 5) + (i / 5)).y == y) {
+          scanEffectRadius();
+          print("aaaaaa");
+          return true;
+        }
+      }
+    }
+    return false;
   }
 
   /* Once other classes are made, checks for terrain
@@ -45,6 +54,7 @@ public abstract class Projectile implements Everything, Cloneable {
    that is found.
    */
   void scanEffectRadius() {
+    
   }
 
   //Later replace the shape with a (hopefully imported) image.

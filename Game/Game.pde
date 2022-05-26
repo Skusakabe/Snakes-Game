@@ -1,5 +1,5 @@
 //<>// //<>//
-static double GRAV = 4.0;
+static double GRAV = 1.5;
 Snake TestSnake;
 BasicShot test;
 int timer;
@@ -49,21 +49,15 @@ void draw() {
   TestSnake.display();
   for (Projectile a : Bullets) {
     Bullets2.add(a);
-    if (timer == 2) {
-      a.projectilePhysics();
+    if (a.projectilePhysics()) {
+      Bullets2.remove(a);
     }
-    a.terrainHit(blocks.get(140 * (int)random(200)));
+    a.terrainHit(blocks.get((int)random(28000)));
     a.display();
     if (a.y > 400) {
       Bullets2.remove(a);
     }
   }
   Bullets = Bullets2;
-  if (timer == 2) {
-    timer = 0;
-  } else {
-    timer++;
-  }
-
   //println(" " + TestSnake.getHealth());
 }
