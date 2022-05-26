@@ -1,7 +1,6 @@
 //<>// //<>//
 static double GRAV = 1.5;
 Snake TestSnake;
-BasicShot test;
 int timer;
 Terrain background;
 ArrayList<Terrain> blocks = new ArrayList<Terrain>();
@@ -26,7 +25,6 @@ void setup() {
     }
   }
   size(1200, 600);
-  test = new BasicShot(60, 600, 45, 30, 10, 10);
   TestSnake = new Snake(50, 350);
 }
 void keyPressed() {
@@ -34,8 +32,6 @@ void keyPressed() {
 }
 void draw() {
   background(255);
-  test.projectilePhysics();
-  test.display();
   //print(" " + test.x);
   ArrayList<Projectile> Bullets2 = new ArrayList<Projectile>();
   //Copying Array Over to a second Array
@@ -45,17 +41,18 @@ void draw() {
     a.display();
   }
   //print(TestSnake.getHealth());
-  test.onHit(TestSnake);
   TestSnake.display();
   for (Projectile a : Bullets) {
     Bullets2.add(a);
     if (a.projectilePhysics()) {
       Bullets2.remove(a);
     }
-    a.terrainHit(blocks.get((int)random(28000)));
-    a.display();
-    if (a.y > 400) {
-      Bullets2.remove(a);
+    else {
+      a.terrainHit(blocks.get((int)random(28000)));
+      a.display();
+      if (a.y > 400) {
+        Bullets2.remove(a);
+      }
     }
   }
   Bullets = Bullets2;

@@ -56,7 +56,22 @@ public abstract class Projectile implements Everything, Cloneable {
    that is found.
    */
   void scanEffectRadius() {
-    
+    int xStart = 0;
+    int xEnd = width;
+    int yStart = 0;
+    int yEnd = height;
+    if (x < radius) {
+      xStart = 0;
+    }
+    if (x + radius > width) {
+      xEnd = width - 5;
+    }
+    if (y < radius) {
+      yStart = 0;
+    }
+    if (y + radius > height) {
+      yEnd = height - 5;
+    }
   }
 
   //Later replace the shape with a (hopefully imported) image.
