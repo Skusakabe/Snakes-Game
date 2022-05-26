@@ -9,6 +9,7 @@ class Snake implements Everything{
     this.y = y;
     dead = false;
     model = loadImage("Snake1.png");
+    model.resize(20, 20);
   }
   public Snake(int x, int y){
     health = 100;
@@ -17,6 +18,7 @@ class Snake implements Everything{
      this.y = y;
      dead = false;
      model = loadImage("Snake1.png");
+     model.resize(20, 20);
     }
   public int getHealth(){
     return health;
@@ -38,12 +40,12 @@ class Snake implements Everything{
   public void display(){
     image(model, x, y);
   }
-
+ //<>//
   // Returns a projectile based on the parameters, this will be added to the active
   // projectile ArrayList, where draw() will make the projectile do its stuff. //<>//
   // Creates a new projectile based on the parameters, which will be added to the
-  // active projectile ArrayList later where draw() will make it do its stuff.
-  public Projectile shoot(int angle, int power, int ProjectileID){ 
+  // active projectile ArrayList later where draw() will make it do its stuff. //<>//
+  public Projectile shoot(int angle, int power, int ProjectileID){  //<>//
     if (ProjectileID == 1) {  //<>//
       return new BasicShot(x,y,angle,power,30,30);  //<>//
     }

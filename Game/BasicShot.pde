@@ -5,7 +5,7 @@ public class BasicShot extends Projectile implements Everything{
   void onHit(Snake target) {
     target.takeDamage(damage);
   }
-  void terrainHit() {
-    
+  void terrainHit(Terrain target) {
+    target.changeType(0);
   }
 }

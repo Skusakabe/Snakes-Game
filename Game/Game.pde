@@ -2,6 +2,7 @@
 static double GRAV = 4.0;
 Snake TestSnake;
 BasicShot test;
+int timer;
 boolean f;
 ArrayList<Snake> EverySnake = new ArrayList<Snake>();
 ArrayList<Terrain> blocks = new ArrayList<Terrain>();
@@ -10,6 +11,7 @@ ArrayList<Projectile> Bullets = new ArrayList<Projectile>();
 //eventually with Random map, edit uppercord to check for bounds.
 ArrayList<Integer> uppercord = new ArrayList<Integer>();
 void setup(){
+  timer = 0;
   Terrain background = new Terrain(0, 0, 0);
   blocks.add(background);
   for(int j = height - 5; j >= 400; j-=5){
@@ -41,15 +43,25 @@ void draw() {
    }
   //print(TestSnake.getHealth());
   test.onHit(TestSnake);
-    TestSnake.display();
-    for(Projectile a: Bullets){
-     Bullets2.add(a);
-     a.projectilePhysics();
-     a.display();
-   if(a.y > 400){
-     Bullets2.remove(a);
-   }
-   }
-   Bullets = Bullets2;
+  TestSnake.display();
+  for(Projectile a: Bullets){
+    Bullets2.add(a);
+    if (timer == 2) {
+      a.projectilePhysics();
+    }
+    a.terrainHit(blocks.get((int)random(100)));
+    a.display();
+    if(a.y > 400){
+      Bullets2.remove(a);
+    }
+  }
+  Bullets = Bullets2;
+  if (timer == 2) {
+    timer = 0;
+  }
+  else {
+    timer++;
+  }
+   
   //println(" " + TestSnake.getHealth());
 }

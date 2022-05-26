@@ -2,9 +2,8 @@ class Terrain{
   int size, x, y;
   int id;
   int health;
-  boolean permable;
+  boolean permeable;
   PImage texture;
-  boolean destroyed;
   //id 0 = air;
   //id 1 = dirt;
   //id 2 = earth;
@@ -12,16 +11,15 @@ class Terrain{
     this.x = x;
     this.y = y;
     this.id = id;
-    destroyed = false;
     if(id == 0){
       health = 1;
-      permable = false;
+      permeable = false;
       size = 5000;
       texture = loadImage("Background.png");
       texture.resize(1200,600);
     }else{
       size = 5;
-      permable = true;
+      permeable = true;
       if(id == 1){
         health = 1;
         texture = loadImage("Dirt.png");
@@ -31,10 +29,26 @@ class Terrain{
       }
     }
   }
+  int getType() {
+    return id;
+  }
+  
+  void changeType(int newType) {
+    id = newType;
+    if (id == 0) {
+      permeable = true;
+    }
+    if (id == 1) {
+      permeable = false;
+      texture = loadImage("Dirt.png");
+    }
+    if (id == 2) {
+      permeable = false;
+      texture = loadImage("Rock.png");
+    }
+  }
+  
   void display(){
     image(texture, x, y);
   }
-  void die(){
-    destroyed = true;
-}
 }
