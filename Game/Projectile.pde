@@ -34,7 +34,6 @@ public abstract class Projectile implements Everything, Cloneable {
     ySpeed += GRAV;
     if (x > width - 25 || y > height - 15 || x < 25 || y < 15) {
       scanEffectRadius();
-      print("a");
       return true;
     }
     for (int j = (y / 5) * 5; j < (y / 5) * 5 + 15; j+=5) { 
@@ -42,7 +41,6 @@ public abstract class Projectile implements Everything, Cloneable {
         if (blocks.get((j / 5) * (width / 5) + (i / 5)).x == i && blocks.get((j / 5) * (width / 5) + (i / 5)).y == j) {
           if (blocks.get((j / 5) * (width / 5) + (i / 5)).getType() > 0) {
             scanEffectRadius();
-            print("a");
             return true;
           }
         }
