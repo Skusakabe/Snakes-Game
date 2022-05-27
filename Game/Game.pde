@@ -48,11 +48,7 @@ void draw() {
       Bullets2.remove(a);
     }
     else {
-      a.terrainHit(blocks.get((int)random(28000)));
       a.display();
-      if (a.y > 400) {
-        Bullets2.remove(a);
-      }
     }
   }
   Bullets = Bullets2;

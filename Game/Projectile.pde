@@ -15,6 +15,7 @@ public abstract class Projectile implements Everything, Cloneable {
   /*
   The number before the sin/cos is just a random constant
    that can be changed as seen fit.
+   Radius should be a multiple of 5.
    */
   Projectile(int xPos, int yPos, int angle, int power, int newRadius, int newDamage) {
     x = xPos;
@@ -38,7 +39,7 @@ public abstract class Projectile implements Everything, Cloneable {
     }
     for (int j = (y / 5) * 5; j < (y / 5) * 5 + 15; j+=5) { 
       for (int i = (x / 5) * 5; i < (x / 5) * 5 + 25; i+=5) {
-        if (blocks.get((j / 5) * (width / 5) + (i / 5)).x == x && blocks.get((j / 5) * (width / 5) + (i / 5)).y == y) {
+        if (blocks.get((j / 5) * (width / 5) + (i / 5)).x == i && blocks.get((j / 5) * (width / 5) + (i / 5)).y == j) {
           if (blocks.get((j / 5) * (width / 5) + (i / 5)).getType() > 0) {
             scanEffectRadius();
             print("a");
@@ -56,21 +57,30 @@ public abstract class Projectile implements Everything, Cloneable {
    that is found.
    */
   void scanEffectRadius() {
-    int xStart = 0;
-    int xEnd = width;
-    int yStart = 0;
-    int yEnd = height;
+    int xStart = (x / 5) * 5;
+    int xEnd = xStart + 2 * radius;
+    int yStart = (y / 5) * 5;
+    int yEnd = yStart + 2 * radius;
     if (x < radius) {
       xStart = 0;
     }
-    if (x + radius > width) {
+    if (x + radius >= width) {
       xEnd = width - 5;
     }
     if (y < radius) {
       yStart = 0;
     }
-    if (y + radius > height) {
+    if (y + radius >= height) {
       yEnd = height - 5;
+    }
+    for (int j = yStart; j < yEnd; j+=5) {
+      for (int i = xStart; i < xEnd; i+=5) {
+        if (dist(x,y,blocks.get((j / 5) * (width / 5) + (i / 5)).x,blocks.get((j / 5) * (width / 5) + (i / 5)).y) <= radius) {
+          if (blocks.get((j / 5) * (width / 5) + (i / 5)).getType() > 0) {
+            terrainHit(blocks.get((j / 5) * (width / 5) + (i / 5)));
+          }
+        }
+      }
     }
   }
 
