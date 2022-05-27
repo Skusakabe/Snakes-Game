@@ -66,6 +66,7 @@ void mouseReleased(){
 }
 void draw() {
   if(keyboardInput.isPressed(Controller.D)){
+    if(toMove != null){
     if((toMove.spotLeft) > 0){
       if((toMove.x < width)){
         toMove.x += 3;
@@ -73,13 +74,16 @@ void draw() {
       }
     }
   }
+  }
   if(keyboardInput.isPressed(Controller.A)){
+    if(toMove != null){
     if((toMove.spotLeft) > 0){
       if((toMove.x > 0)){
         toMove.x -= 3;
         toMove.spotLeft = toMove.spotLeft - 3;
       }
     }
+  }
   }
       
   background(255);
@@ -112,5 +116,5 @@ void draw() {
   for(Snake a:EverySnake){
     a.display();
   }  
-  UI.basicUI(1100, 0);
+  UI.basicUI(1200, 0);
 }
