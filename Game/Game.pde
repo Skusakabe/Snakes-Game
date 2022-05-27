@@ -1,4 +1,4 @@
- UI UI; //<>// //<>//
+ UI UI; //<>// //<>// //<>//
 Controller keyboardInput;
 Terrain background;
 static double GRAV = 4.0;
@@ -10,6 +10,8 @@ ArrayList<Snake> EverySnake = new ArrayList<Snake>();
 ArrayList<Terrain> blocks = new ArrayList<Terrain>();
 ArrayList<Everything> Elements = new ArrayList<Everything>();
 ArrayList<Projectile> Bullets = new ArrayList<Projectile>();
+int angle;
+int power;
 boolean overAngle;
 boolean overPower;
 boolean overShoot;
@@ -138,6 +140,28 @@ void draw() {
     a.display();
   }  
   UI.basicUI(1200, 0);
+}
+
+void mousePressed() {
+  if (overAngle) {
+    if (angle == 180) {
+      angle = 0;
+    }
+    else {
+      angle++;
+    }
+  }
+  if (overPower) {
+    if (power == 100) {
+      power = 0;
+    }
+    else {
+      power++;
+    }
+  }
+  if (overShoot) {
+    
+  }
 }
 
 void update() {
