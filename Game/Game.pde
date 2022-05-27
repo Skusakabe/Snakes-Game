@@ -1,4 +1,5 @@
  //<>// //<>// //<>// //<>//
+ UI UI;
 Controller keyboardInput;
 static double GRAV = 4.0;
 Snake toMove;
@@ -18,8 +19,8 @@ void setup(){
   move = true;
   player1 = new Player(1);
   player2 = new Player(2);
-  player1.addSnake(3, "Snake1.png");
-  player2.addSnake(3, "Snake1.png");
+  player1.addSnake(3, "SnakeRed.png");
+  player2.addSnake(3, "SnakeBlue.png");
   turn = player1;
   timer = 0;
   for(Snake a:EverySnake){
@@ -35,8 +36,9 @@ void setup(){
     }
   }
   keyboardInput = new Controller();
-  size(1200,600);
+  size(1500,600);
   test = new BasicShot(60,600,45,30,10,10);
+  UI = new UI();
 }
 
 void keyPressed() {
@@ -110,4 +112,5 @@ void draw() {
   for(Snake a:EverySnake){
     a.display();
   }  
+  UI.basicUI(1100, 0);
 }
