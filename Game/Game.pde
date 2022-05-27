@@ -1,4 +1,4 @@
-UI UI; //<>//
+UI UI; //<>// //<>//
 Controller keyboardInput;
 Terrain background;
 static double GRAV = 4.0;
@@ -10,6 +10,21 @@ ArrayList<Snake> EverySnake = new ArrayList<Snake>();
 ArrayList<Terrain> blocks = new ArrayList<Terrain>();
 ArrayList<Everything> Elements = new ArrayList<Everything>();
 ArrayList<Projectile> Bullets = new ArrayList<Projectile>();
+boolean overAngle;
+boolean overPower;
+boolean overShoot;
+int angleX;
+int angleY;
+int angleRectX;
+int angleRectY;
+int powerX;
+int powerY;
+int powerRectX;
+int powerRectY;
+int shootX;
+int shootY;
+int shootRectX;
+int shootRectY;
 //eventually with Random map, edit uppercord to check for bounds.
 ArrayList<Integer> uppercord = new ArrayList<Integer>();
 Player player1;
@@ -31,6 +46,7 @@ void setup() {
   for (int j = 0; j < 400; j+=5) {
     for (int k = 0; k < width; k+=5) {
       Terrain block = new Terrain(0, k, j);
+      block.display();
       blocks.add(block);
     }
   }
@@ -120,4 +136,34 @@ void draw() {
     a.display();
   }  
   UI.basicUI(1200, 0);
+}
+
+void update() {
+  if ( hoveringButton(angleX, angleY, angleRectX, angleRectY) ) {
+    overAngle = true;
+    overPower = false;
+    overShoot = false;
+  } else if ( hoveringButton(powerX, powerY, powerRectX, powerRectY) ) {
+    overAngle = false;
+    overPower = true;
+    overShoot = false;
+  } else if ( hoveringButton(shootX, shootY, shootRectX, shootRectY) ) {
+    overAngle = false;
+    overPower = false;
+    overShoot = true;
+  } else {
+    overAngle = overPower = overShoot = false;
+  }
+}
+
+/*
+Use multiple times in update for the different buttons on the screen.
+ */
+boolean hoveringButton(int x, int y, int rectWidth, int rectHeight) {
+  if (mouseX >= x && mouseX <= x+rectWidth && 
+    mouseY >= y && mouseY <= y+rectHeight) {
+    return true;
+  } else {
+    return false;
+  }
 }
