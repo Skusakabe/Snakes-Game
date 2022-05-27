@@ -31,6 +31,9 @@ class Terrain {
       } else if (id  == 2) {
         health = 100;
         texture = loadImage("Rock.png");
+      }else if(id == 3){
+        health = 1;
+        texture = loadImage("Air.png");
       }
     }
   }
@@ -52,6 +55,7 @@ class Terrain {
       permeable = true;
       texture = loadImage("Air.png");
     }
+    
     if (id == 1) {
       permeable = false;
       texture = loadImage("Dirt.png");
@@ -59,6 +63,10 @@ class Terrain {
     if (id == 2) {
       permeable = false;
       texture = loadImage("Rock.png");
+    }
+    if (id == 3) {
+      permeable = true;
+      texture = loadImage("Air.png");
     }
   }
 
