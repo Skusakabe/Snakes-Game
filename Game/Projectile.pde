@@ -20,8 +20,8 @@ public abstract class Projectile implements Everything, Cloneable {
   Projectile(int xPos, int yPos, int angle, int power, int newRadius, int newDamage) {
     x = xPos;
     y = yPos;
-    xSpeed = 1 * Math.cos(radians(angle)) * power;
-    ySpeed = 1 * -Math.sin(radians(angle)) * power;
+    xSpeed = 0.8 * Math.cos(radians(angle)) * power;
+    ySpeed = 0.8 * -Math.sin(radians(angle)) * power;
     radius = newRadius;
     damage = newDamage;
     sprite = createShape(ELLIPSE, 0, 0, 20, 10);

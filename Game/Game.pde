@@ -1,5 +1,5 @@
 //<>// //<>//
-static double GRAV = 1.5;
+static double GRAV = 1;
 Snake TestSnake;
 int timer;
 Terrain background;
