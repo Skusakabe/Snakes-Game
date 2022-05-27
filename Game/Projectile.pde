@@ -57,9 +57,9 @@ public abstract class Projectile implements Everything, Cloneable {
    that is found.
    */
   void scanEffectRadius() {
-    int xStart = (x / 5) * 5;
+    int xStart = (x / 5) * 5 - radius;
     int xEnd = xStart + 2 * radius;
-    int yStart = (y / 5) * 5;
+    int yStart = (y / 5) * 5 - radius;
     int yEnd = yStart + 2 * radius;
     if (x < radius) {
       xStart = 0;
