@@ -25,12 +25,15 @@ int shootX;
 int shootY;
 int shootRectX;
 int shootRectY;
+int projID;
 //eventually with Random map, edit uppercord to check for bounds.
 ArrayList<Integer> uppercord = new ArrayList<Integer>();
 Player player1;
 Player player2;
 Player turn;
 void setup() {
+  //Change projID to match proj type with bullets;
+  projID = 1;
   power = 5;
   angle = 45;
   move = true;
@@ -67,20 +70,30 @@ void setup() {
 
 void keyPressed() {
   keyboardInput.press(keyCode);
+  if(key == ' '){
+    if((toMove != null)&&(!toMove.shootYet)){
+      Bullets.add(toMove.shoot(angle, power, projID));
+      toMove.shootYet = true;
+    }
+  }
    if (key == CODED) {
     if (keyCode == UP) {
       if(angle < 360){
-      angle++;
+        angle++;
       }
     }
     if (keyCode == DOWN) {
-      angle--;
+      if(angle > 0){
+        angle--;
+      }
     }
     if (keyCode == RIGHT) {
       power++;
     }
     if (keyCode == LEFT) {
+      if(power > 0){
       power--;
+      }
     }
    }
 }
