@@ -5,7 +5,7 @@ static double GRAV = 4.0;
 Snake toMove;
 BasicShot test;
 boolean move, readyToMove;
-int timer, newx, newy;
+int timer, newx, newy, power, angle;
 ArrayList<Snake> EverySnake = new ArrayList<Snake>();
 ArrayList<Terrain> blocks = new ArrayList<Terrain>();
 ArrayList<Everything> Elements = new ArrayList<Everything>();
@@ -31,6 +31,8 @@ Player player1;
 Player player2;
 Player turn;
 void setup() {
+  power = 5;
+  angle = 45;
   move = true;
   player1 = new Player(1);
   player2 = new Player(2);
@@ -65,6 +67,22 @@ void setup() {
 
 void keyPressed() {
   keyboardInput.press(keyCode);
+   if (key == CODED) {
+    if (keyCode == UP) {
+      if(angle < 360){
+      angle++;
+      }
+    }
+    if (keyCode == DOWN) {
+      angle--;
+    }
+    if (keyCode == RIGHT) {
+      power++;
+    }
+    if (keyCode == LEFT) {
+      power--;
+    }
+   }
 }
 void keyReleased() {
   keyboardInput.release(keyCode);
@@ -139,6 +157,8 @@ void draw() {
     a.display();
   }  
   UI.basicUI(1200, 0);
+  text("Power: " + power, 1210, 10);
+  text("angle: " + angle, 1210, 20);
 }
 
 void update() {

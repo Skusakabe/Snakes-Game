@@ -51,7 +51,6 @@ class Snake implements Everything{
      for(int k = 0; k < 20; k+= 5){
        Terrain temp = blocks.get((((y+20)/5)*(width/5))+((x + k)/5));
        if(temp.id > 0){
-         print(temp.id);
          return true;
        }
      }
