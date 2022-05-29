@@ -133,6 +133,9 @@ void draw() {
     timer++;
   }
   for (Snake a : EverySnake) {
+    if(!(a.highestBlock())){
+      a.y += 1;
+    }
     a.display();
   }  
   UI.basicUI(1200, 0);

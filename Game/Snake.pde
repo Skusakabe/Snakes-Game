@@ -47,7 +47,16 @@ class Snake implements Everything{
   public void display() { //<>//
     image(model, x, y); //<>//
   }
-  //<>//
+   boolean highestBlock(){
+     for(int k = 0; k < 20; k+= 5){
+       Terrain temp = blocks.get((((y+20)/5)*(width/5))+((x + k)/5));
+       if(temp.id > 0){
+         print(temp.id);
+         return true;
+       }
+     }
+     return false;
+  } //<>//
   // Returns a projectile based on the parameters, this will be added to the active
   // projectile ArrayList, where draw() will make the projectile do its stuff. //<>//
   /*
