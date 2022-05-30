@@ -27,6 +27,8 @@ static int shootX = 1250;
 static int shootY = 450;
 static int shootRectX = 200;
 static int shootRectY = 100;
+static int GAMEHEIGHT = 600;
+static int GAMEWIDTH = 1200;
 //eventually with Random map, edit uppercord to check for bounds.
 ArrayList<Integer> uppercord = new ArrayList<Integer>();
 Player player1;
@@ -46,15 +48,15 @@ void setup() {
   }
   timer = 0;
   background = new Terrain(-1, 0, 0);
-  for (int j = 0; j < 400; j+=5) {
-    for (int k = 0; k < width; k+=5) {
+  for (int j = 0; j < GAMEHEIGHT; j+=5) {
+    for (int k = 0; k < GAMEWIDTH; k+=5) {
       Terrain block = new Terrain(0, k, j);
       block.display();
       blocks.add(block);
     }
   }
-  for (int j = 400; j < height; j+= 5) {
-    for (int k = 0; k < width; k+=5) {
+  for (int j = 400; j < GAMEHEIGHT; j+= 5) {
+    for (int k = 0; k < GAMEWIDTH; k+=5) {
       Terrain block = new Terrain(2, k, j);
       block.display();
       blocks.add(block);
@@ -85,7 +87,9 @@ void mouseReleased() {
           move = false;
           break;
         } else {
-          toMove = null;
+          if (!(overEndTurn || overSelect || overShoot)) {
+            toMove = null;
+          }
         }
       }
     }
@@ -96,6 +100,7 @@ void mouseReleased() {
   }
 }
 void draw() {
+  update();
   if (keyboardInput.isPressed(Controller.D)) {
     if (toMove != null) {
       if ((toMove.spotLeft) > 0) {

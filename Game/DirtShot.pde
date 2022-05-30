@@ -17,20 +17,20 @@ public class DirtShot extends Projectile implements Everything {
     if (x < radius) {
       xStart = 0;
     }
-    if (x + radius >= width) {
-      xEnd = width - 5;
+    if (x + radius >= GAMEWIDTH) {
+      xEnd = GAMEWIDTH - 5;
     }
     if (y < radius) {
       yStart = 0;
     }
-    if (y + radius >= height) {
-      yEnd = height - 5;
+    if (y + radius >= GAMEHEIGHT) {
+      yEnd = GAMEHEIGHT - 5;
     }
     for (int j = yStart; j < yEnd; j+=5) {
       for (int i = xStart; i < xEnd; i+=5) {
-        if (dist(x,y,blocks.get((j / 5) * (width / 5) + (i / 5)).x,blocks.get((j / 5) * (width / 5) + (i / 5)).y) <= radius) {
-          if (blocks.get((j / 5) * (width / 5) + (i / 5)).getType() == 0) {
-            terrainHit(blocks.get((j / 5) * (width / 5) + (i / 5)));
+        if (dist(x,y,blocks.get((j / 5) * (GAMEWIDTH / 5) + (i / 5)).x,blocks.get((j / 5) * (GAMEWIDTH / 5) + (i / 5)).y) <= radius) {
+          if (blocks.get((j / 5) * (GAMEWIDTH / 5) + (i / 5)).getType() == 0) {
+            terrainHit(blocks.get((j / 5) * (GAMEWIDTH / 5) + (i / 5)));
           }
         }
       }

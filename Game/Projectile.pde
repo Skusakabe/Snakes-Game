@@ -32,14 +32,14 @@ public abstract class Projectile implements Everything, Cloneable {
     x += xSpeed;
     y += ySpeed;
     ySpeed += GRAV;
-    if (x > width - 25 || y > height - 15 || x < 25 || y < 15) {
+    if (x > GAMEWIDTH - 25 || y > GAMEHEIGHT - 15 || x < 25 || y < 15) {
       scanEffectRadius();
       return true;
     }
     for (int j = (y / 5) * 5; j < (y / 5) * 5 + 15; j+=5) { 
       for (int i = (x / 5) * 5; i < (x / 5) * 5 + 25; i+=5) {
-        if (blocks.get((j / 5) * (width / 5) + (i / 5)).x == i && blocks.get((j / 5) * (width / 5) + (i / 5)).y == j) {
-          if (blocks.get((j / 5) * (width / 5) + (i / 5)).getType() > 0) {
+        if (blocks.get((j / 5) * (GAMEWIDTH / 5) + (i / 5)).x == i && blocks.get((j / 5) * (width / 5) + (i / 5)).y == j) {
+          if (blocks.get((j / 5) * (GAMEWIDTH / 5) + (i / 5)).getType() > 0) {
             scanEffectRadius();
             return true;
           }
@@ -62,20 +62,20 @@ public abstract class Projectile implements Everything, Cloneable {
     if (x < radius) {
       xStart = 0;
     }
-    if (x + radius >= width) {
-      xEnd = width - 5;
+    if (x + radius >= GAMEWIDTH) {
+      xEnd = GAMEWIDTH - 5;
     }
     if (y < radius) {
       yStart = 0;
     }
-    if (y + radius >= height) {
-      yEnd = height - 5;
+    if (y + radius >= GAMEHEIGHT) {
+      yEnd = GAMEHEIGHT - 5;
     }
     for (int j = yStart; j < yEnd; j+=5) {
       for (int i = xStart; i < xEnd; i+=5) {
-        if (dist(x,y,blocks.get((j / 5) * (width / 5) + (i / 5)).x,blocks.get((j / 5) * (width / 5) + (i / 5)).y) <= radius) {
-          if (blocks.get((j / 5) * (width / 5) + (i / 5)).getType() > 0) {
-            terrainHit(blocks.get((j / 5) * (width / 5) + (i / 5)));
+        if (dist(x,y,blocks.get((j / 5) * (GAMEWIDTH / 5) + (i / 5)).x,blocks.get((j / 5) * (GAMEWIDTH / 5) + (i / 5)).y) <= radius) {
+          if (blocks.get((j / 5) * (GAMEWIDTH / 5) + (i / 5)).getType() > 0) {
+            terrainHit(blocks.get((j / 5) * (GAMEWIDTH / 5) + (i / 5)));
           }
         }
       }
