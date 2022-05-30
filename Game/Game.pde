@@ -1,4 +1,4 @@
-UI UI; //<>// //<>// //<>// //<>//
+UI UI; //<>// //<>// //<>// //<>// //<>//
 Controller keyboardInput;
 Terrain background;
 static double GRAV = 0.75;
@@ -254,6 +254,7 @@ void mousePressed() {
   if (overShoot) {
     if ((toMove != null)&&(!toMove.shootYet)) {
       Bullets.add(toMove.shoot(angle, power, 1));
+      toMove.shootYet = true;
     }
   }
 }
