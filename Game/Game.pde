@@ -86,10 +86,6 @@ void mouseReleased() {
           toMove = a;
           move = false;
           break;
-        } else {
-          if (!(overEndTurn || overSelect || overShoot)) {
-            toMove = null;
-          }
         }
       }
     }
