@@ -43,12 +43,12 @@ class Snake implements Everything{
     health -= dam;
   }
 
-  public void displayRad(){  //<>//
-    stroke(color(0,200,0)); //<>//
+  public void displayRad(){  //<>// //<>//
+    stroke(color(0,200,0)); //<>// //<>//
     tint(255,255);
     circle(x-10, y-10, movement_Radius);
-  } //<>// //<>// //<>//
-  boolean isin(int m1, int m2){ //<>// //<>//
+  } //<>// //<>// //<>// //<>//
+  boolean isin(int m1, int m2){ //<>// //<>// //<>//
     return(((m1 >= x)&&(m1 <= x+20))&&((m2 >= y)&&(m2 <= y+20)));
   }
   public void display() { //<>//
@@ -58,11 +58,29 @@ class Snake implements Everything{
      for(int k = 0; k < 20; k+= 5){
        Terrain temp = blocks.get((((y+20)/5)*(GAMEWIDTH/5))+((x + k)/5));
        if(temp.id > 0){
+         return true; //<>// //<>//
+       }
+     } //<>// //<>//
+     return false;
+  }
+  boolean rightBlock(){
+     for(int k = 0; k < 20; k+= 5){
+       Terrain temp = blocks.get((((y+k)/5)*(GAMEWIDTH/5))+((x + 20)/5)); //<>//
+       if(temp.id > 0){ //<>//
+         return true; //<>// //<>//
+       } //<>//
+     } //<>//
+     return false;
+  } 
+  boolean leftBlock(){
+     for(int k = 0; k < 20; k+= 5){
+       Terrain temp = blocks.get((((y+k)/5)*(GAMEWIDTH/5))+((x)/5));
+       if(temp.id > 0){
          return true; //<>//
        }
      } //<>//
      return false;
-  } //<>//
+  }//<>//
   // Returns a projectile based on the parameters, this will be added to the active
   // projectile ArrayList, where draw() will make the projectile do its stuff. //<>//
   /* //<>//
