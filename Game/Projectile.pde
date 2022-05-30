@@ -7,9 +7,6 @@ public abstract class Projectile implements Everything, Cloneable {
   double ySpeed;
   PShape sprite;
 
-  // Will take a Snake as a parameter.
-  public abstract void onHit(Snake target);
-  // Will take the Terrain ArrayList as a parameter and an index corresponding to the target Terrain.
   public abstract void terrainHit(Terrain target);
 
   /*
@@ -20,8 +17,8 @@ public abstract class Projectile implements Everything, Cloneable {
   Projectile(int xPos, int yPos, int angle, int power, int newRadius, int newDamage) {
     x = xPos;
     y = yPos;
-    xSpeed = 0.6 * Math.cos(radians(angle)) * power;
-    ySpeed = 0.6 * -Math.sin(radians(angle)) * power;
+    xSpeed = 0.25 * Math.cos(radians(angle)) * power;
+    ySpeed = 0.25 * -Math.sin(radians(angle)) * power;
     radius = newRadius;
     damage = newDamage;
     sprite = createShape(ELLIPSE, 0, 0, 20, 10);
@@ -79,6 +76,24 @@ public abstract class Projectile implements Everything, Cloneable {
           }
         }
       }
+    }
+    for (Snake a : EverySnake) {
+      if (dist(x,y,a.x,a.y) <= radius) {
+        println("Hit snake for " + onHit(a) + " damage!");
+      }
+    }
+  }
+  
+  // Projectiles could override this and call super in their override and add other effects
+  int onHit(Snake target) {
+    int damageDealt = damage;
+    if (dist(x,y,target.x,target.y) > radius / 2) {
+      damageDealt = (int)(damage * ((radius * 1.5 - dist(x,y,target.x,target.y)) / radius));
+      return damageDealt;
+    }
+    else {
+      target.takeDamage(damageDealt);
+      return damageDealt;
     }
   }
 

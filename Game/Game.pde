@@ -1,7 +1,7 @@
 UI UI; //<>// //<>// //<>//
 Controller keyboardInput;
 Terrain background;
-static double GRAV = 4.0;
+static double GRAV = 0.75;
 Snake toMove;
 BasicShot test;
 boolean move, readyToMove;
@@ -38,7 +38,7 @@ void setup() {
   upMove = 0;
   //Change projID to match proj type with bullets;
   projID = 1;
-  power = 5;
+  power = 20;
   angle = 45;
   move = true;
   player1 = new Player(1);
