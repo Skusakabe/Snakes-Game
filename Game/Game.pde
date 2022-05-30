@@ -225,12 +225,16 @@ void draw() {
   }
   player2.team = P2Team;
   UI.basicUI(1200, 0);
-  text("Power: " + power, 1210, 10);
-  text("angle: " + angle, 1210, 20);
+  text("player " +turn.id + "'s turn", 1210, 12);
+  text("Power: " + power, 1210, 30);
+  text("angle: " + angle, 1210, 40);
   fill(255);
   rect(endX, endY, endRectX, endRectY);
   rect(selectX, selectY, selectRectX, selectRectY);
   rect(shootX, shootY, shootRectX, shootRectY);
+  fill(0);
+  text("END TURN", (endX) + 65, endY + 55);
+  text("SHOOT", (shootX) + 75, shootY + 55);
 }
 
 void mousePressed() {
