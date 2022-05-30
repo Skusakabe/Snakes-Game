@@ -5,6 +5,7 @@ class Snake implements Everything{
   private PImage model;
   int team;
   boolean moveYet;
+  boolean shootYet;
   public Snake(int H, int M, int x, int y, int team, String mod){
     health = H;
     movement_Radius = M;
@@ -14,6 +15,7 @@ class Snake implements Everything{
     model = loadImage(mod);
     model.resize(20, 20);
     moveYet = false;
+    shootYet = false;
     spotLeft = M;
   }
   public Snake(int x, int y, int team, String mod){
@@ -26,6 +28,7 @@ class Snake implements Everything{
      dead = false;
      model.resize(20, 20);
      moveYet = false;
+     shootYet = false;
      spotLeft = 100;
     }
 
@@ -47,7 +50,15 @@ class Snake implements Everything{
   public void display() { //<>//
     image(model, x, y); //<>//
   }
-  //<>//
+   boolean highestBlock(){
+     for(int k = 0; k < 20; k+= 5){
+       Terrain temp = blocks.get((((y+20)/5)*(width/5))+((x + k)/5));
+       if(temp.id > 0){
+         return true;
+       }
+     }
+     return false;
+  } //<>//
   // Returns a projectile based on the parameters, this will be added to the active
   // projectile ArrayList, where draw() will make the projectile do its stuff. //<>//
   /*

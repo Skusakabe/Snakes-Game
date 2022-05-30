@@ -5,13 +5,11 @@ static double GRAV = 4.0;
 Snake toMove;
 BasicShot test;
 boolean move, readyToMove;
-int timer, newx, newy;
+int timer, newx, newy, power, angle;
 ArrayList<Snake> EverySnake = new ArrayList<Snake>();
 ArrayList<Terrain> blocks = new ArrayList<Terrain>();
 ArrayList<Everything> Elements = new ArrayList<Everything>();
 ArrayList<Projectile> Bullets = new ArrayList<Projectile>();
-int angle;
-int power;
 boolean overEndTurn;
 boolean overSelect;
 boolean overShoot;
@@ -29,6 +27,7 @@ static int shootRectX = 200;
 static int shootRectY = 100;
 static int GAMEHEIGHT = 600;
 static int GAMEWIDTH = 1200;
+int projID;
 //eventually with Random map, edit uppercord to check for bounds.
 ArrayList<Integer> uppercord = new ArrayList<Integer>();
 Player player1;
@@ -36,6 +35,10 @@ Player player2;
 Player turn;
 
 void setup() {
+  //Change projID to match proj type with bullets;
+  projID = 1;
+  power = 5;
+  angle = 45;
   move = true;
   player1 = new Player(1);
   player2 = new Player(2);
@@ -74,6 +77,32 @@ void setup() {
 
 void keyPressed() {
   keyboardInput.press(keyCode);
+  if (key == ' ') {
+    if ((toMove != null)&&(!toMove.shootYet)) {
+      Bullets.add(toMove.shoot(angle, power, projID));
+      toMove.shootYet = true;
+    }
+  }
+  if (key == CODED) {
+    if (keyCode == UP) {
+      if (angle < 360) {
+        angle++;
+      }
+    }
+    if (keyCode == DOWN) {
+      if (angle > 0) {
+        angle--;
+      }
+    }
+    if (keyCode == RIGHT) {
+      power++;
+    }
+    if (keyCode == LEFT) {
+      if (power > 0) {
+        power--;
+      }
+    }
+  }
 }
 void keyReleased() {
   keyboardInput.release(keyCode);
@@ -141,9 +170,14 @@ void draw() {
     timer++;
   }
   for (Snake a : EverySnake) {
+    if (!(a.highestBlock())) {
+      a.y += 1;
+    }
     a.display();
   }  
   UI.basicUI(1200, 0);
+  text("Power: " + power, 1210, 10);
+  text("angle: " + angle, 1210, 20);
   fill(255);
   rect(endX, endY, endRectX, endRectY);
   rect(selectX, selectY, selectRectX, selectRectY);
@@ -158,7 +192,7 @@ void mousePressed() {
     //opens the weapon select screen
   }
   if (overShoot) {
-    Bullets.add(toMove.shoot(45,50,1));
+    Bullets.add(toMove.shoot(45, 50, 1));
   }
 }
 
