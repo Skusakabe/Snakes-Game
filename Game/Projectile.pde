@@ -20,8 +20,8 @@ public abstract class Projectile implements Everything, Cloneable {
   Projectile(int xPos, int yPos, int angle, int power, int newRadius, int newDamage) {
     x = xPos;
     y = yPos;
-    xSpeed = 0.8 * Math.cos(radians(angle)) * power;
-    ySpeed = 0.8 * -Math.sin(radians(angle)) * power;
+    xSpeed = 0.6 * Math.cos(radians(angle)) * power;
+    ySpeed = 0.6 * -Math.sin(radians(angle)) * power;
     radius = newRadius;
     damage = newDamage;
     sprite = createShape(ELLIPSE, 0, 0, 20, 10);
@@ -38,7 +38,7 @@ public abstract class Projectile implements Everything, Cloneable {
     }
     for (int j = (y / 5) * 5; j < (y / 5) * 5 + 15; j+=5) { 
       for (int i = (x / 5) * 5; i < (x / 5) * 5 + 25; i+=5) {
-        if (blocks.get((j / 5) * (GAMEWIDTH / 5) + (i / 5)).x == i && blocks.get((j / 5) * (width / 5) + (i / 5)).y == j) {
+        if (blocks.get((j / 5) * (GAMEWIDTH / 5) + (i / 5)).x == i && blocks.get((j / 5) * (GAMEWIDTH / 5) + (i / 5)).y == j) {
           if (blocks.get((j / 5) * (GAMEWIDTH / 5) + (i / 5)).getType() > 0) {
             scanEffectRadius();
             return true;

@@ -1,4 +1,4 @@
-UI UI; //<>// //<>// //<>//
+UI UI; //<>//
 Controller keyboardInput;
 Terrain background;
 static double GRAV = 4.0;
@@ -48,7 +48,7 @@ void setup() {
   }
   timer = 0;
   background = new Terrain(-1, 0, 0);
-  for (int j = 0; j < GAMEHEIGHT; j+=5) {
+  for (int j = 0; j < 400; j+=5) {
     for (int k = 0; k < GAMEWIDTH; k+=5) {
       Terrain block = new Terrain(0, k, j);
       block.display();
@@ -162,7 +162,7 @@ void mousePressed() {
     //opens the weapon select screen
   }
   if (overShoot) {
-    Bullets.add(toMove.shoot(45,20,1));
+    Bullets.add(toMove.shoot(45,50,1));
   }
 }
 
