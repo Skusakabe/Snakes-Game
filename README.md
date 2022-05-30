@@ -19,6 +19,7 @@ Kevin Work Log:
 5/29/22: Added keyboard controls that control angles and power of shots from snakes. Added display for angles and power. Added spacebar to fire snake. Added a turn change mechanism. 
 
 5/29/22: 
+
 Shinji work log:
 
 5/23/22: Made a little bit of projectile and started the project. Got projectile to display itself and do the physics/move.
@@ -29,6 +30,6 @@ Shinji work log:
 
 5/26/22: Added collision detection to projectiles and made the scanEffectRadius() method, which is called after colliding with terrain and interacts with the appropriate terrain in its radius. Also added a DirtShot projectile that creates terrain. scanEffectRadius doesn't currently do anything with snakes, but it will later and should be easy to code the extra stuff.
 
-5/27/22: Worked on the beginning of buttons
+5/27/22: Worked on the beginning of buttons.
 
-5/29/22: Finished buttons and did a lot of bug/error fixing for issues caused by the new changes made in the code and from merges.
+5/29/22: Finished buttons and did a lot of bug/error fixing for issues caused by the new changes made in the code and from merges. Made scanEffectRadius also detect and target snakes in the area and damage them and created a damage formula based on how close the projectile hit the snake.
