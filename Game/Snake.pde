@@ -16,7 +16,7 @@ class Snake implements Everything{
     model.resize(20, 20);
     moveYet = false;
     shootYet = false;
-    spotLeft = M;
+    spotLeft = movement_Radius;
   }
   public Snake(int x, int y, int team, String mod){
       model = loadImage(mod);
@@ -29,9 +29,13 @@ class Snake implements Everything{
      model.resize(20, 20);
      moveYet = false;
      shootYet = false;
-     spotLeft = 100;
+     spotLeft = movement_Radius;
     }
-
+  public void reset(){
+    moveYet = false;
+    shootYet = false;
+    spotLeft = M;
+  }
   public int getHealth() {
     return health;
   }
@@ -39,12 +43,12 @@ class Snake implements Everything{
     health -= dam;
   }
 
-  public void displayRad(){ 
-    stroke(color(0,200,0));
+  public void displayRad(){  //<>//
+    stroke(color(0,200,0)); //<>//
     tint(255,255);
     circle(x-10, y-10, movement_Radius);
-  } //<>// //<>//
-  boolean isin(int m1, int m2){ //<>//
+  } //<>// //<>// //<>//
+  boolean isin(int m1, int m2){ //<>// //<>//
     return(((m1 >= x)&&(m1 <= x+20))&&((m2 >= y)&&(m2 <= y+20)));
   }
   public void display() { //<>//
@@ -54,17 +58,17 @@ class Snake implements Everything{
      for(int k = 0; k < 20; k+= 5){
        Terrain temp = blocks.get((((y+20)/5)*(width/5))+((x + k)/5));
        if(temp.id > 0){
-         return true;
+         return true; //<>//
        }
-     }
+     } //<>//
      return false;
   } //<>//
   // Returns a projectile based on the parameters, this will be added to the active
   // projectile ArrayList, where draw() will make the projectile do its stuff. //<>//
-  /*
-  ProjectileID's:
-  1) BasicShot
-  2) DirtShot
+  /* //<>//
+  ProjectileID's: //<>//
+  1) BasicShot //<>//
+  2) DirtShot //<>//
   */ //<>//
   public Projectile shoot(int angle, int power, int ProjectileID) {  //<>//
     if (ProjectileID == 1) {  //<>//
