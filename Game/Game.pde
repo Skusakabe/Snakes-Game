@@ -186,13 +186,22 @@ void draw() {
 
 void mousePressed() {
   if (overEndTurn) {
-    for(a
+    for(Snake a: turn.team){
+      a.reset();
+    }
+    if(turn == player1){
+      turn = player2;
+    }else{
+      turn = player1;
+    }
   }
   if (overSelect) {
     //opens the weapon select screen
   }
   if (overShoot) {
-    Bullets.add(toMove.shoot(45, 50, 1));
+    if ((toMove != null)&&(!toMove.shootYet)) {
+      Bullets.add(toMove.shoot(angle, power, 1));
+    }
   }
 }
 

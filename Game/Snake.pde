@@ -34,7 +34,7 @@ class Snake implements Everything{
   public void reset(){
     moveYet = false;
     shootYet = false;
-    spotLeft = M;
+    spotLeft = movement_Radius;
   }
   public int getHealth() {
     return health;
@@ -56,7 +56,7 @@ class Snake implements Everything{
   }
    boolean highestBlock(){
      for(int k = 0; k < 20; k+= 5){
-       Terrain temp = blocks.get((((y+20)/5)*(width/5))+((x + k)/5));
+       Terrain temp = blocks.get((((y+20)/5)*(GAMEWIDTH/5))+((x + k)/5));
        if(temp.id > 0){
          return true; //<>//
        }
