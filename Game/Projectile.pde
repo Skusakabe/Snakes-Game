@@ -89,13 +89,11 @@ public abstract class Projectile implements Everything, Cloneable {
     int damageDealt = damage;
     if (dist(x,y,target.x,target.y) > radius / 2) {
       damageDealt = (int)(damage * ((radius * 1.5 - dist(x,y,target.x,target.y)) / radius));
-      return damageDealt;
     }
-    else {
       target.takeDamage(damageDealt);
       return damageDealt;
     }
-  }
+ 
 
   //Later replace the shape with a (hopefully imported) image.
   void display() {
