@@ -5,7 +5,7 @@ static double GRAV = 4.0;
 Snake toMove;
 BasicShot test;
 boolean move, readyToMove;
-int timer, newx, newy, power, angle;
+int timer, newx, newy, power, angle, upMove;
 ArrayList<Snake> EverySnake = new ArrayList<Snake>();
 ArrayList<Terrain> blocks = new ArrayList<Terrain>();
 ArrayList<Everything> Elements = new ArrayList<Everything>();
@@ -35,6 +35,7 @@ Player player2;
 Player turn;
 
 void setup() {
+  upMove = 0;
   //Change projID to match proj type with bullets;
   projID = 1;
   power = 5;
@@ -95,7 +96,9 @@ void keyPressed() {
       }
     }
     if (keyCode == RIGHT) {
-      power++;
+      if(power<100){
+        power++;
+      }
     }
     if (keyCode == LEFT) {
       if (power > 0) {
@@ -106,6 +109,12 @@ void keyPressed() {
 }
 void keyReleased() {
   keyboardInput.release(keyCode);
+  if(key == 'w'){
+    if((upMove == 0)&&(toMove.spotLeft>=10)){
+    upMove += 4;
+    toMove.spotLeft = toMove.spotLeft - 10;
+    }
+  }
 }
 void mouseReleased() {
   if (move) {
@@ -150,9 +159,23 @@ void draw() {
       }
     }
   }
-
+  if (keyboardInput.isPressed(Controller.A)) {
+    if (toMove != null) {
+      if ((toMove.spotLeft) > 0) {
+        if ((toMove.x > 0)) {
+          if(!(toMove.leftBlock())){
+            toMove.x -= 3;
+            toMove.spotLeft = toMove.spotLeft - 3;
+          }
+        }
+      }
+    }
+  }
   background(255);
   ArrayList<Projectile> Bullets2 = new ArrayList<Projectile>();
+  ArrayList<Snake> EverySnake2 = new ArrayList<Snake>();
+  ArrayList<Snake> P1Team = new ArrayList<Snake>();
+  ArrayList<Snake> P2Team = new ArrayList<Snake>();
   background.display();
   //Copying Array Over to a second Array
   //running and displaying bullet on path
@@ -173,12 +196,33 @@ void draw() {
   } else {
     timer++;
   }
+  if(upMove > 0){
+      toMove.y -= upMove;
+      upMove--;
+    }
   for (Snake a : EverySnake) {
     if (!(a.highestBlock())) {
       a.y += 1;
     }
+    if(a.health > 0){
+      EverySnake2.add(a);
+    }
     a.display();
   }  
+  EverySnake = EverySnake2;
+  for(Snake a: player1.team){
+    if(a.health > 0){
+      P1Team.add(a);
+    }
+  }
+  player1.team = P1Team;
+  EverySnake = EverySnake2;
+  for(Snake a: player2.team){
+    if(a.health > 0){
+      P2Team.add(a);
+    }
+  }
+  player2.team = P2Team;
   UI.basicUI(1200, 0);
   text("Power: " + power, 1210, 10);
   text("angle: " + angle, 1210, 20);
