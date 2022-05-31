@@ -87,6 +87,7 @@ class Snake implements Everything{
   ProjectileID's: //<>//
   1) BasicShot //<>//
   2) DirtShot //<>//
+  3) BigShot
   */ //<>//
   public Projectile shoot(int angle, int power, int ProjectileID) {  //<>//
     if (ProjectileID == 1) {  //<>//
@@ -94,6 +95,9 @@ class Snake implements Everything{
     }
     if (ProjectileID == 2) {
       return new DirtShot(x, y, angle, power, 45, 0);
+    }
+    if (ProjectileID == 3) {
+      return new BigShot(x, y, angle, power, 60, 40);
     }
     return new BasicShot(x, y, angle, power, 30, 30);
   }
