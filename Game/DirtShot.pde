@@ -1,6 +1,7 @@
 public class DirtShot extends Projectile implements Everything {
   DirtShot(int xPos, int yPos, int angle, int power, int newRadius, int newDamage) {
     super(xPos, yPos, angle, power, newRadius, newDamage);
+    type = 2;
   }
   void terrainHit(Terrain target) {
     target.changeType(1);

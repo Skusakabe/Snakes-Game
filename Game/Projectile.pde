@@ -6,6 +6,7 @@ public abstract class Projectile implements Everything, Cloneable {
   double xSpeed;
   double ySpeed;
   PShape sprite;
+  int type;
 
   public abstract void terrainHit(Terrain target);
 
@@ -23,6 +24,7 @@ public abstract class Projectile implements Everything, Cloneable {
     damage = newDamage;
     sprite = createShape(ELLIPSE, 0, 0, 20, 10);
     sprite.setFill(color(0));
+    type = 0;
   }
 
   boolean projectilePhysics() {
@@ -82,6 +84,10 @@ public abstract class Projectile implements Everything, Cloneable {
         println("Hit snake for " + onHit(a) + " damage!");
       }
     }
+  }
+  
+  int getType() {
+    return type;
   }
   
   // Projectiles could override this and call super in their override and add other effects
