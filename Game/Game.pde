@@ -246,6 +246,7 @@ void draw() {
   rect(shootX, shootY, shootRectX, shootRectY);
   fill(0);
   text("END TURN", (endX) + 65, endY + 55);
+  text("CHANGE WEAPON", (selectX) + 55, selectY + 55);
   text("SHOOT", (shootX) + 75, shootY + 55);
   }
 }
