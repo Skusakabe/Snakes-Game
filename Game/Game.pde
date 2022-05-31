@@ -4,7 +4,7 @@ Terrain background;
 static double GRAV = 0.75;
 Snake toMove;
 String weaponName;
-static String[] weaponList = {"Basic shot", "Dirt shot", "Big shot"};
+static String[] weaponList = {"Basic shot", "Dirt shot", "Big shot", "Ground remover"};
 boolean move, readyToMove;
 int timer, newx, newy, power, angle, upMove;
 ArrayList<Snake> EverySnake = new ArrayList<Snake>();
@@ -87,7 +87,7 @@ void keyPressed() {
   }
   if (key == CODED) {
     if (keyCode == UP) {
-      if (angle < 180) {
+      if (angle < 360) {
         angle++;
       }
     }
@@ -263,7 +263,7 @@ void mousePressed() {
     }
   }
   if (overSelect) {
-    if (projID == 3) {
+    if (projID == 4) {
       projID = 1;
     }
     else {

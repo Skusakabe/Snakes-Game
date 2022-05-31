@@ -97,7 +97,10 @@ class Snake implements Everything{
       return new DirtShot(x, y, angle, power, 45, 0);
     }
     if (ProjectileID == 3) {
-      return new BigShot(x, y, angle, power, 60, 40);
+      return new BigShot(x, y, angle, power, 50, 40);
+    }
+    if (ProjectileID == 4) {
+      return new GroundRemover(x, y, angle, power, 60, 0);
     }
     return new BasicShot(x, y, angle, power, 30, 30);
   }
