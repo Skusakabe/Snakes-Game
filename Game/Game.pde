@@ -181,7 +181,7 @@ void draw() {
     fill(0);
     text("Player 1 Wins", width/2 - 300, height/2);
   }else{
-  textSize(1);
+  textSize(10);
   ArrayList<Projectile> Bullets2 = new ArrayList<Projectile>();
   ArrayList<Snake> EverySnake2 = new ArrayList<Snake>();
   ArrayList<Snake> P1Team = new ArrayList<Snake>();
