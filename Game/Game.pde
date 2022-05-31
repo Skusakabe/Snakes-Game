@@ -172,6 +172,16 @@ void draw() {
     }
   }
   background(255);
+  if((player1.team).size() == 0){
+    textSize(100);
+    fill(0);
+    text("Player 2 Wins", width/2 - 300, height/2);
+  }else if((player2.team).size() == 0){
+    textSize(100);
+    fill(0);
+    text("Player 1 Wins", width/2 - 300, height/2);
+  }else{
+  textSize(1);
   ArrayList<Projectile> Bullets2 = new ArrayList<Projectile>();
   ArrayList<Snake> EverySnake2 = new ArrayList<Snake>();
   ArrayList<Snake> P1Team = new ArrayList<Snake>();
@@ -235,6 +245,7 @@ void draw() {
   fill(0);
   text("END TURN", (endX) + 65, endY + 55);
   text("SHOOT", (shootX) + 75, shootY + 55);
+  }
 }
 
 void mousePressed() {
