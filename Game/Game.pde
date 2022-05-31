@@ -1,9 +1,10 @@
-UI UI; //<>// //<>// //<>// //<>// //<>//
+UI UI; //<>// //<>// //<>// //<>// //<>// //<>//
 Controller keyboardInput;
 Terrain background;
 static double GRAV = 0.75;
 Snake toMove;
-BasicShot test;
+String weaponName;
+static String[] weaponList = {"Basic shot", "Dirt shot", "Big shot"};
 boolean move, readyToMove;
 int timer, newx, newy, power, angle, upMove;
 ArrayList<Snake> EverySnake = new ArrayList<Snake>();
@@ -40,6 +41,7 @@ void setup() {
   projID = 1;
   power = 20;
   angle = 45;
+  weaponName = weaponList[projID - 1];
   move = true;
   player1 = new Player(1);
   player2 = new Player(2);
@@ -68,7 +70,6 @@ void setup() {
   }
   keyboardInput = new Controller();
   size(1500, 600);
-  test = new BasicShot(60, 600, 45, 30, 10, 10);
   UI = new UI();
   fill(255);
   rect(endX, endY, endRectX, endRectY);
@@ -181,7 +182,7 @@ void draw() {
     fill(0);
     text("Player 1 Wins", width/2 - 300, height/2);
   }else{
-  textSize(1);
+  textSize(10);
   ArrayList<Projectile> Bullets2 = new ArrayList<Projectile>();
   ArrayList<Snake> EverySnake2 = new ArrayList<Snake>();
   ArrayList<Snake> P1Team = new ArrayList<Snake>();
@@ -235,9 +236,10 @@ void draw() {
   }
   player2.team = P2Team;
   UI.basicUI(1200, 0);
-  text("player " +turn.id + "'s turn", 1210, 12);
+  text("Player " +turn.id + "'s turn", 1210, 12);
   text("Power: " + power, 1210, 30);
-  text("angle: " + angle, 1210, 40);
+  text("Angle: " + angle, 1210, 40);
+  text("Selected weapon: " + weaponName, 1210, 50);
   fill(255);
   rect(endX, endY, endRectX, endRectY);
   rect(selectX, selectY, selectRectX, selectRectY);
@@ -260,11 +262,17 @@ void mousePressed() {
     }
   }
   if (overSelect) {
-    //opens the weapon select screen
+    if (projID == 3) {
+      projID = 1;
+    }
+    else {
+      projID++;
+    }
+    weaponName = weaponList[projID - 1];
   }
   if (overShoot) {
     if ((toMove != null)&&(!toMove.shootYet)) {
-      Bullets.add(toMove.shoot(angle, power, 1));
+      Bullets.add(toMove.shoot(angle, power, projID));
       toMove.shootYet = true;
     }
   }
