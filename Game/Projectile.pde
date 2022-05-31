@@ -26,14 +26,17 @@ public abstract class Projectile implements Everything, Cloneable {
     sprite.setFill(color(0));
     type = 0;
   }
-
+  
   boolean projectilePhysics() {
     x += xSpeed;
     y += ySpeed;
     ySpeed += GRAV;
-    if (x > GAMEWIDTH - 25 || y > GAMEHEIGHT - 15 || x < 25 || y < 15) {
+    if (x > GAMEWIDTH - 25 || y > GAMEHEIGHT - 15 || x < 25) {
       scanEffectRadius();
       return true;
+    }
+    if (y < 15) {
+      return false;
     }
     for (int j = (y / 5) * 5; j < (y / 5) * 5 + 15; j+=5) { 
       for (int i = (x / 5) * 5; i < (x / 5) * 5 + 25; i+=5) {
@@ -48,7 +51,7 @@ public abstract class Projectile implements Everything, Cloneable {
     return false;
   }
 
-  /* Once other classes are made, checks for terrain
+  /* Checks for terrain
    and snakes in the radius of the projectile and then
    calls onHit() or terrainHit() respectively on anything
    that is found.

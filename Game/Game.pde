@@ -50,7 +50,6 @@ void setup() {
   player1.addSnake(3, "SnakeRed.png");
   player2.addSnake(3, "SnakeBlue.png");
   turn = player1;
-  timer = 0;
   scatterHit = false;
   scatterX = scatterY = 0;
   for (Snake a : EverySnake) {
@@ -216,11 +215,6 @@ void draw() {
         Bullets.add(new BasicShot(scatterX + (3 * k), scatterY-30, 90 + (2 * k), 45, 30, 5));
       }
       scatterHit = false;
-    }
-    if (timer == 2) {
-      timer = 0;
-    } else {
-      timer++;
     }
     if (upMove > 0) {
       toMove.y -= upMove;
