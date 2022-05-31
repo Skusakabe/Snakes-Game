@@ -33,3 +33,5 @@ Shinji work log:
 5/27/22: Worked on the beginning of buttons.
 
 5/29/22: Finished buttons and did a lot of bug/error fixing for issues caused by the new changes made in the code and from merges. Made scanEffectRadius also detect and target snakes in the area and damage them and created a damage formula based on how close the projectile hit the snake.
+
+5/30/22: Made code to change weapons and put text on the button to do so. Made another projectile(very basic, larger version of the BasicShot) and created the demo branch.
