@@ -1,4 +1,4 @@
-UI UI; //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
+UI UI; //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
 Controller keyboardInput;
 Terrain background;
 static double GRAV = 0.75;
@@ -13,7 +13,6 @@ int scatterX, scatterY;
 int timer, newx, newy, power, angle, upMove;
 ArrayList<Snake> EverySnake;
 ArrayList<Terrain> blocks;
-ArrayList<Everything> Elements = new ArrayList<Everything>();
 ArrayList<Projectile> Bullets = new ArrayList<Projectile>();
 boolean overEndTurn;
 boolean overSelect;
@@ -228,7 +227,7 @@ void draw() {
     Bullets = Bullets2;
     if (scatterHit) {
       for (int k = -10; k <= 10; k+= 5) {
-        Bullets.add(new BasicShot(scatterX + (3 * k), scatterY-30, 90 + (2 * k), 45, 30, 5));
+        Bullets.add(new BasicShot(scatterX + (3 * k), scatterY-15, 90 + (2 * k), 45, 30, 5));
       }
       scatterHit = false;
     }
