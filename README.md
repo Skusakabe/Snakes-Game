@@ -14,11 +14,13 @@ Kevin Work Log:
 
 5/27/22: Added an UI class which will contain our user interface, worked on a model for the basic UI panel.
 
-5/28/22: Worked snake-terrain interaction, added snake gravity allowing for snake to fall on top of the terrain, and disallow for snakes to go through terrain from the top side. 
+5/28/22: Worked snake-terrain interaction, added snake gravity allowing for snake to fall on top of the terrain, and disallow for snakes to go through terrain from the top side.
 
-5/29/22: Added keyboard controls that control angles and power of shots from snakes. Added display for angles and power. Added spacebar to fire snake. Added a turn change mechanism. 
+5/29/22: Added keyboard controls that control angles and power of shots from snakes. Added display for angles and power. Added spacebar to fire snake. Added a turn change mechanism.
 
-5/29/22: 
+5/30/22: Added death screen and win screen for the players.
+
+5/31/22: Made a title screen for the game, added modes, and button that switches them to rotate between which screen is shown.
 
 Shinji work log:
 
