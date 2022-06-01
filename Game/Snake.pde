@@ -106,6 +106,9 @@ class Snake {
     if (ProjectileID == 5) {
       return new ScatterShot(x, y, angle, power, 20, 20);
     }
+    if (ProjectileID == 6) {
+      return new DrillShot(x, y, angle, power, 25, 20);
+    }
     return new BasicShot(x, y, angle, power, 30, 30);
   }
 }

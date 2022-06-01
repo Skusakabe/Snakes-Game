@@ -6,7 +6,7 @@ int mode;
 int mode2;
 Snake toMove;
 String weaponName;
-static String[] weaponList = {"Basic shot", "Dirt shot", "Big shot", "Ground remover", "Scatter shot"};
+static String[] weaponList = {"Basic shot", "Dirt shot", "Big shot", "Ground remover", "Scatter shot", "Drill shot"};
 boolean move, readyToMove;
 int timer, newx, newy, power, angle, upMove;
 ArrayList<Snake> EverySnake;
@@ -212,7 +212,12 @@ void draw() {
         if (a.projectilePhysics()) {
           if (a.getType() == 5) {
             for (int k = -10; k <= 10; k+= 5) {
-              Bullets2.add(new BasicShot(a.x + (3 * k), a.y-15, 90 + (2 * k), 45, 30, 5));
+              Bullets2.add(new BasicShot(a.x + (3 * k), a.y-15, 90 + (2 * k), 45, 30, 10));
+            }
+          }
+          if (a.getType() == 6) {
+            for (int i = 0; i < 5; i++) {
+              Bullets2.add(new BasicShot(a.x, a.y, 270, 40, 30, 10));
             }
           }
           Bullets2.remove(a);
@@ -278,7 +283,7 @@ void mousePressed() {
     }
   }
   if (overSelect) {
-    if (projID == 5) {
+    if (projID == 6) {
       projID = 1;
     } else {
       projID++;
