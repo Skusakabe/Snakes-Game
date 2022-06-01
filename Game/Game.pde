@@ -1,4 +1,4 @@
-UI UI; //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
+UI UI; //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
 Controller keyboardInput;
 Terrain background;
 static double GRAV = 0.75;
@@ -44,11 +44,9 @@ Player player2;
 Player turn;
 
 void setup() {
-  mode2 = 0;
   size(1500, 600);
   EverySnake = new ArrayList<Snake>();
   blocks = new ArrayList<Terrain>();
-  mode = 0;
   upMove = 0;
   //Change projID to match proj type with bullets;
   projID = 1;
@@ -73,8 +71,8 @@ void setup() {
   move = true;
   player1 = new Player(1);
   player2 = new Player(2);
-  player1.addSnake(3, "SnakeRed.png");
-  player2.addSnake(3, "SnakeBlue.png");
+  player1.addSnake(1, "SnakeRed.png");
+  player2.addSnake(1, "SnakeBlue.png");
   turn = player1;
   scatterHit = false;
   scatterX = scatterY = 0;
@@ -88,6 +86,8 @@ void setup() {
   rect(endX, endY, endRectX, endRectY);
   rect(selectX, selectY, selectRectX, selectRectY);
   rect(shootX, shootY, shootRectX, shootRectY);
+   mode = 0;
+   mode2 = 0;
 }
 
 void keyPressed() {
@@ -120,6 +120,16 @@ void keyPressed() {
       }
     }
   }
+  if(key == 27){
+       key = 0;
+       if (mode == 1){
+         mode = -3;
+       }
+       else if(mode == -3){
+          mode = 1;
+          loop();
+       }
+  } 
 }
 void keyReleased() {
   keyboardInput.release(keyCode);
@@ -147,6 +157,12 @@ void mouseReleased() {
     //}
   }
 }
+//MODE LABELS
+//MODE -3 = pause
+//MODE -1 and -2 = win screen
+//MODE 0 = startscreen
+//MODE 1 = GAME
+//MODE 
 void draw() {
   background(255);
   if (mode == 0) {
@@ -159,17 +175,23 @@ void draw() {
     textSize(100);
     fill(0);
     text("Player 2 Wins", width/2 - 300, height/2);
+    textSize(50);
+    text("Click Anywhere to Continue, wait 5 seconds", width/2 - 500, height/2 + 100);
     if(hoveringButton(0, 0, 1500, 600)){
-      mode2 = -3;
+      mode2 = -4;
     }
   }else if(mode == -2){
     textSize(100);
     fill(0);
     text("Player 1 Wins", width/2 - 300, height/2);
     if(hoveringButton(0, 0, 1500, 600)){
-      mode2 = -3;
+      mode2 = -4;
     }
-  }else {
+  }else if(mode == -4){
+    background(255);
+    text("Resetting Game", width/2 - 300, height/2);
+  }
+  else {
     if((player1.team).size() == 0){
     mode = -1;
   } else if ((player2.team).size() == 0) {
@@ -273,8 +295,26 @@ void draw() {
     text("END TURN", (endX) + 65, endY + 55);
     text("CHANGE WEAPON", (selectX) + 55, selectY + 55);
     text("SHOOT", (shootX) + 75, shootY + 55);
+    if(mode == -3){
+        noLoop();
+        fill(0);
+        rect(width/2 - 150, 75, 300, 425);
+        fill(255);
+        rect(width/2 - 125, 100, 250, 75);
+        rect(width/2 - 125, 200, 250, 75);
+        rect(width/2 - 125, 300, 250, 75);
+        rect(width/2 - 125, 400, 250, 75);
+        fill(0);
+        textSize(25);
+        text("Resume", width/2 - 50, 145);
+        if(hoveringButton(width/2 - 150, 75, 300, 425)){
+          mode2 = 1;
+    }
+    }else{
+      loop();
   }
 }
+  }
 }
 void mousePressed() {
   if (overEndTurn) {
@@ -304,8 +344,11 @@ void mousePressed() {
   }
   if(mode2 == 1){
     mode = 1;
+    loop();
   }
-  if(mode2 == -3){
+  if(mode2 == -4){
+    background(255);
+    mode = -4;
     setup();
   }
 }
