@@ -1,52 +1,48 @@
 public class HomingShot extends Projectile {
   boolean lockOn;
-  double lockedX;
-  double lockedY;
+  Snake target;
 
   HomingShot(int xPos, int yPos, int angle, int power, int newRadius, int newDamage) {
     super(xPos, yPos, angle, power, newRadius, newDamage);
     type = 7;
     lockOn = false;
-    lockedX = 0;
-    lockedY = 0;
   }
 
   boolean projectilePhysics() {
     int smallestDist = 80;
-    int xDist = 0;
-    int yDist = 0;
+    float angleToTarget = 0;
     if (turn == player1 && !lockOn) {
       for (Snake a : player2.team) {
-        if (dist(x, y, a.x, a.y) < smallestDist) {
+        if (dist(x, y, a.x, a.y) < 80) {
           smallestDist = (int)dist(x, y, a.x, a.y);
-          xDist = a.x - x;
-          yDist = a.y - y;
-        } else {
-          return super.projectilePhysics();
-        }
-        if (smallestDist < 80) {
-          lockOn = true;
-          lockedX = xDist / 15;
-          lockedY = yDist / 15;
-          return super.projectilePhysics();
-        }
-      }
-    } else if (!lockOn) {
-      for (Snake a : player1.team) {
-        if (dist(x, y, a.x, a.y) < smallestDist) {
-          smallestDist = (int)dist(x, y, a.x, a.y);
-          xDist = a.x - x;
-          yDist = a.y - y;
-        } else {
-          return super.projectilePhysics();
+          target = a;
         }
       }
       if (smallestDist < 80) {
         lockOn = true;
-        lockedX = xDist / 15;
-        lockedY = yDist / 15;
+      } else {
         return super.projectilePhysics();
       }
+    } else if (!lockOn) {
+      for (Snake a : player1.team) {
+        if (dist(x, y, a.x, a.y) < 80) {
+          smallestDist = (int)dist(x, y, a.x, a.y);
+          target = a;
+        }
+      }
+      if (smallestDist < 80) {
+        lockOn = true;
+      } else {
+        return super.projectilePhysics();
+      }
+    } else {
+      xSpeed = dist(x, 0, target.x, 0) * 0.1 + 3 * abs(dist(x, 0, target.x, 0)) / dist(x, 0, target.x, 0);
+      ySpeed = dist(y, 0, target.y, 0) * 0.1 + 3 * abs(dist(x, 0, target.x, 0)) / dist(x, 0, target.x, 0);
+      if (target.isin(x, y)) {
+        scanEffectRadius();
+        return true;
+      }
+      return super.projectilePhysics();
     }
     return false;
   }
