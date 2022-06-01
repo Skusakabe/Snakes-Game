@@ -6,7 +6,7 @@ int mode;
 int mode2;
 Snake toMove;
 String weaponName;
-static String[] weaponList = {"Basic shot", "Dirt shot", "Big shot", "Ground remover", "Scatter shot", "Drill shot"};
+static String[] weaponList = {"Basic shot", "Dirt shot", "Big shot", "Ground remover", "Scatter shot", "Drill shot", "Homing shot"};
 boolean move, readyToMove;
 int timer, newx, newy, power, angle, upMove;
 ArrayList<Snake> EverySnake;
@@ -283,7 +283,7 @@ void mousePressed() {
     }
   }
   if (overSelect) {
-    if (projID == 6) {
+    if (projID == 7) {
       projID = 1;
     } else {
       projID++;
