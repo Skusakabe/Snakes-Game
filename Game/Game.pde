@@ -1,8 +1,9 @@
-UI UI; //<>// //<>// //<>// //<>// //<>// //<>// //<>//
+UI UI; //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
 Controller keyboardInput;
 Terrain background;
 static double GRAV = 0.75;
 int mode;
+int mode2;
 Snake toMove;
 String weaponName;
 static String[] weaponList = {"Basic shot", "Dirt shot", "Big shot", "Ground remover", "Scatter shot"};
@@ -10,8 +11,8 @@ boolean move, readyToMove;
 boolean scatterHit;
 int scatterX, scatterY;
 int timer, newx, newy, power, angle, upMove;
-ArrayList<Snake> EverySnake = new ArrayList<Snake>();
-ArrayList<Terrain> blocks = new ArrayList<Terrain>();
+ArrayList<Snake> EverySnake;
+ArrayList<Terrain> blocks;
 ArrayList<Everything> Elements = new ArrayList<Everything>();
 ArrayList<Projectile> Bullets = new ArrayList<Projectile>();
 boolean overEndTurn;
@@ -31,6 +32,10 @@ static int shootRectX = 200;
 static int shootRectY = 100;
 static int GAMEHEIGHT = 600;
 static int GAMEWIDTH = 1200;
+static int BeginX = 200;
+static int BeginY = 500;
+static int BeginRectX = 100;
+static int BeginRectY = 50;
 int projID;
 //eventually with Random map, edit uppercord to check for bounds.
 ArrayList<Integer> uppercord = new ArrayList<Integer>();
@@ -39,26 +44,17 @@ Player player2;
 Player turn;
 
 void setup() {
-  mode = 1;
+  mode2 = 0;
+  size(1500, 600);
+  EverySnake = new ArrayList<Snake>();
+  blocks = new ArrayList<Terrain>();
+  mode = 0;
   upMove = 0;
   //Change projID to match proj type with bullets;
   projID = 1;
   power = 20;
   angle = 45;
-  weaponName = weaponList[projID - 1];
-  move = true;
-  player1 = new Player(1);
-  player2 = new Player(2);
-  player1.addSnake(3, "SnakeRed.png");
-  player2.addSnake(3, "SnakeBlue.png");
-  turn = player1;
-  scatterHit = false;
-  scatterX = scatterY = 0;
-  for (Snake a : EverySnake) {
-    a.display();
-  }
-  timer = 0;
-  background = new Terrain(-1, 0, 0);
+   background = new Terrain(-1, 0, 0);
   for (int j = 0; j < 400; j+=5) {
     for (int k = 0; k < GAMEWIDTH; k+=5) {
       Terrain block = new Terrain(0, k, j);
@@ -73,8 +69,20 @@ void setup() {
       blocks.add(block);
     }
   }
+  weaponName = weaponList[projID - 1];
+  move = true;
+  player1 = new Player(1);
+  player2 = new Player(2);
+  player1.addSnake(3, "SnakeRed.png");
+  player2.addSnake(3, "SnakeBlue.png");
+  turn = player1;
+  scatterHit = false;
+  scatterX = scatterY = 0;
+  for (Snake a : EverySnake) {
+    a.display();
+  }
+  timer = 0;
   keyboardInput = new Controller();
-  size(1500, 600);
   UI = new UI();
   fill(255);
   rect(endX, endY, endRectX, endRectY);
@@ -144,6 +152,28 @@ void draw() {
   if (mode == 0) {
     frameRate(10);
     UI.startScreen(0, 0);
+    if(hoveringButton(BeginX, BeginY, BeginRectX, BeginRectY)){
+      mode2 = 1;
+    }
+  }else if(mode == -1){
+    textSize(100);
+    fill(0);
+    text("Player 2 Wins", width/2 - 300, height/2);
+    if(hoveringButton(0, 0, 1500, 600)){
+      mode2 = -3;
+    }
+  }else if(mode == -2){
+    textSize(100);
+    fill(0);
+    text("Player 1 Wins", width/2 - 300, height/2);
+    if(hoveringButton(0, 0, 1500, 600)){
+      mode2 = -3;
+    }
+  }else {
+    if((player1.team).size() == 0){
+    mode = -1;
+  } else if ((player2.team).size() == 0) {
+    mode = -2;
   } else {
     frameRate(60);
     update();
@@ -171,15 +201,6 @@ void draw() {
         }
       }
     }
-  if((player1.team).size() == 0){
-    textSize(100);
-    fill(0);
-    text("Player 2 Wins", width/2 - 300, height/2);
-  } else if ((player2.team).size() == 0) {
-    textSize(100);
-    fill(0);
-    text("Player 1 Wins", width/2 - 300, height/2);
-  } else {
     textSize(10);
     ArrayList<Projectile> Bullets2 = new ArrayList<Projectile>();
     ArrayList<Snake> EverySnake2 = new ArrayList<Snake>();
@@ -281,9 +302,16 @@ void mousePressed() {
       toMove.shootYet = true;
     }
   }
+  if(mode2 == 1){
+    mode = 1;
+  }
+  if(mode2 == -3){
+    setup();
+  }
 }
 
 void update() {
+  
   if ( hoveringButton(endX, endY, endRectX, endRectY) ) {
     overEndTurn = true;
     overSelect = false;
@@ -296,7 +324,8 @@ void update() {
     overEndTurn = false;
     overSelect = false;
     overShoot = true;
-  } else {
+  }
+  else {
     overEndTurn = overSelect = overShoot = false;
   }
 }

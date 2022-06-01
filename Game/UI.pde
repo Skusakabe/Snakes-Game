@@ -24,6 +24,7 @@ class UI {
     image(StartAni[frameCount%12], 0, 0);
     }else{
       image(StartAni[11], 0, 0);
+      rect(BeginX, BeginY, BeginRectX, BeginRectY);
   }
 }
 }
