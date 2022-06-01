@@ -1,4 +1,4 @@
-UI UI; //<>// //<>// //<>// //<>// //<>// //<>//
+UI UI; //<>// //<>// //<>// //<>//
 Controller keyboardInput;
 Terrain background;
 static double GRAV = 0.75;
@@ -140,6 +140,7 @@ void draw() {
   if (mode == 0) {
     frameRate(10);
     UI.startScreen(0, 0);
+    
   } else {
     frameRate(60);
     update();
@@ -179,26 +180,16 @@ void draw() {
         }
       }
     }
-  if((player1.team).size() == 0){
-    textSize(100);
-    fill(0);
-    text("Player 2 Wins", width/2 - 300, height/2);
-  }else if((player2.team).size() == 0){
-    textSize(100);
-    fill(0);
-    text("Player 1 Wins", width/2 - 300, height/2);
-  }else{
-  textSize(10);
-  ArrayList<Projectile> Bullets2 = new ArrayList<Projectile>();
-  ArrayList<Snake> EverySnake2 = new ArrayList<Snake>();
-  ArrayList<Snake> P1Team = new ArrayList<Snake>();
-  ArrayList<Snake> P2Team = new ArrayList<Snake>();
-  background.display();
-  //Copying Array Over to a second Array
-  //running and displaying bullet on path
-  for (Terrain a : blocks) {
-    a.display();
-  }
+    ArrayList<Projectile> Bullets2 = new ArrayList<Projectile>();
+    ArrayList<Snake> EverySnake2 = new ArrayList<Snake>();
+    ArrayList<Snake> P1Team = new ArrayList<Snake>();
+    ArrayList<Snake> P2Team = new ArrayList<Snake>();
+    background.display();
+    //Copying Array Over to a second Array
+    //running and displaying bullet on path
+    for (Terrain a : blocks) {
+      a.display();
+    }
     for (Projectile a : Bullets) {
       Bullets2.add(a);
       if (a.projectilePhysics()) {
@@ -254,12 +245,10 @@ void draw() {
     text("SHOOT", (shootX) + 75, shootY + 55);
   }
 }
-}
 void mousePressed() {
   if (overEndTurn) {
     for (Snake a : turn.team) {
       a.reset();
-      toMove = null;
     }
     if (turn == player1) {
       turn = player2;
@@ -273,7 +262,6 @@ void mousePressed() {
   if (overShoot) {
     if ((toMove != null)&&(!toMove.shootYet)) {
       Bullets.add(toMove.shoot(angle, power, 1));
-      toMove.shootYet = true;
     }
   }
 }
