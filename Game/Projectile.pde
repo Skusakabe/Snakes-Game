@@ -1,4 +1,4 @@
-public abstract class Projectile implements Everything, Cloneable {
+public abstract class Projectile implements Cloneable {
   int radius;
   int damage;
   int x;
