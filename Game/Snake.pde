@@ -93,12 +93,6 @@ class Snake {
   public Projectile shoot(int angle, int power, int ProjectileID) {  //<>// //<>//
     if (ProjectileID == 1) {  //<>// //<>//
       return new BasicShot(x, y, angle, power, 30, 30);  //<>//
-  // projectile ArrayList, where draw() will make the projectile do its stuff. //<>// //<>//
-  /* //<>// //<>//
-  ProjectileID's: //<>// //<>//
-  1) BasicShot //<>// //<>//
-  2) DirtShot //<>// //<>//
-  */ //<>// //<>//
     }
     if (ProjectileID == 2) {
       return new DirtShot(x, y, angle, power, 45, 0);

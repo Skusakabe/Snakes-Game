@@ -8,8 +8,6 @@ Snake toMove;
 String weaponName;
 static String[] weaponList = {"Basic shot", "Dirt shot", "Big shot", "Ground remover", "Scatter shot"};
 boolean move, readyToMove;
-boolean scatterHit;
-int scatterX, scatterY;
 int timer, newx, newy, power, angle, upMove;
 ArrayList<Snake> EverySnake;
 ArrayList<Terrain> blocks;
@@ -53,7 +51,7 @@ void setup() {
   projID = 1;
   power = 20;
   angle = 45;
-   background = new Terrain(-1, 0, 0);
+  background = new Terrain(-1, 0, 0);
   for (int j = 0; j < 400; j+=5) {
     for (int k = 0; k < GAMEWIDTH; k+=5) {
       Terrain block = new Terrain(0, k, j);
@@ -75,8 +73,6 @@ void setup() {
   player1.addSnake(3, "SnakeRed.png");
   player2.addSnake(3, "SnakeBlue.png");
   turn = player1;
-  scatterHit = false;
-  scatterX = scatterY = 0;
   for (Snake a : EverySnake) {
     a.display();
   }
@@ -151,129 +147,123 @@ void draw() {
   if (mode == 0) {
     frameRate(10);
     UI.startScreen(0, 0);
-    if(hoveringButton(BeginX, BeginY, BeginRectX, BeginRectY)){
+    if (hoveringButton(BeginX, BeginY, BeginRectX, BeginRectY)) {
       mode2 = 1;
     }
-  }else if(mode == -1){
+  } else if (mode == -1) {
     textSize(100);
     fill(0);
     text("Player 2 Wins", width/2 - 300, height/2);
-    if(hoveringButton(0, 0, 1500, 600)){
+    if (hoveringButton(0, 0, 1500, 600)) {
       mode2 = -3;
     }
-  }else if(mode == -2){
+  } else if (mode == -2) {
     textSize(100);
     fill(0);
     text("Player 1 Wins", width/2 - 300, height/2);
-    if(hoveringButton(0, 0, 1500, 600)){
+    if (hoveringButton(0, 0, 1500, 600)) {
       mode2 = -3;
     }
-  }else {
-    if((player1.team).size() == 0){
-    mode = -1;
-  } else if ((player2.team).size() == 0) {
-    mode = -2;
   } else {
-    frameRate(60);
-    update();
-    if (keyboardInput.isPressed(Controller.D)) {
-      if (toMove != null) {
-        if ((toMove.spotLeft) > 0) {
-          if ((toMove.x < width)) {
-            if (!(toMove.rightBlock())) {
-              toMove.x += 3;
-              toMove.spotLeft = toMove.spotLeft - 3;
+    if ((player1.team).size() == 0) {
+      mode = -1;
+    } else if ((player2.team).size() == 0) {
+      mode = -2;
+    } else {
+      frameRate(60);
+      update();
+      if (keyboardInput.isPressed(Controller.D)) {
+        if (toMove != null) {
+          if ((toMove.spotLeft) > 0) {
+            if ((toMove.x < width)) {
+              if (!(toMove.rightBlock())) {
+                toMove.x += 3;
+                toMove.spotLeft = toMove.spotLeft - 3;
+              }
             }
           }
         }
       }
-    }
-    if (keyboardInput.isPressed(Controller.A)) {
-      if (toMove != null) {
-        if ((toMove.spotLeft) > 0) {
-          if ((toMove.x > 0)) {
-            if (!(toMove.leftBlock())) {
-              toMove.x -= 3;
-              toMove.spotLeft = toMove.spotLeft - 3;
+      if (keyboardInput.isPressed(Controller.A)) {
+        if (toMove != null) {
+          if ((toMove.spotLeft) > 0) {
+            if ((toMove.x > 0)) {
+              if (!(toMove.leftBlock())) {
+                toMove.x -= 3;
+                toMove.spotLeft = toMove.spotLeft - 3;
+              }
             }
           }
         }
       }
-    }
-    textSize(10);
-    ArrayList<Projectile> Bullets2 = new ArrayList<Projectile>();
-    ArrayList<Snake> EverySnake2 = new ArrayList<Snake>();
-    ArrayList<Snake> P1Team = new ArrayList<Snake>();
-    ArrayList<Snake> P2Team = new ArrayList<Snake>();
-    background.display();
-    //Copying Array Over to a second Array
-    //running and displaying bullet on path
-    for (Terrain a : blocks) {
-      a.display();
-    }
-    for (Projectile a : Bullets) {
-      Bullets2.add(a);
-      if (a.projectilePhysics()) {
-        if (a.getType() == 5) {
-          scatterHit = true;
-          scatterX = a.x;
-          scatterY = a.y;
-        }
-        Bullets2.remove(a);
-      } else {
+      textSize(10);
+      ArrayList<Projectile> Bullets2 = new ArrayList<Projectile>();
+      ArrayList<Snake> EverySnake2 = new ArrayList<Snake>();
+      ArrayList<Snake> P1Team = new ArrayList<Snake>();
+      ArrayList<Snake> P2Team = new ArrayList<Snake>();
+      background.display();
+      //Copying Array Over to a second Array
+      //running and displaying bullet on path
+      for (Terrain a : blocks) {
         a.display();
       }
-    }
-    Bullets = Bullets2;
-    if (scatterHit) {
-      for (int k = -10; k <= 10; k+= 5) {
-        Bullets.add(new BasicShot(scatterX + (3 * k), scatterY-15, 90 + (2 * k), 45, 30, 5));
+      for (Projectile a : Bullets) {
+        Bullets2.add(a);
+        if (a.projectilePhysics()) {
+          if (a.getType() == 5) {
+            for (int k = -10; k <= 10; k+= 5) {
+              Bullets2.add(new BasicShot(a.x + (3 * k), a.y-15, 90 + (2 * k), 45, 30, 5));
+            }
+          }
+          Bullets2.remove(a);
+        } else {
+          a.display();
+        }
       }
-      scatterHit = false;
-    }
-    if (upMove > 0) {
-      toMove.y -= upMove;
-      upMove--;
-    }
-    for (Snake a : EverySnake) {
-      if (!(a.highestBlock())) {
-        a.y += 1;
+      Bullets = Bullets2;
+      if (upMove > 0) {
+        toMove.y -= upMove;
+        upMove--;
       }
-      if (a.health > 0) {
-        EverySnake2.add(a);
+      for (Snake a : EverySnake) {
+        if (!(a.highestBlock())) {
+          a.y += 1;
+        }
+        if (a.health > 0) {
+          EverySnake2.add(a);
+        }
+        a.display();
+        text(a.health, a.x, a.y+5);
+      }  
+      EverySnake = EverySnake2;
+      for (Snake a : player1.team) {
+        if (a.health > 0) {
+          P1Team.add(a);
+        }
       }
-      a.display();
-      text(a.health, a.x, a.y+5);
-    }  
-    EverySnake = EverySnake2;
-    for (Snake a : player1.team) {
-      if (a.health > 0) {
-        P1Team.add(a);
+      player1.team = P1Team;
+      EverySnake = EverySnake2;
+      for (Snake a : player2.team) {
+        if (a.health > 0) {
+          P2Team.add(a);
+        }
       }
+      player2.team = P2Team;
+      UI.basicUI(1200, 0);
+      text("Player " +turn.id + "'s turn", 1210, 12);
+      text("Power: " + power, 1210, 30);
+      text("Angle: " + angle, 1210, 40);
+      text("Selected weapon: " + weaponName, 1210, 50);
+      fill(255);
+      rect(endX, endY, endRectX, endRectY);
+      rect(selectX, selectY, selectRectX, selectRectY);
+      rect(shootX, shootY, shootRectX, shootRectY);
+      fill(0);
+      text("END TURN", (endX) + 65, endY + 55);
+      text("CHANGE WEAPON", (selectX) + 55, selectY + 55);
+      text("SHOOT", (shootX) + 75, shootY + 55);
     }
-    player1.team = P1Team;
-    EverySnake = EverySnake2;
-    for (Snake a : player2.team) {
-      if (a.health > 0) {
-        P2Team.add(a);
-      }
-    }
-    player2.team = P2Team;
-    UI.basicUI(1200, 0);
-    text("Player " +turn.id + "'s turn", 1210, 12);
-    text("Power: " + power, 1210, 30);
-    text("Angle: " + angle, 1210, 40);
-    text("Selected weapon: " + weaponName, 1210, 50);
-    fill(255);
-    rect(endX, endY, endRectX, endRectY);
-    rect(selectX, selectY, selectRectX, selectRectY);
-    rect(shootX, shootY, shootRectX, shootRectY);
-    fill(0);
-    text("END TURN", (endX) + 65, endY + 55);
-    text("CHANGE WEAPON", (selectX) + 55, selectY + 55);
-    text("SHOOT", (shootX) + 75, shootY + 55);
   }
-}
 }
 void mousePressed() {
   if (overEndTurn) {
@@ -301,16 +291,15 @@ void mousePressed() {
       toMove.shootYet = true;
     }
   }
-  if(mode2 == 1){
+  if (mode2 == 1) {
     mode = 1;
   }
-  if(mode2 == -3){
+  if (mode2 == -3) {
     setup();
   }
 }
 
 void update() {
-  
   if ( hoveringButton(endX, endY, endRectX, endRectY) ) {
     overEndTurn = true;
     overSelect = false;
@@ -323,8 +312,7 @@ void update() {
     overEndTurn = false;
     overSelect = false;
     overShoot = true;
-  }
-  else {
+  } else {
     overEndTurn = overSelect = overShoot = false;
   }
 }
