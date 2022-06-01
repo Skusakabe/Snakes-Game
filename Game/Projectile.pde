@@ -1,4 +1,4 @@
-public abstract class Projectile implements Everything, Cloneable {
+public abstract class Projectile implements Cloneable {
   int radius;
   int damage;
   int x;
@@ -18,8 +18,8 @@ public abstract class Projectile implements Everything, Cloneable {
   Projectile(int xPos, int yPos, int angle, int power, int newRadius, int newDamage) {
     x = xPos;
     y = yPos;
-    xSpeed = 0.25 * Math.cos(radians(angle)) * power;
-    ySpeed = 0.25 * -Math.sin(radians(angle)) * power;
+    xSpeed = 0.25 * Math.cos(radians(angle - 1)) * power;
+    ySpeed = 0.25 * -Math.sin(radians(angle - 1)) * power;
     radius = newRadius;
     damage = newDamage;
     sprite = createShape(ELLIPSE, 0, 0, 20, 10);
