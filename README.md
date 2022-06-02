@@ -39,3 +39,7 @@ Shinji work log:
 5/30/22: Made code to change weapons and put text on the button to do so. Made another projectile(very basic, larger version of the BasicShot) and created the demo branch.
 
 5/31/22: Made some new projectiles and some other changes. Also removed the height limit for projectiles so they don't despawn when they touch the ceiling.
+
+6/1/22: Made some more new projectiles and struggled a lot with getting homing shot to work well(it still didn't by the end of this day).
+
+6/2/22: Got homing shot working and added some new projectiles.
