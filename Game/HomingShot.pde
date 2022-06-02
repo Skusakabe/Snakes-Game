@@ -20,6 +20,9 @@ public class HomingShot extends Projectile {
       }
       if (smallestDist < 80) {
         lockOn = true;
+        angleToTarget = atan2((float)(y - target.y), (float)(target.x - x));
+        xSpeed = 3 * cos(angleToTarget);
+        ySpeed = 3 * -sin(angleToTarget);
       } else {
         return super.projectilePhysics();
       }
@@ -32,13 +35,16 @@ public class HomingShot extends Projectile {
       }
       if (smallestDist < 80) {
         lockOn = true;
+        angleToTarget = atan2((float)(y - target.y), (float)(target.x - x));
+        xSpeed = 3 * cos(angleToTarget);
+        ySpeed = 3 * -sin(angleToTarget);
       } else {
         return super.projectilePhysics();
       }
     } else {
       angleToTarget = atan2((float)(y - target.y), (float)(target.x - x));
-      xSpeed = 7 * cos(angleToTarget);
-      ySpeed = 7 * -sin(angleToTarget);
+      xSpeed += 1 * cos(angleToTarget);
+      ySpeed += 1 * -sin(angleToTarget);
       if (target.isin(x, y)) {
         scanEffectRadius();
         return true;

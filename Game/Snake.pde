@@ -42,60 +42,60 @@ class Snake {
     health -= dam;
   }
 
-  public void displayRad(){  //<>// //<>// //<>// //<>// //<>//
-    stroke(color(0,200,0)); //<>// //<>// //<>// //<>// //<>// //<>//
-    tint(255,255); //<>// //<>//
+  public void displayRad(){  //<>// //<>// //<>//
+    stroke(color(0,200,0)); //<>// //<>// //<>// //<>//
+    tint(255,255);
     circle(x-10, y-10, movement_Radius);
-  } //<>// //<>// //<>// //<>// //<>// //<>// //<>//
-  boolean isin(int m1, int m2){ //<>// //<>// //<>// //<>// //<>// //<>// //<>//
-    return(((m1 >= x)&&(m1 <= x+20))&&((m2 >= y)&&(m2 <= y+20))); //<>// //<>//
+  } //<>// //<>// //<>// //<>// //<>//
+  boolean isin(int m1, int m2){ //<>// //<>// //<>// //<>// //<>//
+    return(((m1 >= x)&&(m1 <= x+20))&&((m2 >= y)&&(m2 <= y+20)));
   }
-  public void display() { //<>// //<>// //<>// //<>//
-    image(model, x, y); //<>// //<>// //<>// //<>// //<>//
-  } //<>// //<>//
+  public void display() { //<>// //<>//
+    image(model, x, y); //<>// //<>// //<>//
+  }
    boolean highestBlock(){
      for(int k = 0; k < 20; k+= 5){
        Terrain temp = blocks.get((((y+20)/5)*(GAMEWIDTH/5))+((x + k)/5));
        if(temp.id > 0){
-         return true; //<>// //<>// //<>// //<>// //<>//
-       } //<>// //<>//
-     } //<>// //<>// //<>// //<>// //<>//
-     return false; //<>// //<>//
+         return true; //<>// //<>// //<>//
+       }
+     } //<>// //<>// //<>//
+     return false;
   }
   boolean rightBlock(){
      for(int k = 0; k < 20; k+= 5){
-       Terrain temp = blocks.get((((y+k)/5)*(GAMEWIDTH/5))+((x + 20)/5)); //<>// //<>// //<>// //<>//
-       if(temp.id > 0){ //<>// //<>// //<>// //<>// //<>//
-         return true; //<>// //<>// //<>// //<>// //<>// //<>//
-       } //<>// //<>// //<>// //<>// //<>//
-     } //<>// //<>// //<>// //<>// //<>//
-     return false; //<>// //<>//
+       Terrain temp = blocks.get((((y+k)/5)*(GAMEWIDTH/5))+((x + 20)/5)); //<>// //<>//
+       if(temp.id > 0){ //<>// //<>// //<>//
+         return true; //<>// //<>// //<>// //<>//
+       } //<>// //<>// //<>//
+     } //<>// //<>// //<>//
+     return false;
   } 
   boolean leftBlock(){
      for(int k = 0; k < 20; k+= 5){
        Terrain temp = blocks.get((((y+k)/5)*(GAMEWIDTH/5))+((x)/5));
        if(temp.id > 0){
-         return true; //<>// //<>// //<>// //<>//
-       } //<>// //<>//
-     } //<>// //<>// //<>// //<>//
-     return false; //<>// //<>//
+         return true; //<>// //<>//
+       }
+     } //<>// //<>//
+     return false;
   }//<>//
   // Returns a projectile based on the parameters, this will be added to the active
-  // projectile ArrayList, where draw() will make the projectile do its stuff. //<>// //<>// //<>//
-  /* //<>// //<>// //<>// //<>//
-  ProjectileID's: //<>// //<>// //<>// //<>//
-  1) BasicShot //<>// //<>// //<>// //<>//
-  2) DirtShot //<>// //<>// //<>// //<>//
-  3) BigShot //<>// //<>// //<>//
-  4) GroundRemover //<>// //<>//
-  5) ScatterShot //<>// //<>//
+  // projectile ArrayList, where draw() will make the projectile do its stuff. //<>//
+  /* //<>// //<>//
+  ProjectileID's: //<>// //<>//
+  1) BasicShot //<>// //<>//
+  2) DirtShot //<>// //<>//
+  3) BigShot //<>//
+  4) GroundRemover
+  5) ScatterShot
   6) DrillShot
   7) HomingShot
-  //<>// //<>//
-  */ //<>// //<>// //<>// //<>//
-  public Projectile shoot(int angle, int power, int ProjectileID) {  //<>// //<>// //<>//
-    if (ProjectileID == 1) {  //<>// //<>// //<>//
-      return new BasicShot(x, y, angle, power, 30, 30);  //<>// //<>//
+ 
+  */ //<>// //<>//
+  public Projectile shoot(int angle, int power, int ProjectileID) {  //<>//
+    if (ProjectileID == 1) {  //<>//
+      return new BasicShot(x, y, angle, power, 30, 30); 
     }
     if (ProjectileID == 2) {
       return new DirtShot(x, y, angle, power, 45, 0);
@@ -113,7 +113,7 @@ class Snake {
       return new DrillShot(x, y, angle, power, 25, 20);
     }
     if (ProjectileID == 7) {
-      return new HomingShot(x, y, angle, power, 40, 40);
+      return new HomingShot(x, y, angle, power, 40, 25);
     }
     return new BasicShot(x, y, angle, power, 30, 30);
   }
