@@ -6,7 +6,7 @@ int mode;
 int mode2;
 Snake toMove;
 String weaponName;
-static String[] weaponList = {"Basic shot", "Dirt shot", "Big shot", "Ground remover", "Scatter shot", "Drill shot", "Homing shot", "Trail shot", };
+static String[] weaponList = {"Basic shot", "Dirt shot", "Big shot", "Ground remover", "Scatter shot", "Drill shot", "Homing shot", "Trail shot", "Carpet bomber"};
 boolean move, readyToMove;
 int timer, newx, newy, power, angle, upMove;
 ArrayList<Snake> EverySnake;
@@ -253,6 +253,13 @@ void draw() {
               Bullets2.add(new BasicShot(a.x,a.y,270,10,15,10));
             }
           }
+          if (a.getType() == 9) {
+            if (getInternalTimer(((CarpetBomber)a)) == 4) {
+              Bullets2.add(new BasicShot(a.x,a.y,225,20,15,10));
+              Bullets2.add(new BasicShot(a.x,a.y,270,20,15,10));
+              Bullets2.add(new BasicShot(a.x,a.y,315,20,15,10));
+            }
+          }
           a.display();
         }
       }
@@ -329,7 +336,7 @@ void mousePressed() {
     }
   }
   if (overSelect) {
-    if (projID == 8) {
+    if (projID == 9) {
       projID = 1;
     } else {
       projID++;
@@ -379,6 +386,10 @@ void update() {
 }
 
 int getInternalTimer(TrailShot a) {
+  return a.internalTimer;
+}
+
+int getInternalTimer(CarpetBomber a) {
   return a.internalTimer;
 }
 

@@ -18,8 +18,8 @@ public abstract class Projectile implements Cloneable {
   Projectile(int xPos, int yPos, int angle, int power, int newRadius, int newDamage) {
     x = xPos;
     y = yPos;
-    xSpeed = 0.25 * cos(radians(angle - 1)) * power;
-    ySpeed = 0.25 * -sin(radians(angle - 1)) * power;
+    xSpeed = 0.25 * cos(radians(angle)) * power;
+    ySpeed = 0.25 * -sin(radians(angle)) * power;
     radius = newRadius;
     damage = newDamage;
     sprite = createShape(ELLIPSE, 0, 0, 20, 10);
