@@ -1,4 +1,4 @@
-UI UI; //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
+UI UI; //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
 Controller keyboardInput;
 Terrain background;
 static float GRAV = 0.75;
@@ -6,7 +6,7 @@ int mode;
 int mode2;
 Snake toMove;
 String weaponName;
-static String[] weaponList = {"Basic shot", "Dirt shot", "Big shot", "Ground remover", "Scatter shot", "Drill shot", "Homing shot"};
+static String[] weaponList = {"Basic shot", "Dirt shot", "Big shot", "Ground remover", "Scatter shot", "Drill shot", "Homing shot", "Trail shot", };
 boolean move, readyToMove;
 int timer, newx, newy, power, angle, upMove;
 ArrayList<Snake> EverySnake;
@@ -248,6 +248,11 @@ void draw() {
           }
           Bullets2.remove(a);
         } else {
+          if (a.getType() == 8) {
+            if (getInternalTimer(((TrailShot)a)) == 9) {
+              Bullets2.add(new BasicShot(a.x,a.y,270,10,15,10));
+            }
+          }
           a.display();
         }
       }
@@ -324,7 +329,7 @@ void mousePressed() {
     }
   }
   if (overSelect) {
-    if (projID == 7) {
+    if (projID == 8) {
       projID = 1;
     } else {
       projID++;
@@ -371,6 +376,10 @@ void update() {
   } else {
     overEndTurn = overSelect = overShoot = false;
   }
+}
+
+int getInternalTimer(TrailShot a) {
+  return a.internalTimer;
 }
 
 /*

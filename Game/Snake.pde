@@ -91,7 +91,7 @@ class Snake {
   5) ScatterShot
   6) DrillShot
   7) HomingShot
- 
+  8) TrailShot
   */ //<>// //<>//
   public Projectile shoot(int angle, int power, int ProjectileID) {  //<>//
     if (ProjectileID == 1) {  //<>//
@@ -114,6 +114,9 @@ class Snake {
     }
     if (ProjectileID == 7) {
       return new HomingShot(x, y, angle, power, 40, 25);
+    }
+    if (ProjectileID == 8) {
+      return new TrailShot(x, y, angle, power, 30, 20);
     }
     return new BasicShot(x, y, angle, power, 30, 30);
   }
