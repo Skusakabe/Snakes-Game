@@ -13,7 +13,7 @@ public class HomingShot extends Projectile {
     float angleToTarget = 0;
     if (turn == player1 && !lockOn) {
       for (Snake a : player2.team) {
-        if (dist(x, y, a.x, a.y) < 80) {
+        if (dist(x, y, a.x, a.y) < smallestDist) {
           smallestDist = (int)dist(x, y, a.x, a.y);
           target = a;
         }
@@ -25,7 +25,7 @@ public class HomingShot extends Projectile {
       }
     } else if (!lockOn) {
       for (Snake a : player1.team) {
-        if (dist(x, y, a.x, a.y) < 80) {
+        if (dist(x, y, a.x, a.y) < smallestDist) {
           smallestDist = (int)dist(x, y, a.x, a.y);
           target = a;
         }
@@ -36,8 +36,11 @@ public class HomingShot extends Projectile {
         return super.projectilePhysics();
       }
     } else {
-      xSpeed = dist(x, 0, target.x, 0) * 0.1 + 3 * abs(dist(x, 0, target.x, 0)) / dist(x, 0, target.x, 0);
-      ySpeed = dist(y, 0, target.y, 0) * 0.1 + 3 * abs(dist(x, 0, target.x, 0)) / dist(x, 0, target.x, 0);
+      angleToTarget = atan2((float)(y - target.y), (float)(target.x - x);
+      xSpeed = 10 * cos(radians(angleToTarget - 1));
+      ySpeed = 10 * -sin(radians(angleToTarget - 1));
+      //xSpeed = dist(x, 0, target.x, 0) * 0.1 + 3 * abs(dist(x, 0, target.x, 0)) / dist(x, 0, target.x, 0);
+      //ySpeed = dist(y, 0, target.y, 0) * 0.1 + 3 * abs(dist(x, 0, target.x, 0)) / dist(x, 0, target.x, 0);
       if (target.isin(x, y)) {
         scanEffectRadius();
         return true;
