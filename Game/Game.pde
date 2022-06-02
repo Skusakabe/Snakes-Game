@@ -1,7 +1,7 @@
-UI UI; //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
+UI UI; //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
 Controller keyboardInput;
 Terrain background;
-static double GRAV = 0.75;
+static float GRAV = 0.75;
 int mode;
 int mode2;
 Snake toMove;

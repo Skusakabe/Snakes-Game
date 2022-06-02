@@ -1,7 +1,7 @@
 public class HomingShot extends Projectile {
   boolean lockOn;
   Snake target;
-
+  
   HomingShot(int xPos, int yPos, int angle, int power, int newRadius, int newDamage) {
     super(xPos, yPos, angle, power, newRadius, newDamage);
     type = 7;
@@ -36,11 +36,9 @@ public class HomingShot extends Projectile {
         return super.projectilePhysics();
       }
     } else {
-      angleToTarget = atan2((float)(y - target.y), (float)(target.x - x);
-      xSpeed = 10 * cos(radians(angleToTarget - 1));
-      ySpeed = 10 * -sin(radians(angleToTarget - 1));
-      //xSpeed = dist(x, 0, target.x, 0) * 0.1 + 3 * abs(dist(x, 0, target.x, 0)) / dist(x, 0, target.x, 0);
-      //ySpeed = dist(y, 0, target.y, 0) * 0.1 + 3 * abs(dist(x, 0, target.x, 0)) / dist(x, 0, target.x, 0);
+      angleToTarget = atan2((float)(y - target.y), (float)(target.x - x));
+      xSpeed = 7 * cos(angleToTarget);
+      ySpeed = 7 * -sin(angleToTarget);
       if (target.isin(x, y)) {
         scanEffectRadius();
         return true;
