@@ -1,4 +1,4 @@
-class Terrain {
+class Terrain implements Serializable{
   int size, x, y;
   int id;
   int health;

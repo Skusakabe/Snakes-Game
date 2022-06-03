@@ -34,7 +34,8 @@ static int BeginY = 500;
 static int BeginRectX = 100;
 static int BeginRectY = 50;
 static int SnakeX = 325;
-boolean save = false;
+boolean save;
+boolean typing;
 int projID;
 //eventually with Random map, edit uppercord to check for bounds.
 ArrayList<Integer> uppercord = new ArrayList<Integer>();
@@ -44,6 +45,8 @@ Player turn;
 
 void setup() {
   size(1500, 600);
+  save = false;
+  typing = false;
   EverySnake = new ArrayList<Snake>();
   blocks = new ArrayList<Terrain>();
   upMove = 0;
@@ -98,10 +101,12 @@ void keyPressed() {
   }
   if (key == CODED) {
     if (keyCode == UP) {
+      if(mode == 1){
       if (angle < 360) {
         angle++;
       }
     }
+    }else if(mode == 
     if (keyCode == DOWN) {
       if (angle > 0) {
         angle--;
@@ -166,6 +171,7 @@ void mouseReleased() {
 //MODE 0 = startscreen
 //MODE 1 = GAME
 //MODE 2 = Team Editing
+//MODE 3 = Terrain editing
 void draw() {
   background(255);
   if (mode == 0) {
