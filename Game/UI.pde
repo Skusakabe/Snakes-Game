@@ -10,10 +10,10 @@ class UI implements Serializable{
   Terrain Terrbackground = new Terrain(-1, 0, 0);
   ArrayList<Terrain> newblocks = new ArrayList<Terrain>();
   int blockType = 0;
-  int UIradius = 1;
   String name = "";
-  boolean dirt, stone, delete, tosave;
+  boolean dirt, stone, delete, tosave, totype;
   public UI() {
+    totype = false;
     tosave = false;
     dirt = false;
     stone = false;
@@ -50,7 +50,7 @@ class UI implements Serializable{
   }
 }
 void terrainHit(Terrain target) {
-    target.changeType(0);
+    target.changeType(blockType);
   }
 void scanEffectRadius(int x, int y) {
     int xStart = (x / 5) * 5 - UIradius;
@@ -61,20 +61,19 @@ void scanEffectRadius(int x, int y) {
       xStart = 0;
     }
     if (x + UIradius >= GAMEWIDTH) {
-      xEnd = GAMEWIDTH - 5;
+      xEnd = GAMEWIDTH;
     }
     if (y < UIradius) {
       yStart = 0;
     }
     if (y + UIradius >= GAMEHEIGHT) {
-      yEnd = GAMEHEIGHT - 5;
+      yEnd = GAMEHEIGHT;
     }
     for (int j = yStart; j < yEnd; j+=5) {
       for (int i = xStart; i < xEnd; i+=5) {
-        if (dist(x,y,blocks.get((j / 5) * (GAMEWIDTH / 5) + (i / 5)).x,blocks.get((j / 5) * (GAMEWIDTH / 5) + (i / 5)).y) <= UIradius) {
-          if (blocks.get((j / 5) * (GAMEWIDTH / 5) + (i / 5)).getType() == blockType) {
-            terrainHit(blocks.get((j / 5) * (GAMEWIDTH / 5) + (i / 5)));
-          }
+        if (dist(x,y,newblocks.get((j / 5) * (GAMEWIDTH / 5) + (i / 5)).x,newblocks.get((j / 5) * (GAMEWIDTH / 5) + (i / 5)).y) <= UIradius) {
+            terrainHit(newblocks.get((j / 5) * (GAMEWIDTH / 5) + (i / 5)));
+          
         }
       }
     }
@@ -82,7 +81,7 @@ void scanEffectRadius(int x, int y) {
 void saveMap(String name, ArrayList<Terrain> map){
   try
     {
-    FileOutputStream file = new FileOutputStream(name);
+    FileOutputStream file = new FileOutputStream("Snakes-Game/Game/" + name);
     ObjectOutputStream output = new ObjectOutputStream(file);
     output.writeObject(map); 
     output.close();
@@ -121,8 +120,11 @@ void mapScreen(int x, int y, boolean setup){
       newblocks.add(block);
     }
   }
-  setup = false;
+  setupMode3 = false;
 }else{
+  if(drag){
+    UI.scanEffectRadius(mouseX, mouseY);
+  }
   Terrbackground.display();
   for (Terrain a : newblocks) {
         a.display();
@@ -147,6 +149,9 @@ text("Delete", 1220, 120);
 text("Dirt", 1285, 120);
 text("Stone", 1340, 120);
 text("SAVE", (shootX) + 75, shootY + 55);
+text(UIradius, 1210, 12);
+text(blockType, 1210, 22);
+text(name, 1265, 409);
 if( hoveringButton(shootX, shootY, shootRectX, shootRectY)) {
   tosave = true;
 }else{tosave = false;}
@@ -159,9 +164,12 @@ if( hoveringButton(1270, 90, 50, 50)) {
 if( hoveringButton(1330, 90, 50, 50)) {
   stone = true;
 }else{stone = false;}
-
+if( hoveringButton(1260, 400, 200, 10)) {
+  totype = true;
+}else{totype = false;}
 if(save){
   saveMap(name, newblocks);
+  save = false;
 }
 }
 }

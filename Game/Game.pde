@@ -1,7 +1,10 @@
 UI UI; //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
 Controller keyboardInput;
 Terrain background;
+boolean drag;
+int UIradius = 5;
 static double GRAV = 0.75;
+boolean setupMode3 = true;
 int mode;
 int mode2;
 Snake toMove;
@@ -45,6 +48,7 @@ Player turn;
 
 void setup() {
   size(1500, 600);
+  drag = false;
   save = false;
   typing = false;
   EverySnake = new ArrayList<Snake>();
@@ -91,6 +95,16 @@ void setup() {
 }
 
 void keyPressed() {
+  if(typing){
+    if(key == BACKSPACE){
+      if((UI.name).length() > 0){
+        UI.name = (UI.name).substring(0,(UI.name).length());
+    }
+    }else{
+    UI.name += key;
+    print(1);
+    }
+  }
   if (mode == 1){
   keyboardInput.press(keyCode);
   if (key == ' ') {
@@ -99,6 +113,7 @@ void keyPressed() {
       toMove.shootYet = true;
     }
   }
+  }
   if (key == CODED) {
     if (keyCode == UP) {
       if(mode == 1){
@@ -106,13 +121,21 @@ void keyPressed() {
         angle++;
       }
     }else if(mode == 3){
-      UI.UIradius++;
+      if(UIradius < 70){
+      UIradius += 5;
+      }
     }
     }
     if (keyCode == DOWN) {
+      if(mode == 1){
       if (angle > 0) {
         angle--;
       }
+    }else if(mode == 3){
+      if(UIradius > 0){
+      UIradius -= 5;
+      }
+    }
     }
     if (keyCode == RIGHT) {
       if (power<100) {
@@ -124,7 +147,6 @@ void keyPressed() {
         power--;
       }
     }
-  }
   }
     if(key == 27){
       key = 0;
@@ -149,6 +171,9 @@ void keyReleased() {
 }
 }
 void mouseReleased() {
+  if(mode == 3){
+    drag = false;
+  }
   if (mode == 1){
   if (move) {
     for (Snake a : turn.team) {
@@ -177,7 +202,7 @@ void mouseReleased() {
 void draw() {
   background(255);
   if(mode == 3){
-    UI.mapScreen(0, 0, false);
+    UI.mapScreen(0, 0, setupMode3);
   }else
   if (mode == 0) {
     frameRate(10);
@@ -271,7 +296,7 @@ void draw() {
       }
       for (Snake a : EverySnake) {
         if (!(a.highestBlock())) {
-          a.y += 1;
+          a.y += 5;
         }
         if (a.health > 0) {
           EverySnake2.add(a);
@@ -365,6 +390,28 @@ void mousePressed() {
     background(255);
     mode = -4;
     setup();
+  }
+  if(mode == 3){
+    if(UI.dirt){
+      UI.blockType = 1;
+    }
+    if(UI.stone){
+      UI.blockType = 2;
+    }
+    if(UI.delete){
+      UI.blockType = 0;
+    }
+    if(UI.tosave){
+      save = true;
+    }
+    if(UI.totype){
+      typing = true;
+      print("hello");
+    }
+    if((mouseX < 1200)&&(mouseY<600)){
+     drag = true;
+      //print("t");
+    }
   }
 }
 
