@@ -12,7 +12,12 @@ class UI implements Serializable{
   int blockType = 0;
   int UIradius = 1;
   String name = "";
+  boolean dirt, stone, delete, tosave;
   public UI() {
+    tosave = false;
+    dirt = false;
+    stone = false;
+    delete = false;
     background = loadImage("UI_Background.png");
     StartAni[0] = loadImage("pixil-frame-0.png");
     StartAni[1] = loadImage("pixil-frame-1.png");
@@ -66,7 +71,7 @@ void scanEffectRadius(int x, int y) {
     }
     for (int j = yStart; j < yEnd; j+=5) {
       for (int i = xStart; i < xEnd; i+=5) {
-        if (dist(x,y,blocks.get((j / 5) * (GAMEWIDTH / 5) + (i / 5)).x,blocks.get((j / 5) * (GAMEWIDTH / 5) + (i / 5)).y) <= radius) {
+        if (dist(x,y,blocks.get((j / 5) * (GAMEWIDTH / 5) + (i / 5)).x,blocks.get((j / 5) * (GAMEWIDTH / 5) + (i / 5)).y) <= UIradius) {
           if (blocks.get((j / 5) * (GAMEWIDTH / 5) + (i / 5)).getType() == blockType) {
             terrainHit(blocks.get((j / 5) * (GAMEWIDTH / 5) + (i / 5)));
           }
@@ -92,7 +97,7 @@ ArrayList<Terrain> openMap(String name){
   ArrayList<Terrain> map = null;
   try
     {
-       FileInputStream file = new FileInputStream(path);
+       FileInputStream file = new FileInputStream(name);
        ObjectInputStream input = new ObjectInputStream(file);
        Object map2 = input.readObject();
        input.close();
@@ -104,6 +109,7 @@ ArrayList<Terrain> openMap(String name){
     {
        print("Map could not be found");
     }
+    return map;
 }
 
 void mapScreen(int x, int y, boolean setup){
@@ -118,11 +124,41 @@ void mapScreen(int x, int y, boolean setup){
   setup = false;
 }else{
   Terrbackground.display();
-  for (Terrain a : blocks) {
+  for (Terrain a : newblocks) {
         a.display();
       }
 }
 basicUI(1200, 0);
+textAlign(LEFT);
+textSize(10);
+fill(255);
+text("Name", 1220, 400);
+//save
+rect(1260, 400, 200, 10); 
+//delete
+rect(1210, 90, 50, 50);
+//dirt
+rect(1270, 90, 50, 50);
+//Stone
+rect(1330, 90, 50, 50);
+rect(shootX, shootY, shootRectX, shootRectY);
+fill(0);
+text("Delete", 1220, 120);
+text("Dirt", 1285, 120);
+text("Stone", 1340, 120);
+text("SAVE", (shootX) + 75, shootY + 55);
+if( hoveringButton(shootX, shootY, shootRectX, shootRectY)) {
+  tosave = true;
+}else{tosave = false;}
+if( hoveringButton(1210, 90, 50, 50)) {
+  delete = true;
+}else{delete = false;}
+if( hoveringButton(1270, 90, 50, 50)) {
+  dirt = true;
+}else{dirt = false;}
+if( hoveringButton(1330, 90, 50, 50)) {
+  stone = true;
+}else{stone = false;}
 
 if(save){
   saveMap(name, newblocks);

@@ -86,7 +86,7 @@ void setup() {
   rect(endX, endY, endRectX, endRectY);
   rect(selectX, selectY, selectRectX, selectRectY);
   rect(shootX, shootY, shootRectX, shootRectY);
-   mode = 0;
+   mode = 3;
    mode2 = 0;
 }
 
@@ -105,8 +105,10 @@ void keyPressed() {
       if (angle < 360) {
         angle++;
       }
+    }else if(mode == 3){
+      UI.UIradius++;
     }
-    }else if(mode == 
+    }
     if (keyCode == DOWN) {
       if (angle > 0) {
         angle--;
@@ -174,6 +176,9 @@ void mouseReleased() {
 //MODE 3 = Terrain editing
 void draw() {
   background(255);
+  if(mode == 3){
+    UI.mapScreen(0, 0, false);
+  }else
   if (mode == 0) {
     frameRate(10);
     UI.startScreen(0, 0);
