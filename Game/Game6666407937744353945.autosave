@@ -1,4 +1,4 @@
-UI UI; //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
+UI UI; //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
 Controller keyboardInput;
 Terrain background;
 static double GRAV = 0.75;
@@ -33,8 +33,6 @@ static int BeginX = 200;
 static int BeginY = 500;
 static int BeginRectX = 100;
 static int BeginRectY = 50;
-static int SnakeX = 325;
-boolean save = false;
 int projID;
 //eventually with Random map, edit uppercord to check for bounds.
 ArrayList<Integer> uppercord = new ArrayList<Integer>();
@@ -165,7 +163,7 @@ void mouseReleased() {
 //MODE -1 and -2 = win screen
 //MODE 0 = startscreen
 //MODE 1 = GAME
-//MODE 2 = Team Editing
+//MODE 
 void draw() {
   background(255);
   if (mode == 0) {

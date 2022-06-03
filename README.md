@@ -22,6 +22,7 @@ Kevin Work Log:
 
 5/31/22: Made a title screen for the game, added modes, and button that switches them to rotate between which screen is shown.
 
+6/1/22: Made the pause Menu.
 Shinji work log:
 
 5/23/22: Made a little bit of projectile and started the project. Got projectile to display itself and do the physics/move.

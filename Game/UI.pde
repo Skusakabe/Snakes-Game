@@ -1,6 +1,9 @@
-class UI {
+import java.io.Serializable;
+class UI implements Serializable{
   PImage background;
   PImage[] StartAni = new PImage[12];
+  Terrain Terrbackground = new Terrain(-1, 0, 0);
+  ArrayList<Terrain> newblocks = new ArrayList<Terrain>();
   public UI() {
     background = loadImage("UI_Background.png");
     StartAni[0] = loadImage("pixil-frame-0.png");
@@ -24,7 +27,32 @@ class UI {
     image(StartAni[frameCount%12], 0, 0);
     }else{
       image(StartAni[11], 0, 0);
+       fill(255);
       rect(BeginX, BeginY, BeginRectX, BeginRectY);
+      rect(SnakeX, BeginY, BeginRectX, BeginRectY);
+      textAlign(CENTER);
+      textSize(20);
+       fill(0);
+      text("Start", BeginX + BeginRectX/2, BeginY + BeginRectY/2 + 7);
   }
+}
+void mapScreen(int x, int y, boolean setup){
+  if(setup){
+  for (int j = 0; j < 600; j+=5) {
+    for (int k = 0; k < GAMEWIDTH; k+=5) {
+      Terrain block = new Terrain(0, k, j);
+      block.display();
+      newblocks.add(block);
+    }
+  }
+  setup = false;
+}else{
+  Terrbackground.display();
+  for (Terrain a : blocks) {
+        a.display();
+      }
+}
+}
+if(save){
 }
 }
