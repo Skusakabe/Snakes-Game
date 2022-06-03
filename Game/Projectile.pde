@@ -7,6 +7,7 @@ public abstract class Projectile implements Cloneable {
   float ySpeed;
   PShape sprite;
   int type;
+  boolean specialActive;
 
   public abstract void terrainHit(Terrain target);
 
@@ -25,6 +26,7 @@ public abstract class Projectile implements Cloneable {
     sprite = createShape(ELLIPSE, 0, 0, 20, 10);
     sprite.setFill(color(0));
     type = 0;
+    specialActive = false;
   }
   
   boolean projectilePhysics() {
@@ -91,6 +93,11 @@ public abstract class Projectile implements Cloneable {
   
   int getType() {
     return type;
+  }
+  
+  // To check for projectiles that have special effects if the conditions for using them are met.
+  boolean getSpecial() {
+    return specialActive;
   }
   
   // Projectiles could override this and call super in their override and add other effects

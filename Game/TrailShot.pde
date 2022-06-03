@@ -9,9 +9,11 @@ public class TrailShot extends Projectile{
   boolean projectilePhysics() {
     if (internalTimer == 9) {
       internalTimer = 0;
+      specialActive = true;
     }
     else {
       internalTimer++;
+      specialActive = false;
     }
     return super.projectilePhysics();
   }

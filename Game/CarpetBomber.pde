@@ -9,9 +9,11 @@ public class CarpetBomber extends Projectile{
   boolean projectilePhysics() {
     if (internalTimer == 4) {
       internalTimer = 0;
+      specialActive = true;
     }
     else {
       internalTimer++;
+      specialActive = false;
     }
     return super.projectilePhysics();
   }

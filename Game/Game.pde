@@ -249,12 +249,12 @@ void draw() {
           Bullets2.remove(a);
         } else {
           if (a.getType() == 8) {
-            if (getInternalTimer(((TrailShot)a)) == 9) {
+            if (a.getSpecial()) {
               Bullets2.add(new BasicShot(a.x,a.y,270,10,15,10));
             }
           }
           if (a.getType() == 9) {
-            if (getInternalTimer(((CarpetBomber)a)) == 4) {
+            if (a.getSpecial()) {
               Bullets2.add(new BasicShot(a.x,a.y,225,20,15,10));
               Bullets2.add(new BasicShot(a.x,a.y,270,20,15,10));
               Bullets2.add(new BasicShot(a.x,a.y,315,20,15,10));
@@ -383,14 +383,6 @@ void update() {
   } else {
     overEndTurn = overSelect = overShoot = false;
   }
-}
-
-int getInternalTimer(TrailShot a) {
-  return a.internalTimer;
-}
-
-int getInternalTimer(CarpetBomber a) {
-  return a.internalTimer;
 }
 
 /*
