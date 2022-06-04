@@ -75,8 +75,8 @@ public abstract class Projectile implements Cloneable {
     if (y + radius >= GAMEHEIGHT) {
       yEnd = GAMEHEIGHT - 5;
     }
-    for (int j = yStart; j < yEnd; j+=tileSize) {
-      for (int i = xStart; i < xEnd; i+=tileSize) {
+    for (int j = yStart; j <= yEnd; j+=tileSize) {
+      for (int i = xStart; i <= xEnd; i+=tileSize) {
         if (dist(x,y,blocks.get((j / tileSize) * (GAMEWIDTH / tileSize) + (i / tileSize)).x,blocks.get((j / tileSize) * (GAMEWIDTH / tileSize) + (i / tileSize)).y) <= radius) {
           if (blocks.get((j / tileSize) * (GAMEWIDTH / tileSize) + (i / tileSize)).getType() > 0) {
             terrainHit(blocks.get((j / tileSize) * (GAMEWIDTH / tileSize) + (i / tileSize)));
