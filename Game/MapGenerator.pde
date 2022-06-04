@@ -14,14 +14,9 @@ public class MapGenerator {
   }
 
   int getType(int x, int y) {
-    float value = noise(x * 0.04, y * 0.04);
+    float value = noise(x * 0.03, y * 0.03);
     if (y < 200 / tileSize) {
       return 0;
-    } else if (y < 250 / tileSize) {
-      if (value < 0.8) {
-        return 0;
-      }
-      return 2;
     } else if (y < 275 / tileSize) {
       if (value < 0.75) {
         return 0;
