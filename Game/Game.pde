@@ -16,6 +16,7 @@ ArrayList<Projectile> Bullets = new ArrayList<Projectile>();
 boolean overEndTurn;
 boolean overSelect;
 boolean overShoot;
+MapGenerator gameMap;
 static int endX = 1250;
 static int endY = 150;
 static int endRectX = 200;
@@ -43,6 +44,7 @@ Player turn;
 
 void setup() {
   size(1500, 600);
+  gameMap = new MapGenerator(GAMEWIDTH, GAMEHEIGHT);
   EverySnake = new ArrayList<Snake>();
   blocks = new ArrayList<Terrain>();
   upMove = 0;
@@ -51,20 +53,7 @@ void setup() {
   power = 20;
   angle = 45;
   background = new Terrain(-1, 0, 0);
-  for (int j = 0; j < 400; j+=5) {
-    for (int k = 0; k < GAMEWIDTH; k+=5) {
-      Terrain block = new Terrain(0, k, j);
-      block.display();
-      blocks.add(block);
-    }
-  }
-  for (int j = 400; j < GAMEHEIGHT; j+= 5) {
-    for (int k = 0; k < GAMEWIDTH; k+=5) {
-      Terrain block = new Terrain(2, k, j);
-      block.display();
-      blocks.add(block);
-    }
-  }
+  blocks = gameMap.map;
   weaponName = weaponList[projID - 1];
   move = true;
   player1 = new Player(1);
