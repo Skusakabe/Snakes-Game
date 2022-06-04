@@ -237,6 +237,17 @@ void draw() {
               Bullets2.add(new BasicShot(a.x, a.y, 270, 40, 30, 10));
             }
           }
+          noStroke();
+          fill(255,128,0);
+          ellipse(a.x,a.y,a.radius,a.radius);
+          fill(204,0,0);
+          ellipse(a.x,a.y,a.radius*4/5,a.radius*4/5);
+          fill(255,128,0);
+          ellipse(a.x,a.y,a.radius*3/5,a.radius*3/5);
+          fill(204,0,0);
+          ellipse(a.x,a.y,a.radius*2/5,a.radius*2/5);
+          fill(255,128,0);
+          ellipse(a.x,a.y,a.radius*1/5,a.radius*1/5);
           Bullets2.remove(a);
         } else {
           if (a.getType() == 8) {
