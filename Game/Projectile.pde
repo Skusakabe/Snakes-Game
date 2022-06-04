@@ -40,10 +40,10 @@ public abstract class Projectile implements Cloneable {
     if (y < 15) {
       return false;
     }
-    for (int j = (y / 5) * 5; j < (y / 5) * 5 + 15; j+=5) { 
-      for (int i = (x / 5) * 5; i < (x / 5) * 5 + 25; i+=5) {
-        if (blocks.get((j / 5) * (GAMEWIDTH / 5) + (i / 5)).x == i && blocks.get((j / 5) * (GAMEWIDTH / 5) + (i / 5)).y == j) {
-          if (blocks.get((j / 5) * (GAMEWIDTH / 5) + (i / 5)).getType() > 0) {
+    for (int j = (y / tileSize) * tileSize; j < (y / tileSize) * tileSize + 3 * tileSize; j+=tileSize) { 
+      for (int i = (x / tileSize) * tileSize; i < (x / tileSize) * 5 + 5 * tileSize; i+=tileSize) {
+        if (blocks.get((j / tileSize) * (GAMEWIDTH / tileSize) + (i / tileSize)).x == i && blocks.get((j / tileSize) * (GAMEWIDTH / tileSize) + (i / tileSize)).y == j) {
+          if (blocks.get((j / tileSize) * (GAMEWIDTH / tileSize) + (i / tileSize)).getType() > 0) {
             scanEffectRadius();
             return true;
           }
@@ -59,9 +59,9 @@ public abstract class Projectile implements Cloneable {
    that is found.
    */
   void scanEffectRadius() {
-    int xStart = (x / 5) * 5 - radius;
+    int xStart = (x / tileSize) * tileSize - radius;
     int xEnd = xStart + 2 * radius;
-    int yStart = (y / 5) * 5 - radius;
+    int yStart = (y / tileSize) * tileSize - radius;
     int yEnd = yStart + 2 * radius;
     if (x < radius) {
       xStart = 0;
@@ -75,11 +75,11 @@ public abstract class Projectile implements Cloneable {
     if (y + radius >= GAMEHEIGHT) {
       yEnd = GAMEHEIGHT - 5;
     }
-    for (int j = yStart; j < yEnd; j+=5) {
-      for (int i = xStart; i < xEnd; i+=5) {
-        if (dist(x,y,blocks.get((j / 5) * (GAMEWIDTH / 5) + (i / 5)).x,blocks.get((j / 5) * (GAMEWIDTH / 5) + (i / 5)).y) <= radius) {
-          if (blocks.get((j / 5) * (GAMEWIDTH / 5) + (i / 5)).getType() > 0) {
-            terrainHit(blocks.get((j / 5) * (GAMEWIDTH / 5) + (i / 5)));
+    for (int j = yStart; j <= yEnd; j+=tileSize) {
+      for (int i = xStart; i <= xEnd; i+=tileSize) {
+        if (dist(x,y,blocks.get((j / tileSize) * (GAMEWIDTH / tileSize) + (i / tileSize)).x,blocks.get((j / tileSize) * (GAMEWIDTH / tileSize) + (i / tileSize)).y) <= radius) {
+          if (blocks.get((j / tileSize) * (GAMEWIDTH / tileSize) + (i / tileSize)).getType() > 0) {
+            terrainHit(blocks.get((j / tileSize) * (GAMEWIDTH / tileSize) + (i / tileSize)));
           }
         }
       }
