@@ -239,7 +239,9 @@ void draw() {
               Bullets2.add(new BasicShot(a.x, a.y, 270, 40, 30, 10));
             }
           }
-          animationList.add(new Animation(a.x,a.y,a.radius));
+          if (a.getType() != 2) {
+            animationList.add(new Animation(a.x,a.y,a.radius));
+          }
           Bullets2.remove(a);
         } else {
           if (a.getType() == 8) {
@@ -281,7 +283,7 @@ void draw() {
       for (Animation a : animationList) {
         animations.add(a);
         a.animate();
-        if (a.getTimer() >= 40) {
+        if (a.getTimer() >= 35) {
           animations.remove(a);
         }
       }
