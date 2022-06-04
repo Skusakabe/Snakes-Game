@@ -54,8 +54,8 @@ class Snake {
     image(model, x, y); //<>// //<>// //<>//
   }
    boolean highestBlock(){
-     for(int k = 0; k < 20; k+= 5){
-       Terrain temp = blocks.get((((y+20)/5)*(GAMEWIDTH/5))+((x + k)/5));
+     for(int k = 0; k < tileSize * 4; k+= tileSize){
+       Terrain temp = blocks.get((((y+tileSize * 4)/tileSize)*(GAMEWIDTH/tileSize))+((x + k)/tileSize));
        if(temp.id > 0){
          return true; //<>// //<>// //<>//
        }
@@ -63,8 +63,8 @@ class Snake {
      return false;
   }
   boolean rightBlock(){
-     for(int k = 0; k < 20; k+= 5){
-       Terrain temp = blocks.get((((y+k)/5)*(GAMEWIDTH/5))+((x + 20)/5)); //<>// //<>//
+     for(int k = 0; k < tileSize * 4; k+= tileSize){
+       Terrain temp = blocks.get((((y+k)/tileSize)*(GAMEWIDTH/tileSize))+((x + tileSize * 4)/tileSize)); //<>// //<>//
        if(temp.id > 0){ //<>// //<>// //<>//
          return true; //<>// //<>// //<>// //<>//
        } //<>// //<>// //<>//
@@ -72,8 +72,8 @@ class Snake {
      return false;
   } 
   boolean leftBlock(){
-     for(int k = 0; k < 20; k+= 5){
-       Terrain temp = blocks.get((((y+k)/5)*(GAMEWIDTH/5))+((x)/5));
+     for(int k = 0; k < tileSize * 4; k+= tileSize){
+       Terrain temp = blocks.get((((y+k)/tileSize)*(GAMEWIDTH/tileSize))+((x)/tileSize));
        if(temp.id > 0){
          return true; //<>// //<>//
        }

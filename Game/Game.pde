@@ -2,6 +2,7 @@ UI UI; //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
 Controller keyboardInput;
 Terrain background;
 static float GRAV = 0.75;
+static int tileSize = 5;
 int mode;
 int mode2;
 Snake toMove;
