@@ -8,11 +8,12 @@ int mode2;
 Snake toMove;
 String weaponName;
 static String[] weaponList = {"Basic shot", "Dirt shot", "Big shot", "Ground remover", "Scatter shot", "Drill shot", "Homing shot", "Trail shot", "Carpet bomber", 
-"Nuke"};
+  "Nuke"};
 boolean move, readyToMove;
 int timer, newx, newy, power, angle, upMove;
 ArrayList<Snake> EverySnake;
 ArrayList<Terrain> blocks;
+ArrayList<Animation> animationList;
 ArrayList<Projectile> Bullets = new ArrayList<Projectile>();
 boolean overEndTurn;
 boolean overSelect;
@@ -48,6 +49,7 @@ void setup() {
   gameMap = new MapGenerator(GAMEWIDTH, GAMEHEIGHT);
   EverySnake = new ArrayList<Snake>();
   blocks = new ArrayList<Terrain>();
+  animationList = new ArrayList<Animation>();
   upMove = 0;
   //Change projID to match proj type with bullets;
   projID = 1;
@@ -72,82 +74,81 @@ void setup() {
   rect(endX, endY, endRectX, endRectY);
   rect(selectX, selectY, selectRectX, selectRectY);
   rect(shootX, shootY, shootRectX, shootRectY);
-   mode = 0;
-   mode2 = 0;
+  mode = 0;
+  mode2 = 0;
 }
 
 void keyPressed() {
-  if (mode == 1){
-  keyboardInput.press(keyCode);
-  if (key == ' ') {
-    if ((toMove != null)&&(!toMove.shootYet)) {
-      Bullets.add(toMove.shoot(angle, power, projID));
-      toMove.shootYet = true;
-    }
-  }
-  if (key == CODED) {
-    if (keyCode == UP) {
-      if (angle < 360) {
-        angle++;
+  if (mode == 1) {
+    keyboardInput.press(keyCode);
+    if (key == ' ') {
+      if ((toMove != null)&&(!toMove.shootYet)) {
+        Bullets.add(toMove.shoot(angle, power, projID));
+        toMove.shootYet = true;
       }
     }
-    if (keyCode == DOWN) {
-      if (angle > 0) {
-        angle--;
+    if (key == CODED) {
+      if (keyCode == UP) {
+        if (angle < 360) {
+          angle++;
+        }
       }
-    }
-    if (keyCode == RIGHT) {
-      if (power<100) {
-        power++;
+      if (keyCode == DOWN) {
+        if (angle > 0) {
+          angle--;
+        }
       }
-    }
-    if (keyCode == LEFT) {
-      if (power > 0) {
-        power--;
+      if (keyCode == RIGHT) {
+        if (power<100) {
+          power++;
+        }
       }
-    }
-  }
-  }
-    if(key == 27){
-      key = 0;
-       if (mode == 1){
-         mode = -3;
-       }
-       else if(mode == -3){
-         loop();
-          mode = 1;
-       }
-  }
-}
-void keyReleased() {
-  if (mode == 1){
-  keyboardInput.release(keyCode);
-  if (key == 'w') {
-    if ((upMove == 0)&&(toMove.spotLeft>=10)) {
-      upMove += 4;
-      toMove.spotLeft = toMove.spotLeft - 10;
-    }
-  }
-}
-}
-void mouseReleased() {
-  if (mode == 1){
-  if (move) {
-    for (Snake a : turn.team) {
-      if (a.moveYet == false) {
-        if (a.isin(mouseX, mouseY)) {
-          toMove = a;
-          move = false;
-          break;
+      if (keyCode == LEFT) {
+        if (power > 0) {
+          power--;
         }
       }
     }
-    move = true;
-  } else {
-    //if(dist()){
-    //}
+  }
+  if (key == 27) {
+    key = 0;
+    if (mode == 1) {
+      mode = -3;
+    } else if (mode == -3) {
+      loop();
+      mode = 1;
+    }
   }
 }
+void keyReleased() {
+  if (mode == 1) {
+    keyboardInput.release(keyCode);
+    if (key == 'w') {
+      if ((upMove == 0)&&(toMove.spotLeft>=10)) {
+        upMove += 4;
+        toMove.spotLeft = toMove.spotLeft - 10;
+      }
+    }
+  }
+}
+void mouseReleased() {
+  if (mode == 1) {
+    if (move) {
+      for (Snake a : turn.team) {
+        if (a.moveYet == false) {
+          if (a.isin(mouseX, mouseY)) {
+            toMove = a;
+            move = false;
+            break;
+          }
+        }
+      }
+      move = true;
+    } else {
+      //if(dist()){
+      //}
+    }
+  }
 }
 //MODE LABELS
 //MODE -3 = pause
@@ -176,7 +177,7 @@ void draw() {
     textSize(100);
     fill(0);
     text("Player 1 Wins", width/2 - 300, height/2);
-  textSize(50);
+    textSize(50);
     text("Click Anywhere to Continue, wait 5 seconds", width/2 - 500, height/2 + 100);
     if (hoveringButton(0, 0, 1500, 600)) {
       mode2 = -4;
@@ -215,6 +216,7 @@ void draw() {
       }
       textSize(10);
       ArrayList<Projectile> Bullets2 = new ArrayList<Projectile>();
+      ArrayList<Animation> animations = new ArrayList<Animation>();
       ArrayList<Snake> EverySnake2 = new ArrayList<Snake>();
       ArrayList<Snake> P1Team = new ArrayList<Snake>();
       ArrayList<Snake> P2Team = new ArrayList<Snake>();
@@ -237,29 +239,19 @@ void draw() {
               Bullets2.add(new BasicShot(a.x, a.y, 270, 40, 30, 10));
             }
           }
-          noStroke();
-          fill(255,128,0);
-          ellipse(a.x,a.y,a.radius,a.radius);
-          fill(204,0,0);
-          ellipse(a.x,a.y,a.radius*4/5,a.radius*4/5);
-          fill(255,128,0);
-          ellipse(a.x,a.y,a.radius*3/5,a.radius*3/5);
-          fill(204,0,0);
-          ellipse(a.x,a.y,a.radius*2/5,a.radius*2/5);
-          fill(255,128,0);
-          ellipse(a.x,a.y,a.radius*1/5,a.radius*1/5);
+          animationList.add(new Animation(a.x,a.y,a.radius));
           Bullets2.remove(a);
         } else {
           if (a.getType() == 8) {
             if (a.getSpecial()) {
-              Bullets2.add(new BasicShot(a.x,a.y,270,10,15,10));
+              Bullets2.add(new BasicShot(a.x, a.y, 270, 10, 15, 10));
             }
           }
           if (a.getType() == 9) {
             if (a.getSpecial()) {
-              Bullets2.add(new BasicShot(a.x,a.y,225,20,15,10));
-              Bullets2.add(new BasicShot(a.x,a.y,270,20,15,10));
-              Bullets2.add(new BasicShot(a.x,a.y,315,20,15,10));
+              Bullets2.add(new BasicShot(a.x, a.y, 225, 20, 15, 10));
+              Bullets2.add(new BasicShot(a.x, a.y, 270, 20, 15, 10));
+              Bullets2.add(new BasicShot(a.x, a.y, 315, 20, 15, 10));
             }
           }
           a.display();
@@ -286,6 +278,14 @@ void draw() {
           P1Team.add(a);
         }
       }
+      for (Animation a : animationList) {
+        animations.add(a);
+        a.animate();
+        if (a.getTimer() >= 40) {
+          animations.remove(a);
+        }
+      }
+      animationList = animations;
       player1.team = P1Team;
       EverySnake = EverySnake2;
       for (Snake a : player2.team) {
@@ -293,22 +293,22 @@ void draw() {
           P2Team.add(a);
         }
       }
-    player2.team = P2Team;
-    UI.basicUI(1200, 0);
-    text("Player " +turn.id + "'s turn", 1210, 12);
-    text("Power: " + power, 1210, 30);
-    text("Angle: " + angle, 1210, 40);
-    text("MODE: " + mode, 1210, 60);
-    text("Selected weapon: " + weaponName, 1210, 50);
-    fill(255);
-    rect(endX, endY, endRectX, endRectY);
-    rect(selectX, selectY, selectRectX, selectRectY);
-    rect(shootX, shootY, shootRectX, shootRectY);
-    fill(0);
-    text("END TURN", (endX) + 65, endY + 55);
-    text("CHANGE WEAPON", (selectX) + 55, selectY + 55);
-    text("SHOOT", (shootX) + 75, shootY + 55);
-    if(mode == -3){
+      player2.team = P2Team;
+      UI.basicUI(1200, 0);
+      text("Player " +turn.id + "'s turn", 1210, 12);
+      text("Power: " + power, 1210, 30);
+      text("Angle: " + angle, 1210, 40);
+      text("MODE: " + mode, 1210, 60);
+      text("Selected weapon: " + weaponName, 1210, 50);
+      fill(255);
+      rect(endX, endY, endRectX, endRectY);
+      rect(selectX, selectY, selectRectX, selectRectY);
+      rect(shootX, shootY, shootRectX, shootRectY);
+      fill(0);
+      text("END TURN", (endX) + 65, endY + 55);
+      text("CHANGE WEAPON", (selectX) + 55, selectY + 55);
+      text("SHOOT", (shootX) + 75, shootY + 55);
+      if (mode == -3) {
         noLoop();
         fill(0);
         rect(width/2 - 150, 75, 300, 425);
@@ -320,49 +320,49 @@ void draw() {
         fill(0);
         textSize(25);
         text("Resume", width/2 - 50, 145);
+      }
     }
-}
   }
 }
 void mousePressed() {
-  if(mode == 1){
-  if (overEndTurn) {
-    for (Snake a : turn.team) {
-      a.reset();
-      toMove = null;
+  if (mode == 1) {
+    if (overEndTurn) {
+      for (Snake a : turn.team) {
+        a.reset();
+        toMove = null;
+      }
+      if (turn == player1) {
+        turn = player2;
+      } else {
+        turn = player1;
+      }
     }
-    if (turn == player1) {
-      turn = player2;
-    } else {
-      turn = player1;
+    if (overSelect) {
+      if (projID == 10) {
+        projID = 1;
+      } else {
+        projID++;
+      }
+      weaponName = weaponList[projID - 1];
+    }
+    if (overShoot) {
+      if ((toMove != null)&&(!toMove.shootYet)) {
+        Bullets.add(toMove.shoot(angle, power, projID));
+        toMove.shootYet = true;
+      }
     }
   }
-  if (overSelect) {
-    if (projID == 10) {
-      projID = 1;
-    } else {
-      projID++;
-    }
-    weaponName = weaponList[projID - 1];
-  }
-  if (overShoot) {
-    if ((toMove != null)&&(!toMove.shootYet)) {
-      Bullets.add(toMove.shoot(angle, power, projID));
-      toMove.shootYet = true;
-    }
-  }
-  }
-  if(mode == -3){
-  if(hoveringButton(width/2 - 125, 100, 250, 75)){
-          mode = 1;
-          loop();
+  if (mode == -3) {
+    if (hoveringButton(width/2 - 125, 100, 250, 75)) {
+      mode = 1;
+      loop();
     }
   }
   if (mode2 == 1) {
     mode = 1;
     mode2 = 10000000;
   }
-  if(mode2 == -4){
+  if (mode2 == -4) {
     background(255);
     mode = -4;
     setup();
