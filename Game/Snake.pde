@@ -93,16 +93,17 @@ class Snake {
   7) HomingShot
   8) TrailShot
   9) CarpetBomber
+  10) Nuke
   */ //<>// //<>//
   public Projectile shoot(int angle, int power, int ProjectileID) {  //<>//
     if (ProjectileID == 1) {  //<>//
-      return new BasicShot(x, y, angle, power, 30, 30); 
+      return new BasicShot(x, y, angle, power, 30, 25); 
     }
     if (ProjectileID == 2) {
       return new DirtShot(x, y, angle, power, 45, 0);
     }
     if (ProjectileID == 3) {
-      return new BigShot(x, y, angle, power, 50, 40);
+      return new BigShot(x, y, angle, power, 50, 35);
     }
     if (ProjectileID == 4) {
       return new GroundRemover(x, y, angle, power, 60, 0);
@@ -121,6 +122,9 @@ class Snake {
     }
     if (ProjectileID == 9) {
       return new CarpetBomber(x, y, angle, power, 30, 20);
+    }
+    if (ProjectileID == 10) {
+      return new Nuke(x, y, angle, power, 90, 40);
     }
     return new BasicShot(x, y, angle, power, 30, 30);
   }
