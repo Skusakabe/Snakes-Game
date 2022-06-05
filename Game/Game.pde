@@ -1,15 +1,19 @@
-UI UI; //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
+UI UI; //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
 Controller keyboardInput;
 Terrain background;
 boolean drag;
 int UIradius = 5;
-static double GRAV = 0.75;
 boolean setupMode3 = true;
+boolean toexit = false;
+static float GRAV = 0.75;
+static int tileSize = 5;
 int mode;
 int mode2;
 Snake toMove;
 String weaponName;
-static String[] weaponList = {"Basic shot", "Dirt shot", "Big shot", "Ground remover", "Scatter shot", "Drill shot", "Homing shot"};
+ArrayList<String> MapName = new ArrayList<String>();
+static String[] weaponList = {"Basic shot", "Dirt shot", "Big shot", "Ground remover", "Scatter shot", "Drill shot", "Homing shot", "Trail shot", "Carpet bomber", 
+"Nuke"};
 boolean move, readyToMove;
 int timer, newx, newy, power, angle, upMove;
 ArrayList<Snake> EverySnake;
@@ -18,6 +22,7 @@ ArrayList<Projectile> Bullets = new ArrayList<Projectile>();
 boolean overEndTurn;
 boolean overSelect;
 boolean overShoot;
+MapGenerator gameMap;
 static int endX = 1250;
 static int endY = 150;
 static int endRectX = 200;
@@ -48,9 +53,11 @@ Player turn;
 
 void setup() {
   size(1500, 600);
+  UI.updateMapList();
   drag = false;
   save = false;
   typing = false;
+  gameMap = new MapGenerator(GAMEWIDTH, GAMEHEIGHT);
   EverySnake = new ArrayList<Snake>();
   blocks = new ArrayList<Terrain>();
   upMove = 0;
@@ -59,20 +66,7 @@ void setup() {
   power = 20;
   angle = 45;
   background = new Terrain(-1, 0, 0);
-  for (int j = 0; j < 400; j+=5) {
-    for (int k = 0; k < GAMEWIDTH; k+=5) {
-      Terrain block = new Terrain(0, k, j);
-      block.display();
-      blocks.add(block);
-    }
-  }
-  for (int j = 400; j < GAMEHEIGHT; j+= 5) {
-    for (int k = 0; k < GAMEWIDTH; k+=5) {
-      Terrain block = new Terrain(2, k, j);
-      block.display();
-      blocks.add(block);
-    }
-  }
+  blocks = gameMap.map;
   weaponName = weaponList[projID - 1];
   move = true;
   player1 = new Player(1);
@@ -98,11 +92,13 @@ void keyPressed() {
   if(typing){
     if(key == BACKSPACE){
       if((UI.name).length() > 0){
-        UI.name = (UI.name).substring(0,(UI.name).length());
+        UI.name = (UI.name).substring(0,(UI.name).length() - 1);
     }
     }else{
+      if((key >= 'a')&&(key <= 'z'){
     UI.name += key;
     print(1);
+      }
     }
   }
   if (mode == 1){
@@ -202,6 +198,7 @@ void mouseReleased() {
 void draw() {
   background(255);
   if(mode == 3){
+    frameRate(1000);
     UI.mapScreen(0, 0, setupMode3);
   }else
   if (mode == 0) {
@@ -229,6 +226,7 @@ void draw() {
       mode2 = -4;
     }
   } else {
+    textAlign(LEFT);
     if ((player1.team).size() == 0) {
       mode = -1;
     } else if ((player2.team).size() == 0) {
@@ -286,6 +284,18 @@ void draw() {
           }
           Bullets2.remove(a);
         } else {
+          if (a.getType() == 8) {
+            if (a.getSpecial()) {
+              Bullets2.add(new BasicShot(a.x,a.y,270,10,15,10));
+            }
+          }
+          if (a.getType() == 9) {
+            if (a.getSpecial()) {
+              Bullets2.add(new BasicShot(a.x,a.y,225,20,15,10));
+              Bullets2.add(new BasicShot(a.x,a.y,270,20,15,10));
+              Bullets2.add(new BasicShot(a.x,a.y,315,20,15,10));
+            }
+          }
           a.display();
         }
       }
@@ -362,7 +372,7 @@ void mousePressed() {
     }
   }
   if (overSelect) {
-    if (projID == 7) {
+    if (projID == 10) {
       projID = 1;
     } else {
       projID++;
@@ -411,6 +421,9 @@ void mousePressed() {
     if((mouseX < 1200)&&(mouseY<600)){
      drag = true;
       //print("t");
+    }
+    if(toexit){
+      mode = 0;
     }
   }
 }

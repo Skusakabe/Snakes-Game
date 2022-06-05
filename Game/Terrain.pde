@@ -20,10 +20,10 @@ class Terrain implements Serializable{
       texture.resize(1200, 600);
     } else if (id == 0) {
       permeable = true;
-      size = 5;
+      size = tileSize;
       texture = loadImage("Air.png");
     } else {
-      size = 5;
+      size = tileSize;
       permeable = false;
       if (id == 1) {
         health = 1;

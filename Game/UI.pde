@@ -1,9 +1,14 @@
+import java.util.Scanner;
+import java.io;
 import java.io.Serializable;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 import java.io.EOFException;
+import java.io.File;
+import java.io.IOExeception;
+import java.io.FileWriter;
 class UI implements Serializable{
   PImage background;
   PImage[] StartAni = new PImage[12];
@@ -81,17 +86,29 @@ void scanEffectRadius(int x, int y) {
 void saveMap(String name, ArrayList<Terrain> map){
   try
     {
-    FileOutputStream file = new FileOutputStream("Snakes-Game/Game/" + name);
-    ObjectOutputStream output = new ObjectOutputStream(file);
-    output.writeObject(map); 
-    output.close();
-    }
+    if(MapName.contains("name"){
+      FileOutputStream file = new FileOutputStream("Snakes-Game/Game/MAP" + name);
+      FileWriter writer = new FileWriter("MAPNAME.txt");
+      writer.write(name += "/n");
+      writer.close();
+      ObjectOutputStream output = new ObjectOutputStream(file);
+      output.writeObject(map); 
+      output.close();
+      name = "";
+      }
+      updateMapList();
+     }
     catch (Exception e)
     {
        print("error: map not saved");
     }
 }
-
+void updateMapList(){
+  Scanner scan = new Scanner(new File("MAPNAME.txt"));
+  while(scan.hasNextLine()){
+    MapName.add(scan.nextLine());
+  }
+}
 ArrayList<Terrain> openMap(String name){
   ArrayList<Terrain> map = null;
   try
@@ -144,17 +161,23 @@ rect(1270, 90, 50, 50);
 //Stone
 rect(1330, 90, 50, 50);
 rect(shootX, shootY, shootRectX, shootRectY);
+rect(selectX, selectY, selectRectX, selectRectY);
 fill(0);
 text("Delete", 1220, 120);
 text("Dirt", 1285, 120);
 text("Stone", 1340, 120);
 text("SAVE", (shootX) + 75, shootY + 55);
+text("EXIT", (selectX) + 75, selectY + 55);
 text(UIradius, 1210, 12);
 text(blockType, 1210, 22);
 text(name, 1265, 409);
 if( hoveringButton(shootX, shootY, shootRectX, shootRectY)) {
   tosave = true;
 }else{tosave = false;}
+if( hoveringButton(selectX, selectY, selectRectX, selectRectY)) {
+  toexit = true;
+}else{toexit = false;
+}
 if( hoveringButton(1210, 90, 50, 50)) {
   delete = true;
 }else{delete = false;}
