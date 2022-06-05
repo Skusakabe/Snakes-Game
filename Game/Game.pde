@@ -8,7 +8,7 @@ int mode2;
 Snake toMove;
 String weaponName;
 static String[] weaponList = {"Basic shot", "Dirt shot", "Big shot", "Ground remover", "Scatter shot", "Drill shot", "Homing shot", "Trail shot", "Carpet bomber", 
-  "Nuke"};
+  "Nuke", "Spider shot"};
 boolean move, readyToMove;
 int timer, newx, newy, power, angle, upMove;
 ArrayList<Snake> EverySnake;
@@ -239,6 +239,13 @@ void draw() {
               Bullets2.add(new BasicShot(a.x, a.y, 270, 40, 30, 10));
             }
           }
+          if (a.getType() == 11) {
+            if (a.getSpecial()) {
+              for (int i = 0; i < 8; i++) {
+                Bullets2.add(new HomingShot(a.x, a.y, i*45, 40, 20, 4, 7, getTarget((SpiderShot)a)));
+              }
+            }
+          }
           if (a.getType() != 2) {
             animationList.add(new Animation(a.x,a.y,a.radius));
           }
@@ -340,7 +347,7 @@ void mousePressed() {
       }
     }
     if (overSelect) {
-      if (projID == 10) {
+      if (projID == 11) {
         projID = 1;
       } else {
         projID++;
@@ -390,6 +397,10 @@ void update() {
   } else {
     overEndTurn = overSelect = overShoot = false;
   }
+}
+
+Snake getTarget(SpiderShot s) {
+  return s.closestInRange;
 }
 
 /*

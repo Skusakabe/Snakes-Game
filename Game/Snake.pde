@@ -126,6 +126,9 @@ class Snake {
     if (ProjectileID == 10) {
       return new Nuke(x, y, angle, power, 90, 40);
     }
+    if (ProjectileID == 11) {
+      return new SpiderShot(x, y, angle, power, 20, 10);
+    }
     return new BasicShot(x, y, angle, power, 30, 30);
   }
 }

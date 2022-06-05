@@ -1,5 +1,6 @@
 public class TrailShot extends Projectile{
   int internalTimer;
+  
   TrailShot(int xPos, int yPos, int angle, int power, int newRadius, int newDamage) {
     super(xPos, yPos, angle, power, newRadius, newDamage);
     type = 8;
