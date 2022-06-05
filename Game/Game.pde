@@ -246,14 +246,14 @@ void draw() {
         } else {
           if (a.getType() == 8) {
             if (a.getSpecial()) {
-              Bullets2.add(new BasicShot(a.x, a.y, 270, 10, 15, 10));
+              Bullets2.add(new BasicShot(a.x, a.y, 270, 10, 20, 10));
             }
           }
           if (a.getType() == 9) {
             if (a.getSpecial()) {
-              Bullets2.add(new BasicShot(a.x, a.y, 225, 20, 15, 10));
-              Bullets2.add(new BasicShot(a.x, a.y, 270, 20, 15, 10));
-              Bullets2.add(new BasicShot(a.x, a.y, 315, 20, 15, 10));
+              Bullets2.add(new BasicShot(a.x, a.y, 225, 20, 20, 10));
+              Bullets2.add(new BasicShot(a.x, a.y, 270, 20, 20, 10));
+              Bullets2.add(new BasicShot(a.x, a.y, 315, 20, 20, 10));
             }
           }
           a.display();
@@ -367,6 +367,9 @@ void mousePressed() {
   if (mode2 == -4) {
     background(255);
     mode = -4;
+    while (Bullets.size() > 0) {
+      Bullets.remove(0);
+    }
     setup();
   }
 }
