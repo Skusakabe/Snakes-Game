@@ -42,4 +42,8 @@ Shinji work log:
 
 6/1/22: Made some more new projectiles and struggled a lot with getting homing shot to work well(it still didn't by the end of this day).
 
-6/2/22: Got homing shot working and added some new projectiles.
+6/2/22: Got homing shot working and added some other new projectiles.
+
+6/4/22: Added random terrain generation and made it somewhat decent after tweeking a bunch of numbers. Also added animations for projectile explosions.
+
+6/5/22: Fixed some bugs and created spider shot.
