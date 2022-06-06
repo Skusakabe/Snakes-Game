@@ -107,7 +107,7 @@ void scanEffectRadius(int x, int y) {
       //PrintWriter writer = new PrintWriter(os);
       //writer.write(name);
       Path path = Paths.get("Snakes-Game/Game/MAPNAME.txt");
-      Files.write(path, name.getBytes(), APPEND);
+      Files.write(path, (name += "\n").getBytes(), APPEND);
       MapName.add(name);
       name = "";
       mode = 0;
@@ -119,26 +119,32 @@ void scanEffectRadius(int x, int y) {
     }
 }
 ArrayList<Terrain> openMap(String name){
-  ArrayList<Terrain> map = null;
+  ArrayList<Terrain> map = new ArrayList<Terrain>();
   try
     {
-       FileInputStream file = new FileInputStream(name);
+       FileInputStream file = new FileInputStream("Snakes-Game/Game/MAP/" + name);
        ObjectInputStream input = new ObjectInputStream(file);
        Object map2 = input.readObject();
        input.close();
        if(map2 instanceof ArrayList<?>)
        {
-         map = (ArrayList<Terrain>)map2;
-       }        
+         ArrayList<ArrayList<Integer>> map3 = (ArrayList<ArrayList<Integer>>)(map2);
+         for(ArrayList<Integer> a: map3){
+           
+         map.add(new Terrain(a.get(0), a.get(1), a.get(2)));
+       }   
+    }
+    return map;
     }catch (Exception e)
     {
        print("Map could not be found");
     }
+    
     return map;
 }
 void mapSelection(int x, int y, boolean bol){
    if(bol){
-     d1 = cp5.addDropdownList("Map").setPosition(600, 200);;
+     d1 = cp5.addDropdownList("Random").setPosition(700, 200);;
   for(String a:MapName){
     d1.addItem(a, a);
   }
@@ -146,6 +152,13 @@ void mapSelection(int x, int y, boolean bol){
 bol = false;
   back.resize(1500, 600);
   image(back, x, y);
+  PImage start = loadImage("Start.png");
+  image(start, 900, 250);
+  if(hoveringButton(900, 250, 200, 100)){
+    mode2 = 4;
+  }else{
+    mode2 = 100000;
+  }
 }
 void mapScreen(int x, int y, boolean setup){
   if(setup){

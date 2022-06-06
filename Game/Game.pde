@@ -2,7 +2,8 @@ import controlP5.*; //<>// //<>//
 UI UI; //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
 Controller keyboardInput;
 Terrain background;
-boolean drag;
+boolean drag, setupSnake;
+String RealMapName;
 int UIradius = 5;
 boolean MapSetUp;
 boolean setupMode3;
@@ -68,6 +69,7 @@ void setup() {
   size(1500, 600);
 MapSetUp = true;
 setupMode3 = true;
+setupSnake = true;
 toexit = false;
   cp5 = new ControlP5(this);
   updateMapList();
@@ -215,7 +217,9 @@ void mouseReleased() {
 //MODE 3 = Terrain editing
 //MODE 4 = MAPSELECTION
 void draw() {
+  cp5.hide();
   background(255);
+  //UI.d1.hide();
   if(mode == 3){
     frameRate(10);
     UI.mapScreen(0, 0, setupMode3);
@@ -245,6 +249,8 @@ void draw() {
       mode2 = -4;
     }
   } if(mode == 4){
+    cp5.show();
+    //UI.d1.setBarVisible(true);
   UI.mapSelection(0,0, MapSetUp);
   MapSetUp = false;
 }else if(mode == 1){
@@ -325,6 +331,14 @@ void draw() {
       if (upMove > 0) {
         toMove.y -= upMove;
         upMove--;
+      }
+      if(setupSnake){
+      for (Snake a : EverySnake) {
+        while(!(a.highestBlock())) {
+          a.y += 5;
+        }
+      }
+      setupSnake = false;
       }
       for (Snake a : EverySnake) {
         if (!(a.highestBlock())) {
@@ -414,6 +428,9 @@ void mousePressed() {
           loop();
     }
   }
+  if(mode2 == 4){
+    mode = 1;
+  }
   if (mode2 == 1) {
     mode = 4;
     MapSetUp = true;
@@ -456,8 +473,11 @@ void controlEvent(ControlEvent theEvent) {
       
     }else if (theEvent.isController()) {
     println("event from controller : "+theEvent.getController().getStringValue()+" from "+theEvent.getController());
-    println(theEvent.getValue());
-    //println((UI.d1.getItem(int(theEvent.getValue()))).getValue());
+    RealMapName = (String)((UI.d1.getItem(int(theEvent.getValue()))).get("value"));
+    if(RealMapName == "Random"){
+    }else{
+      blocks = UI.openMap(RealMapName);
+    }
 }
 }
 void update() {
