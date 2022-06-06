@@ -1,5 +1,5 @@
-import controlP5.*; //<>//
-UI UI; //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
+import controlP5.*; //<>// //<>//
+UI UI; //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
 Controller keyboardInput;
 Terrain background;
 boolean drag;
@@ -55,7 +55,7 @@ Player turn;
 ControlP5 cp5;
 void updateMapList(){
   try{
-  Scanner scan = new Scanner(new File("MAPNAME.txt"));
+  Scanner scan = new Scanner(new File("Snakes-Game/Game/MAPNAME.txt"));
   while(scan.hasNextLine()){
     MapName.add(scan.nextLine());
   }
@@ -450,7 +450,16 @@ void mousePressed() {
     }
   }
 }
-
+void controlEvent(ControlEvent theEvent) {
+  if(theEvent.isGroup()){
+       println("event from group : "+theEvent.getGroup().getValue()+" from "+theEvent.getGroup());
+      
+    }else if (theEvent.isController()) {
+    println("event from controller : "+theEvent.getController().getStringValue()+" from "+theEvent.getController());
+    println(theEvent.getValue());
+    //println((UI.d1.getItem(int(theEvent.getValue()))).getValue());
+}
+}
 void update() {
   if ( hoveringButton(endX, endY, endRectX, endRectY) ) {
     overEndTurn = true;

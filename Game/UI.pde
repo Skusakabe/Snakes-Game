@@ -8,6 +8,13 @@ import java.io.EOFException;
 import java.io.File;
 import java.io.IOException;
 import java.io.FileWriter;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.io.*;
+import java.nio.*;
+import static java.nio.file.StandardOpenOption.*;
  class UI implements Serializable{
    DropdownList d1;
   PImage back = loadImage("MapBackground.png");
@@ -96,9 +103,9 @@ void scanEffectRadius(int x, int y) {
       output.writeObject(map);
            print(6);
       output.close();
-      FileWriter writer = new FileWriter("Snakes-Game/Game/MAPNAME.txt");
-      writer.write(name += "/n");
-      writer.close();
+      OutputStream os = Files.newOutputStream(Paths.get("Snakes-Game/Game/MAPNAME.txt"), APPEND);
+      PrintWriter writer = new PrintWriter(os);
+      writer.println(name);
       MapName.add(name);
       name = "";
       mode = 0;
@@ -130,10 +137,8 @@ ArrayList<Terrain> openMap(String name){
 void mapSelection(int x, int y, boolean bol){
    if(bol){
      d1 = cp5.addDropdownList("Map").setPosition(600, 200);;
-       int i = 0;
   for(String a:MapName){
-    d1.addItem(a, i);
-    i++;
+    d1.addItem(a, a);
   }
   }
 bol = false;
