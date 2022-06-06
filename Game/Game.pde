@@ -245,7 +245,7 @@ void draw() {
           if (a.getType() == 11) {
             if (a.getSpecial()) {
               for (int i = 0; i < 8; i++) {
-                Bullets2.add(new HomingShot(a.x, a.y, i*45, 40, 20, 4, 7, getTarget((SpiderShot)a)));
+                Bullets2.add(new HomingShot(a.x, a.y, i*45, 30, 20, 4, 10, getTarget((SpiderShot)a)));
               }
             }
           }
