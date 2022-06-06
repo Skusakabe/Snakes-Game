@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import java.io;
 import java.io.Serializable;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
@@ -7,9 +6,11 @@ import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 import java.io.EOFException;
 import java.io.File;
-import java.io.IOExeception;
+import java.io.IOException;
 import java.io.FileWriter;
 class UI implements Serializable{
+  DropdownList d1 = cp5.addDropdownList("Map").setPosition(600, 200);
+  PImage back = loadImage("MapBackground.png");
   PImage background;
   PImage[] StartAni = new PImage[12];
   Terrain Terrbackground = new Terrain(-1, 0, 0);
@@ -86,7 +87,7 @@ void scanEffectRadius(int x, int y) {
 void saveMap(String name, ArrayList<Terrain> map){
   try
     {
-    if(MapName.contains("name"){
+    if(MapName.contains(name)){
       FileOutputStream file = new FileOutputStream("Snakes-Game/Game/MAP" + name);
       FileWriter writer = new FileWriter("MAPNAME.txt");
       writer.write(name += "/n");
@@ -94,20 +95,14 @@ void saveMap(String name, ArrayList<Terrain> map){
       ObjectOutputStream output = new ObjectOutputStream(file);
       output.writeObject(map); 
       output.close();
+      MapName.add(name);
       name = "";
       }
-      updateMapList();
      }
     catch (Exception e)
     {
        print("error: map not saved");
     }
-}
-void updateMapList(){
-  Scanner scan = new Scanner(new File("MAPNAME.txt"));
-  while(scan.hasNextLine()){
-    MapName.add(scan.nextLine());
-  }
 }
 ArrayList<Terrain> openMap(String name){
   ArrayList<Terrain> map = null;
@@ -127,7 +122,17 @@ ArrayList<Terrain> openMap(String name){
     }
     return map;
 }
-
+void mapSelection(int x, int y){
+  back.resize(1500, 600);
+  image(back, x, y);
+  int i = 0;
+  print(MapName);
+  for(String a:MapName){
+    print(a);
+    d1.addItem(a, i);
+    i++;
+}
+}
 void mapScreen(int x, int y, boolean setup){
   if(setup){
   for (int j = 0; j < 600; j+=5) {

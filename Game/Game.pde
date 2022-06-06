@@ -1,4 +1,6 @@
-UI UI; //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
+import controlP5.*; //<>//
+
+UI UI; //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
 Controller keyboardInput;
 Terrain background;
 boolean drag;
@@ -50,10 +52,22 @@ ArrayList<Integer> uppercord = new ArrayList<Integer>();
 Player player1;
 Player player2;
 Player turn;
-
+ControlP5 cp5;
+void updateMapList(){
+  try{
+  Scanner scan = new Scanner(new File("MAPNAME.txt"));
+  while(scan.hasNextLine()){
+    MapName.add(scan.nextLine());
+  }
+  scan.close();
+  }catch(IOException E){
+    print("File Not Found");
+  }
+}
 void setup() {
   size(1500, 600);
-  UI.updateMapList();
+  cp5 = new ControlP5(this);
+  updateMapList();
   drag = false;
   save = false;
   typing = false;
@@ -95,9 +109,10 @@ void keyPressed() {
         UI.name = (UI.name).substring(0,(UI.name).length() - 1);
     }
     }else{
-      if((key >= 'a')&&(key <= 'z'){
+      if((key >= 'a')&&(key <= 'z')){
     UI.name += key;
     print(1);
+      
       }
     }
   }
@@ -195,10 +210,11 @@ void mouseReleased() {
 //MODE 1 = GAME
 //MODE 2 = Team Editing
 //MODE 3 = Terrain editing
+//MODE 4 = MAPSELECTION
 void draw() {
   background(255);
   if(mode == 3){
-    frameRate(1000);
+    frameRate(10);
     UI.mapScreen(0, 0, setupMode3);
   }else
   if (mode == 0) {
@@ -225,7 +241,9 @@ void draw() {
     if (hoveringButton(0, 0, 1500, 600)) {
       mode2 = -4;
     }
-  } else {
+  } if(mode == 4){
+  UI.mapSelection(0,0);
+}else if(mode == 1){
     textAlign(LEFT);
     if ((player1.team).size() == 0) {
       mode = -1;
@@ -393,7 +411,7 @@ void mousePressed() {
     }
   }
   if (mode2 == 1) {
-    mode = 1;
+    mode = 4;
     mode2 = 10000000;
   }
   if(mode2 == -4){
