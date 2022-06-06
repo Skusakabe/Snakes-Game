@@ -87,21 +87,25 @@ void scanEffectRadius(int x, int y) {
 void saveMap(String name, ArrayList<Terrain> map){
   try
     {
-    if(MapName.contains(name)){
-      FileOutputStream file = new FileOutputStream("Snakes-Game/Game/MAP" + name);
-      FileWriter writer = new FileWriter("MAPNAME.txt");
+    if(!(MapName.contains(name))){
+      print(3);
+      FileOutputStream file = new FileOutputStream("Snakes-Game/Game/MAP/" + name);
+            print(4);
+      ObjectOutputStream output = new ObjectOutputStream(file);
+      print(5);
+      output.writeObject(map);
+           print(6);
+      output.close();
+      FileWriter writer = new FileWriter("Snakes-Game/Game/MAPNAME.txt");
       writer.write(name += "/n");
       writer.close();
-      ObjectOutputStream output = new ObjectOutputStream(file);
-      output.writeObject(map); 
-      output.close();
       MapName.add(name);
       name = "";
       }
      }
     catch (Exception e)
     {
-       print("error: map not saved");
+       e.printStackTrace();
     }
 }
 ArrayList<Terrain> openMap(String name){
