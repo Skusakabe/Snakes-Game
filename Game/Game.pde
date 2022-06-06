@@ -8,7 +8,7 @@ int mode2;
 Snake toMove;
 String weaponName;
 static String[] weaponList = {"Basic shot", "Dirt shot", "Big shot", "Ground remover", "Scatter shot", "Drill shot", "Homing shot", "Trail shot", "Carpet bomber", 
-  "Nuke", "Spider shot"};
+  "Nuke", "Spider shot", "Blunderbuss"};
 boolean move, readyToMove;
 int timer, newx, newy, power, angle, upMove;
 ArrayList<Snake> EverySnake;
@@ -350,7 +350,7 @@ void mousePressed() {
       }
     }
     if (overSelect) {
-      if (projID == 11) {
+      if (projID == 12) {
         projID = 1;
       } else {
         projID++;
@@ -359,6 +359,11 @@ void mousePressed() {
     }
     if (overShoot) {
       if ((toMove != null)&&(!toMove.shootYet)) {
+        if (projID == 12) {
+          for (int i = 0; i < 11; i++) {
+            Bullets.add(toMove.shoot(angle, power, projID));
+          }
+        }
         Bullets.add(toMove.shoot(angle, power, projID));
         toMove.shootYet = true;
       }
