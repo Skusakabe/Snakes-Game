@@ -95,6 +95,7 @@ class Snake {
   9) CarpetBomber
   10) Nuke
   11) SpiderShot //<>//
+  12) Blunderbuss
   */ //<>// //<>// //<>//
   public Projectile shoot(int angle, int power, int ProjectileID) {  //<>// //<>//
     if (ProjectileID == 1) {  //<>//
@@ -129,6 +130,9 @@ class Snake {
     }
     if (ProjectileID == 11) {
       return new SpiderShot(x, y, angle, power, 20, 10);
+    }
+    if (ProjectileID == 12) {
+      return new Blunderbuss(x, y, angle + (int)random(-20,20), power + (int)random(-10,10), 20, 15);
     }
     return new BasicShot(x, y, angle, power, 30, 30);
   }

@@ -88,7 +88,7 @@ public abstract class Projectile implements Cloneable {
       }
     }
     for (Snake a : EverySnake) {
-      if (dist(x,y,a.x,a.y) <= radius) {
+      if (dist(x,y,a.x,a.y) <= radius + 10) {
         println("Hit snake for " + onHit(a) + " damage!");
       }
     }
@@ -106,8 +106,8 @@ public abstract class Projectile implements Cloneable {
   // Projectiles could override this and call super in their override and add other effects
   int onHit(Snake target) {
     int damageDealt = damage;
-    if (dist(x,y,target.x,target.y) > radius / 2) {
-      damageDealt = (int)(damage * ((radius * 1.5 - dist(x,y,target.x,target.y)) / radius));
+    if (dist(x,y,target.x,target.y) > (radius + 10) / 2) {
+      damageDealt = (int)(damage * (((radius + 10) * 1.5 - dist(x,y,target.x,target.y)) / (radius + 10)));
     }
       target.takeDamage(damageDealt);
       return damageDealt;
