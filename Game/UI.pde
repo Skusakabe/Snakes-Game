@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.FileWriter;
  class UI implements Serializable{
+   DropdownList d1;
   PImage back = loadImage("MapBackground.png");
   PImage background;
   PImage[] StartAni = new PImage[12];
@@ -127,19 +128,17 @@ ArrayList<Terrain> openMap(String name){
     return map;
 }
 void mapSelection(int x, int y, boolean bol){
-  DropdownList d1 = cp5.addDropdownList("Map").setPosition(600, 200);
-  back.resize(1500, 600);
-  image(back, x, y);
-  int i = 0;
-  print(MapName);
-  if(bol){
+   if(bol){
+     d1 = cp5.addDropdownList("Map").setPosition(600, 200);;
+       int i = 0;
   for(String a:MapName){
     d1.addItem(a, i);
     i++;
   }
-}
+  }
 bol = false;
-
+  back.resize(1500, 600);
+  image(back, x, y);
 }
 void mapScreen(int x, int y, boolean setup){
   if(setup){

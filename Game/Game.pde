@@ -4,8 +4,9 @@ Controller keyboardInput;
 Terrain background;
 boolean drag;
 int UIradius = 5;
-boolean setupMode3 = true;
-boolean toexit = false;
+boolean MapSetUp;
+boolean setupMode3;
+boolean toexit;
 static float GRAV = 0.75;
 static int tileSize = 5;
 int mode;
@@ -65,6 +66,9 @@ void updateMapList(){
 }
 void setup() {
   size(1500, 600);
+MapSetUp = true;
+setupMode3 = true;
+toexit = false;
   cp5 = new ControlP5(this);
   updateMapList();
   drag = false;
@@ -241,7 +245,8 @@ void draw() {
       mode2 = -4;
     }
   } if(mode == 4){
-  UI.mapSelection(0,0);
+  UI.mapSelection(0,0, MapSetUp);
+  MapSetUp = false;
 }else if(mode == 1){
     textAlign(LEFT);
     if ((player1.team).size() == 0) {
@@ -411,6 +416,7 @@ void mousePressed() {
   }
   if (mode2 == 1) {
     mode = 4;
+    MapSetUp = true;
     mode2 = 10000000;
   }
   if(mode2 == -4){
