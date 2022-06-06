@@ -66,6 +66,9 @@ void setup() {
   turn = player1;
   for (Snake a : EverySnake) {
     a.display();
+    while (!(a.highestBlock())) {
+      a.y += 1;
+    }
   }
   timer = 0;
   keyboardInput = new Controller();
