@@ -8,8 +8,7 @@ import java.io.EOFException;
 import java.io.File;
 import java.io.IOException;
 import java.io.FileWriter;
-class UI implements Serializable{
-  DropdownList d1 = cp5.addDropdownList("Map").setPosition(600, 200);
+ class UI implements Serializable{
   PImage back = loadImage("MapBackground.png");
   PImage background;
   PImage[] StartAni = new PImage[12];
@@ -84,7 +83,7 @@ void scanEffectRadius(int x, int y) {
       }
     }
   }
-void saveMap(String name, ArrayList<Terrain> map){
+  void saveMap(String name, ArrayList<ArrayList<Integer>> map){
   try
     {
     if(!(MapName.contains(name))){
@@ -101,6 +100,7 @@ void saveMap(String name, ArrayList<Terrain> map){
       writer.close();
       MapName.add(name);
       name = "";
+      mode = 0;
       }
      }
     catch (Exception e)
@@ -126,16 +126,20 @@ ArrayList<Terrain> openMap(String name){
     }
     return map;
 }
-void mapSelection(int x, int y){
+void mapSelection(int x, int y, boolean bol){
+  DropdownList d1 = cp5.addDropdownList("Map").setPosition(600, 200);
   back.resize(1500, 600);
   image(back, x, y);
   int i = 0;
   print(MapName);
+  if(bol){
   for(String a:MapName){
-    print(a);
     d1.addItem(a, i);
     i++;
+  }
 }
+bol = false;
+
 }
 void mapScreen(int x, int y, boolean setup){
   if(setup){
@@ -200,7 +204,15 @@ if( hoveringButton(1260, 400, 200, 10)) {
   totype = true;
 }else{totype = false;}
 if(save){
-  saveMap(name, newblocks);
+ ArrayList<ArrayList<Integer>> newblocksID = new ArrayList<ArrayList<Integer>>();
+  for(Terrain a: newblocks){
+    ArrayList<Integer> b = new ArrayList<Integer>();
+    b.add(a.id);
+    b.add(a.x);
+    b.add(a.y);
+   newblocksID.add(b);
+  }
+  saveMap(name, newblocksID);
   save = false;
 }
 }
