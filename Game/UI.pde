@@ -60,6 +60,12 @@ import static java.nio.file.StandardOpenOption.*;
       textSize(20);
        fill(0);
       text("Start", BeginX + BeginRectX/2, BeginY + BeginRectY/2 + 7);
+      text("Map Maker", SnakeX + BeginRectX/2, BeginY + BeginRectY/2 + 7);
+      if(hoveringButton(SnakeX, BeginY, BeginRectX, BeginRectY)){
+        mode2 = 3;
+      }else{
+        mode2 = 10000;
+      }
   }
 }
 void terrainHit(Terrain target) {

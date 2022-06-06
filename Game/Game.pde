@@ -103,7 +103,7 @@ toexit = false;
   rect(endX, endY, endRectX, endRectY);
   rect(selectX, selectY, selectRectX, selectRectY);
   rect(shootX, shootY, shootRectX, shootRectY);
-   mode = 3;
+   mode = 0;
    mode2 = 0;
 }
 
@@ -378,19 +378,22 @@ void draw() {
     text("END TURN", (endX) + 65, endY + 55);
     text("CHANGE WEAPON", (selectX) + 55, selectY + 55);
     text("SHOOT", (shootX) + 75, shootY + 55);
-    if(mode == -3){
-        noLoop();
-        fill(0);
-        rect(width/2 - 150, 75, 300, 425);
-        fill(255);
-        rect(width/2 - 125, 100, 250, 75);
-        rect(width/2 - 125, 200, 250, 75);
-        rect(width/2 - 125, 300, 250, 75);
-        rect(width/2 - 125, 400, 250, 75);
-        fill(0);
-        textSize(25);
-        text("Resume", width/2 - 50, 145);
-    }
+     if(mode == -3){
+         noLoop();
+         fill(0);
+         rect(width/2 - 150, 75, 300, 425);
+         fill(255);
+         rect(width/2 - 125, 100, 250, 75);
+         rect(width/2 - 125, 200, 250, 75);
+         rect(width/2 - 125, 300, 250, 75);
+         rect(width/2 - 125, 400, 250, 75);
+         fill(0);
+         textSize(25);
+         text("Resume", width/2 - 50, 145);
+         if(hoveringButton(width/2 - 150, 75, 300, 425)){
+           mode2 = 1;
+     }
+     }
 }
   }
 }
@@ -430,6 +433,9 @@ void mousePressed() {
   }
   if(mode2 == 4){
     mode = 1;
+  }
+  if(mode2 == 3){
+    mode = 3;
   }
   if (mode2 == 1) {
     mode = 4;
@@ -474,9 +480,11 @@ void controlEvent(ControlEvent theEvent) {
     }else if (theEvent.isController()) {
     println("event from controller : "+theEvent.getController().getStringValue()+" from "+theEvent.getController());
     RealMapName = (String)((UI.d1.getItem(int(theEvent.getValue()))).get("value"));
-    if(RealMapName == "Random"){
+    if(RealMapName.equals("Random")){
+      print(RealMapName);
     }else{
       blocks = UI.openMap(RealMapName);
+       print(RealMapName + "1");
     }
 }
 }
