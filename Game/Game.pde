@@ -1,12 +1,20 @@
-UI UI; //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
+import controlP5.*; //<>// //<>// //<>//
+UI UI; //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
 Controller keyboardInput;
 Terrain background;
+boolean drag, setupSnake;
+String RealMapName;
+int UIradius = 5;
+boolean MapSetUp;
+boolean setupMode3;
+boolean toexit;
 static float GRAV = 0.75;
 static int tileSize = 5;
 int mode;
 int mode2;
 Snake toMove;
 String weaponName;
+ArrayList<String> MapName = new ArrayList<String>();
 static String[] weaponList = {"Basic shot", "Dirt shot", "Big shot", "Ground remover", "Scatter shot", "Drill shot", "Homing shot", "Trail shot", "Carpet bomber", 
   "Nuke", "Spider shot"};
 boolean move, readyToMove;
@@ -37,15 +45,38 @@ static int BeginX = 200;
 static int BeginY = 500;
 static int BeginRectX = 100;
 static int BeginRectY = 50;
+static int SnakeX = 325;
+boolean save;
+boolean typing;
 int projID;
 //eventually with Random map, edit uppercord to check for bounds.
 ArrayList<Integer> uppercord = new ArrayList<Integer>();
 Player player1;
 Player player2;
 Player turn;
-
+ControlP5 cp5;
+void updateMapList(){
+  try{
+  Scanner scan = new Scanner(new File("Snakes-Game/Game/MAPNAME.txt"));
+  while(scan.hasNextLine()){
+    MapName.add(scan.nextLine());
+  }
+  scan.close();
+  }catch(IOException E){
+    print("File Not Found");
+  }
+}
 void setup() {
   size(1500, 600);
+MapSetUp = true;
+setupMode3 = true;
+setupSnake = true;
+toexit = false;
+  cp5 = new ControlP5(this);
+  updateMapList();
+  drag = false;
+  save = false;
+  typing = false;
   gameMap = new MapGenerator(GAMEWIDTH, GAMEHEIGHT);
   EverySnake = new ArrayList<Snake>();
   blocks = new ArrayList<Terrain>();
@@ -79,25 +110,52 @@ void setup() {
 }
 
 void keyPressed() {
-  if (mode == 1) {
-    keyboardInput.press(keyCode);
-    if (key == ' ') {
-      if ((toMove != null)&&(!toMove.shootYet)) {
-        Bullets.add(toMove.shoot(angle, power, projID));
-        toMove.shootYet = true;
+  if(typing){
+    if(key == BACKSPACE){
+      if((UI.name).length() > 0){
+        UI.name = (UI.name).substring(0,(UI.name).length() - 1);
+    }
+    }else{
+      if((key >= 'a')&&(key <= 'z')){
+    UI.name += key;
+    print(1);
+      
       }
     }
-    if (key == CODED) {
-      if (keyCode == UP) {
-        if (angle < 360) {
-          angle++;
-        }
+  }
+  if (mode == 1){
+  keyboardInput.press(keyCode);
+  if (key == ' ') {
+    if ((toMove != null)&&(!toMove.shootYet)) {
+      Bullets.add(toMove.shoot(angle, power, projID));
+      toMove.shootYet = true;
+    }
+  }
+  }
+  if (key == CODED) {
+    if (keyCode == UP) {
+      if(mode == 1){
+      if (angle < 360) {
+        angle++;
       }
-      if (keyCode == DOWN) {
-        if (angle > 0) {
-          angle--;
-        }
+    }else if(mode == 3){
+      if(UIradius < 70){
+      UIradius += 5;
       }
+    }
+    }
+
+    if (keyCode == DOWN) {
+      if(mode == 1){
+      if (angle > 0) {
+        angle--;
+      }
+    }else if(mode == 3){
+      if(UIradius > 0){
+      UIradius -= 5;
+      }
+    }
+    }
       if (keyCode == RIGHT) {
         if (power<100) {
           power++;
@@ -109,7 +167,6 @@ void keyPressed() {
         }
       }
     }
-  }
   if (key == 27) {
     key = 0;
     if (mode == 1) {
@@ -155,9 +212,17 @@ void mouseReleased() {
 //MODE -1 and -2 = win screen
 //MODE 0 = startscreen
 //MODE 1 = GAME
-//MODE 
+//MODE 2 = Team Editing
+//MODE 3 = Terrain editing
+//MODE 4 = MAPSELECTION
 void draw() {
+  cp5.hide();
   background(255);
+  //UI.d1.hide();
+  if(mode == 3){
+    frameRate(10);
+    UI.mapScreen(0, 0, setupMode3);
+  }else
   if (mode == 0) {
     frameRate(10);
     UI.startScreen(0, 0);
@@ -182,7 +247,13 @@ void draw() {
     if (hoveringButton(0, 0, 1500, 600)) {
       mode2 = -4;
     }
-  } else {
+  } if(mode == 4){
+    cp5.show();
+    //UI.d1.setBarVisible(true);
+  UI.mapSelection(0,0, MapSetUp);
+  MapSetUp = false;
+}else if(mode == 1){
+    textAlign(LEFT);
     if ((player1.team).size() == 0) {
       mode = -1;
     } else if ((player2.team).size() == 0) {
@@ -271,6 +342,14 @@ void draw() {
         toMove.y -= upMove;
         upMove--;
       }
+      if(setupSnake){
+      for (Snake a : EverySnake) {
+        while(!(a.highestBlock())) {
+          a.y += 5;
+        }
+      }
+      setupSnake = false;
+      }
       for (Snake a : EverySnake) {
         if (!(a.highestBlock())) {
           a.y += 1;
@@ -302,35 +381,40 @@ void draw() {
           P2Team.add(a);
         }
       }
-      player2.team = P2Team;
-      UI.basicUI(1200, 0);
-      text("Player " +turn.id + "'s turn", 1210, 12);
-      text("Power: " + power, 1210, 30);
-      text("Angle: " + angle, 1210, 40);
-      text("MODE: " + mode, 1210, 60);
-      text("Selected weapon: " + weaponName, 1210, 50);
-      fill(255);
-      rect(endX, endY, endRectX, endRectY);
-      rect(selectX, selectY, selectRectX, selectRectY);
-      rect(shootX, shootY, shootRectX, shootRectY);
-      fill(0);
-      text("END TURN", (endX) + 65, endY + 55);
-      text("CHANGE WEAPON", (selectX) + 55, selectY + 55);
-      text("SHOOT", (shootX) + 75, shootY + 55);
-      if (mode == -3) {
-        noLoop();
-        fill(0);
-        rect(width/2 - 150, 75, 300, 425);
-        fill(255);
-        rect(width/2 - 125, 100, 250, 75);
-        rect(width/2 - 125, 200, 250, 75);
-        rect(width/2 - 125, 300, 250, 75);
-        rect(width/2 - 125, 400, 250, 75);
-        fill(0);
-        textSize(25);
-        text("Resume", width/2 - 50, 145);
-      }
-    }
+    player2.team = P2Team;
+    UI.basicUI(1200, 0);
+    text("Player " +turn.id + "'s turn", 1210, 12);
+    text("Power: " + power, 1210, 30);
+    text("Angle: " + angle, 1210, 40);
+    text("MODE: " + mode, 1210, 60);
+    text("Selected weapon: " + weaponName, 1210, 50);
+    fill(255);
+    rect(endX, endY, endRectX, endRectY);
+    rect(selectX, selectY, selectRectX, selectRectY);
+    rect(shootX, shootY, shootRectX, shootRectY);
+    fill(0);
+    text("END TURN", (endX) + 65, endY + 55);
+    text("CHANGE WEAPON", (selectX) + 55, selectY + 55);
+    text("SHOOT", (shootX) + 75, shootY + 55);
+     if(mode == -3){
+         noLoop();
+         fill(0);
+         rect(width/2 - 150, 75, 300, 425);
+         fill(255);
+         rect(width/2 - 125, 100, 250, 75);
+         rect(width/2 - 125, 200, 250, 75);
+         rect(width/2 - 125, 300, 250, 75);
+         rect(width/2 - 125, 400, 250, 75);
+         fill(0);
+         textSize(25);
+         text("Resume", width/2 - 50, 145);
+         if(hoveringButton(width/2 - 150, 75, 300, 425)){
+           mode2 = 1;
+     }else{
+       mode2 = 100000;
+     }
+     }
+}
   }
 }
 void mousePressed() {
@@ -367,8 +451,15 @@ void mousePressed() {
       loop();
     }
   }
-  if (mode2 == 1) {
+  if(mode2 == 4){
     mode = 1;
+  }
+  if(mode2 == 3){
+    mode = 3;
+  }
+  if (mode2 == 1) {
+    mode = 4;
+    MapSetUp = true;
     mode2 = 10000000;
   }
   if (mode2 == -4) {
@@ -379,8 +470,47 @@ void mousePressed() {
     }
     setup();
   }
+  if(mode == 3){
+    if(UI.dirt){
+      UI.blockType = 1;
+    }
+    if(UI.stone){
+      UI.blockType = 2;
+    }
+    if(UI.delete){
+      UI.blockType = 0;
+    }
+    if(UI.tosave){
+      save = true;
+    }
+    if(UI.totype){
+      typing = true;
+      print("hello");
+    }
+    if((mouseX < 1200)&&(mouseY<600)){
+     drag = true;
+      //print("t");
+    }
+    if(toexit){
+      mode = 0;
+    }
+  }
 }
-
+void controlEvent(ControlEvent theEvent) {
+  if(theEvent.isGroup()){
+       println("event from group : "+theEvent.getGroup().getValue()+" from "+theEvent.getGroup());
+      
+    }else if (theEvent.isController()) {
+    println("event from controller : "+theEvent.getController().getStringValue()+" from "+theEvent.getController());
+    RealMapName = (String)((UI.d1.getItem(int(theEvent.getValue()))).get("value"));
+    if(RealMapName.equals("Random")){
+      print(RealMapName);
+    }else{
+      blocks = UI.openMap(RealMapName);
+       print(RealMapName + "1");
+    }
+}
+}
 void update() {
   if ( hoveringButton(endX, endY, endRectX, endRectY) ) {
     overEndTurn = true;
