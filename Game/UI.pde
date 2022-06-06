@@ -13,7 +13,7 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.io.*;
-import java.nio.*;
+import java.nio.file.*;
 import static java.nio.file.StandardOpenOption.*;
  class UI implements Serializable{
    DropdownList d1;
@@ -103,9 +103,11 @@ void scanEffectRadius(int x, int y) {
       output.writeObject(map);
            print(6);
       output.close();
-      OutputStream os = Files.newOutputStream(Paths.get("Snakes-Game/Game/MAPNAME.txt"), APPEND);
-      PrintWriter writer = new PrintWriter(os);
-      writer.println(name);
+      //OutputStream os = Files.newOutputStream(Paths.get("Snakes-Game/Game/MAPNAME.txt"), APPEND);
+      //PrintWriter writer = new PrintWriter(os);
+      //writer.write(name);
+      Path path = Paths.get("Snakes-Game/Game/MAPNAME.txt");
+      Files.write(path, name.getBytes(), APPEND);
       MapName.add(name);
       name = "";
       mode = 0;
