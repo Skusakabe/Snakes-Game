@@ -98,6 +98,7 @@ class Snake {
   12) Blunderbuss
   */ //<>// //<>// //<>//
   public Projectile shoot(int angle, int power, int ProjectileID) {  //<>// //<>//
+    PEW.play(1, 0.8);
     if (ProjectileID == 1) {  //<>//
       return new BasicShot(x, y, angle, power, 30, 25, 0.5); 
     }

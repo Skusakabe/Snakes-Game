@@ -51,6 +51,7 @@ boolean save;
 boolean typing;
 int projID;
 SoundFile blast;
+SoundFile PEW;
 //eventually with Random map, edit uppercord to check for bounds.
 ArrayList<Integer> uppercord = new ArrayList<Integer>();
 Player player1;
@@ -71,6 +72,7 @@ void updateMapList(){
 void setup() {
   size(1500, 600);
   blast = new SoundFile(this, "explosion.wav");
+  PEW = new SoundFile(this, "PEWsfx.wav");
 MapSetUp = true;
 setupMode3 = true;
 setupSnake = true;
