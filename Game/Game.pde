@@ -70,7 +70,7 @@ void updateMapList(){
 }
 void setup() {
   size(1500, 600);
-  blast = new SoundFile(this, "boom1.wav");
+  blast = new SoundFile(this, "explosion.wav");
 MapSetUp = true;
 setupMode3 = true;
 setupSnake = true;
@@ -311,37 +311,37 @@ void draw() {
         if (a.projectilePhysics()) {
           if (a.getType() == 5) {
             for (int k = -10; k <= 10; k+= 5) {
-              Bullets2.add(new BasicShot(a.x + (3 * k), a.y-15, 90 + (2 * k), 45, 30, 10));
+              Bullets2.add(new BasicShot(a.x + (3 * k), a.y-15, 90 + (2 * k), 45, 30, 10, 0.4));
             }
           }
           if (a.getType() == 6) {
             for (int i = 0; i < 5; i++) {
-              Bullets2.add(new BasicShot(a.x, a.y, 270, 40, 30, 10));
+              Bullets2.add(new BasicShot(a.x, a.y, 270, 40, 30, 10, 0.3));
             }
           }
           if (a.getType() == 11) {
             if (a.getSpecial()) {
               for (int i = 0; i < 8; i++) {
-                Bullets2.add(new HomingShot(a.x, a.y, i*45, 30, 20, 4, 10, getTarget((SpiderShot)a)));
+                Bullets2.add(new HomingShot(a.x, a.y, i*45, 30, 20, 4, 0.2, 10, getTarget((SpiderShot)a)));
               }
             }
           }
           if (a.getType() != 2) {
             animationList.add(new Animation(a.x,a.y,a.radius));
           }
-          a.playSound(blast,0.5);
+          a.playSound(blast);
           Bullets2.remove(a);
         } else {
           if (a.getType() == 8) {
             if (a.getSpecial()) {
-              Bullets2.add(new BasicShot(a.x, a.y, 270, 10, 20, 10));
+              Bullets2.add(new BasicShot(a.x, a.y, 270, 10, 20, 10, 0.4));
             }
           }
           if (a.getType() == 9) {
             if (a.getSpecial()) {
-              Bullets2.add(new BasicShot(a.x, a.y, 225, 20, 20, 10));
-              Bullets2.add(new BasicShot(a.x, a.y, 270, 20, 20, 10));
-              Bullets2.add(new BasicShot(a.x, a.y, 315, 20, 20, 10));
+              Bullets2.add(new BasicShot(a.x, a.y, 225, 20, 20, 10, 0.2));
+              Bullets2.add(new BasicShot(a.x, a.y, 270, 20, 20, 10, 0.2));
+              Bullets2.add(new BasicShot(a.x, a.y, 315, 20, 20, 10, 0.2));
             }
           }
           a.display();

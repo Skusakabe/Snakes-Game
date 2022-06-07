@@ -5,6 +5,7 @@ public abstract class Projectile implements Cloneable {
   int y;
   float xSpeed;
   float ySpeed;
+  float volume;
   PShape sprite;
   int type;
   boolean specialActive;
@@ -16,11 +17,12 @@ public abstract class Projectile implements Cloneable {
    that can be changed as seen fit.
    Radius should be a multiple of 5.
    */
-  Projectile(int xPos, int yPos, int angle, int power, int newRadius, int newDamage) {
+  Projectile(int xPos, int yPos, int angle, int power, int newRadius, int newDamage, float newVolume) {
     x = xPos;
     y = yPos;
     xSpeed = 0.25 * cos(radians(angle)) * power;
     ySpeed = 0.25 * -sin(radians(angle)) * power;
+    volume = newVolume;
     radius = newRadius;
     damage = newDamage;
     sprite = createShape(ELLIPSE, 0, 0, 20, 10);
@@ -103,7 +105,7 @@ public abstract class Projectile implements Cloneable {
     return specialActive;
   }
   
-  void playSound(SoundFile file, float volume) {
+  void playSound(SoundFile file) {
     file.play(1,volume);
   }
   

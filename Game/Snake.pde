@@ -99,41 +99,41 @@ class Snake {
   */ //<>// //<>// //<>//
   public Projectile shoot(int angle, int power, int ProjectileID) {  //<>// //<>//
     if (ProjectileID == 1) {  //<>//
-      return new BasicShot(x, y, angle, power, 30, 25); 
+      return new BasicShot(x, y, angle, power, 30, 25, 0.5); 
     }
     if (ProjectileID == 2) {
-      return new DirtShot(x, y, angle, power, 45, 0);
+      return new DirtShot(x, y, angle, power, 45, 0, 0.5);
     }
     if (ProjectileID == 3) {
-      return new BigShot(x, y, angle, power, 50, 35);
+      return new BigShot(x, y, angle, power, 50, 35, 0.5);
     }
     if (ProjectileID == 4) {
-      return new GroundRemover(x, y, angle, power, 60, 0);
+      return new GroundRemover(x, y, angle, power, 60, 0, 0.5);
     }
     if (ProjectileID == 5) {
-      return new ScatterShot(x, y, angle, power, 20, 20);
+      return new ScatterShot(x, y, angle, power, 20, 20, 0.5);
     }
     if (ProjectileID == 6) {
-      return new DrillShot(x, y, angle, power, 25, 20);
+      return new DrillShot(x, y, angle, power, 25, 20, 0.5);
     }
     if (ProjectileID == 7) {
-      return new HomingShot(x, y, angle, power, 40, 25);
+      return new HomingShot(x, y, angle, power, 40, 25, 0.5);
     }
     if (ProjectileID == 8) {
-      return new TrailShot(x, y, angle, power, 30, 20);
+      return new TrailShot(x, y, angle, power, 30, 20, 0.5);
     }
     if (ProjectileID == 9) {
-      return new CarpetBomber(x, y, angle, power, 30, 20);
+      return new CarpetBomber(x, y, angle, power, 30, 20, 0.5);
     }
     if (ProjectileID == 10) {
-      return new Nuke(x, y, angle, power, 90, 40);
+      return new Nuke(x, y, angle, power, 90, 40, 0.5);
     }
     if (ProjectileID == 11) {
-      return new SpiderShot(x, y, angle, power, 20, 10);
+      return new SpiderShot(x, y, angle, power, 20, 10, 0.5);
     }
     if (ProjectileID == 12) {
-      return new Blunderbuss(x, y, angle + (int)random(-20,20), power + (int)random(-10,10), 20, 15);
+      return new Blunderbuss(x, y, angle + (int)random(-20,20), power + (int)random(-10,10), 20, 15, 0.5);
     }
-    return new BasicShot(x, y, angle, power, 30, 30);
+    return new BasicShot(x, y, angle, power, 30, 30, 0.5);
   }
 }

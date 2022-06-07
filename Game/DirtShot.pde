@@ -1,6 +1,6 @@
 public class DirtShot extends Projectile{
-  DirtShot(int xPos, int yPos, int angle, int power, int newRadius, int newDamage) {
-    super(xPos, yPos, angle, power, newRadius, newDamage);
+  DirtShot(int xPos, int yPos, int angle, int power, int newRadius, int newDamage, float volume) {
+    super(xPos, yPos, angle, power, newRadius, newDamage, volume);
     type = 2;
   }
   void terrainHit(Terrain target) {
