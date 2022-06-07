@@ -1,4 +1,4 @@
-import controlP5.*;  //<>//
+import controlP5.*;  //<>// //<>//
 import processing.sound.*;
 UI UI; 
 Controller keyboardInput;
@@ -258,7 +258,7 @@ void draw() {
       mode2 = -4;
     }
   } else if (mode == -2) {
-    textSize(100);
+    textSize(100); //<>//
     fill(0);
     text("Player 1 Wins", width/2 - 300, height/2);
     textSize(50);
