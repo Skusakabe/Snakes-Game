@@ -8,9 +8,9 @@ class Player{
   }
   void addSnake(int num, String mod){
     for(int i = 0; i < num; i++){
-    Snake member = new Snake(int(random(1100)), 200, id, mod);
-    team.add(member);
-    EverySnake.add(member);
+      Snake member = new Snake(int(random(1100)), 0, id, mod);
+      team.add(member);
+      EverySnake.add(member);
     }
   } 
   
