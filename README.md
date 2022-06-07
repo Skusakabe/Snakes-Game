@@ -1,6 +1,8 @@
 # Snakes-Game
 Worms like game: PvP, shoot projectiles at your opponent and modify power and angle to aim. Turn based, rely on physics/gravity and have a variety of projectiles that affect the players and terrain/map. Players can move on their turn(limited amount) and either have an hp that goes down on hit, or a score that increases as they hit the enemy. Weapons are either randomized or selected from a randomized pool before the match, so players don’t just spam one weapon.
 
+Necessary processing libaries: ControlP5 and Sound.
+
 https://docs.google.com/document/d/1AoIARfXN8U-7Oqtji3RhJ8SQPpH15UtG0l1z0YM3ohg/edit?usp=sharing
 
 Kevin Work Log:
@@ -23,6 +25,7 @@ Kevin Work Log:
 5/31/22: Made a title screen for the game, added modes, and button that switches them to rotate between which screen is shown.
 
 6/1/22: Made the pause Menu.
+
 Shinji work log:
 
 5/23/22: Made a little bit of projectile and started the project. Got projectile to display itself and do the physics/move.
@@ -48,3 +51,7 @@ Shinji work log:
 6/4/22: Added random terrain generation and made it somewhat decent after tweeking a bunch of numbers. Also added animations for projectile explosions.
 
 6/5/22: Fixed some bugs and created spider shot.
+
+6/6/22: Created blunderbuss and improved radius of projectiles.
+
+6/7/22: Added sound effects and bgm.
