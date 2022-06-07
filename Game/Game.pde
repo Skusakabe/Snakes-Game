@@ -52,6 +52,7 @@ boolean typing;
 int projID;
 SoundFile blast;
 SoundFile PEW;
+SoundFile hit;
 //eventually with Random map, edit uppercord to check for bounds.
 ArrayList<Integer> uppercord = new ArrayList<Integer>();
 Player player1;
@@ -73,6 +74,7 @@ void setup() {
   size(1500, 600);
   blast = new SoundFile(this, "explosion.wav");
   PEW = new SoundFile(this, "PEWsfx.wav");
+  hit = new SoundFile(this, "hitsfx.mp3");
 MapSetUp = true;
 setupMode3 = true;
 setupSnake = true;
@@ -313,12 +315,12 @@ void draw() {
         if (a.projectilePhysics()) {
           if (a.getType() == 5) {
             for (int k = -10; k <= 10; k+= 5) {
-              Bullets2.add(new BasicShot(a.x + (3 * k), a.y-15, 90 + (2 * k), 45, 30, 10, 0.4));
+              Bullets2.add(new BasicShot(a.x + (3 * k), a.y-15, 90 + (2 * k), 45, 30, 10, 0.3));
             }
           }
           if (a.getType() == 6) {
             for (int i = 0; i < 5; i++) {
-              Bullets2.add(new BasicShot(a.x, a.y, 270, 40, 30, 10, 0.3));
+              Bullets2.add(new BasicShot(a.x, a.y, 270, 40, 30, 10, 0.25));
             }
           }
           if (a.getType() == 11) {
@@ -336,7 +338,7 @@ void draw() {
         } else {
           if (a.getType() == 8) {
             if (a.getSpecial()) {
-              Bullets2.add(new BasicShot(a.x, a.y, 270, 10, 20, 10, 0.4));
+              Bullets2.add(new BasicShot(a.x, a.y, 270, 10, 20, 10, 0.2));
             }
           }
           if (a.getType() == 9) {

@@ -111,6 +111,7 @@ public abstract class Projectile implements Cloneable {
   
   // Projectiles could override this and call super in their override and add other effects
   int onHit(Snake target) {
+    hit.play(1,0.8);
     int damageDealt = damage;
     if (dist(x,y,target.x,target.y) > (radius + 10) / 2) {
       damageDealt = (int)(damage * (((radius + 10) * 1.5 - dist(x,y,target.x,target.y)) / (radius + 10)));
