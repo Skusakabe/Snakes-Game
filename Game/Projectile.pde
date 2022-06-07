@@ -103,6 +103,10 @@ public abstract class Projectile implements Cloneable {
     return specialActive;
   }
   
+  void playSound(SoundFile file, float volume) {
+    file.play(1,volume);
+  }
+  
   // Projectiles could override this and call super in their override and add other effects
   int onHit(Snake target) {
     int damageDealt = damage;

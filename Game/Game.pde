@@ -1,4 +1,5 @@
 import controlP5.*;  //<>//
+import processing.sound.*;
 UI UI; 
 Controller keyboardInput;
 Terrain background;
@@ -49,6 +50,7 @@ static int SnakeX = 325;
 boolean save;
 boolean typing;
 int projID;
+SoundFile blast;
 //eventually with Random map, edit uppercord to check for bounds.
 ArrayList<Integer> uppercord = new ArrayList<Integer>();
 Player player1;
@@ -68,6 +70,7 @@ void updateMapList(){
 }
 void setup() {
   size(1500, 600);
+  blast = new SoundFile(this, "boom1.wav");
 MapSetUp = true;
 setupMode3 = true;
 setupSnake = true;
@@ -192,6 +195,9 @@ void keyReleased() {
   }
 }
 void mouseReleased() {
+  if (mode == 3) {
+    drag = false;
+  }
   if (mode == 1) {
     if (move) {
       for (Snake a : turn.team) {
@@ -323,6 +329,7 @@ void draw() {
           if (a.getType() != 2) {
             animationList.add(new Animation(a.x,a.y,a.radius));
           }
+          a.playSound(blast,0.5);
           Bullets2.remove(a);
         } else {
           if (a.getType() == 8) {
