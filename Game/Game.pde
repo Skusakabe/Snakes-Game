@@ -53,6 +53,8 @@ int projID;
 SoundFile blast;
 SoundFile PEW;
 SoundFile hit;
+//could be made into an ArrayList with different songs
+SoundFile music;
 //eventually with Random map, edit uppercord to check for bounds.
 ArrayList<Integer> uppercord = new ArrayList<Integer>();
 Player player1;
@@ -75,6 +77,7 @@ void setup() {
   blast = new SoundFile(this, "explosion.wav");
   PEW = new SoundFile(this, "PEWsfx.wav");
   hit = new SoundFile(this, "hitsfx.mp3");
+  music = new SoundFile(this, "bgm1.mp3");
 MapSetUp = true;
 setupMode3 = true;
 setupSnake = true;
@@ -231,6 +234,9 @@ void mouseReleased() {
 void draw() {
   cp5.hide();
   background(255);
+  while (mode == 1 && !music.isPlaying()) {
+    music.play(1,0.5);
+  }
   //UI.d1.hide();
   if(mode == 3){
     frameRate(10);
