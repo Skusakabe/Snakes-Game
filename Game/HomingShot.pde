@@ -3,15 +3,15 @@ public class HomingShot extends Projectile {
   Snake target;
   int timer;
 
-  HomingShot(int xPos, int yPos, int angle, int power, int newRadius, int newDamage) {
-    super(xPos, yPos, angle, power, newRadius, newDamage);
+  HomingShot(int xPos, int yPos, int angle, int power, int newRadius, int newDamage, float volume) {
+    super(xPos, yPos, angle, power, newRadius, newDamage, volume);
     type = 7;
     lockOn = false;
     timer = -1;
   }
 
-  HomingShot(int xPos, int yPos, int angle, int power, int newRadius, int newDamage, int t, Snake s) {
-    super(xPos, yPos, angle, power, newRadius, newDamage);
+  HomingShot(int xPos, int yPos, int angle, int power, int newRadius, int newDamage, float volume, int t, Snake s) {
+    super(xPos, yPos, angle, power, newRadius, newDamage, volume);
     type = 7;
     lockOn = false;
     timer = t;

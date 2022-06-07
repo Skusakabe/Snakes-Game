@@ -1,8 +1,8 @@
 public class CarpetBomber extends Projectile{
   int internalTimer;
   
-  CarpetBomber(int xPos, int yPos, int angle, int power, int newRadius, int newDamage) {
-    super(xPos, yPos, angle, power, newRadius, newDamage);
+  CarpetBomber(int xPos, int yPos, int angle, int power, int newRadius, int newDamage, float volume) {
+    super(xPos, yPos, angle, power, newRadius, newDamage, volume);
     type = 9;
     internalTimer = 0;
   }
