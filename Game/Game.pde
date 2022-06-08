@@ -1,4 +1,4 @@
-import controlP5.*;  //<>// //<>//
+import controlP5.*;  //<>// //<>// //<>//
 import processing.sound.*;
 UI UI; 
 Controller keyboardInput;
@@ -61,14 +61,15 @@ Player player1;
 Player player2;
 Player turn;
 ControlP5 cp5;
-void updateMapList(){
-  try{
-  Scanner scan = new Scanner(new File(sketchPath("")+"MAPNAME.txt"));
-  while(scan.hasNextLine()){
-    MapName.add(scan.nextLine());
+void updateMapList() {
+  try {
+    Scanner scan = new Scanner(new File(sketchPath("")+"MAPNAME.txt"));
+    while (scan.hasNextLine()) {
+      MapName.add(scan.nextLine());
+    }
+    scan.close();
   }
-  scan.close();
-  }catch(IOException E){
+  catch(IOException E) {
     print("File Not Found");
   }
 }
@@ -78,10 +79,10 @@ void setup() {
   PEW = new SoundFile(this, "PEWsfx.wav");
   hit = new SoundFile(this, "hitsfx.mp3");
   music = new SoundFile(this, "bgm1.mp3");
-MapSetUp = true;
-setupMode3 = true;
-setupSnake = true;
-toexit = false;
+  MapSetUp = true;
+  setupMode3 = true;
+  setupSnake = true;
+  toexit = false;
   cp5 = new ControlP5(this);
   updateMapList();
   drag = false;
@@ -105,12 +106,6 @@ toexit = false;
   player1.addSnake(1, "SnakeRed.png");
   player2.addSnake(1, "SnakeBlue.png");
   turn = player1;
-  for (Snake a : EverySnake) {
-    a.display();
-    while (!(a.highestBlock())) {
-      a.y += 1;
-    }
-  }
   timer = 0;
   keyboardInput = new Controller();
   UI = new UI();
@@ -123,63 +118,62 @@ toexit = false;
 }
 
 void keyPressed() {
-  if(typing){
-    if(key == BACKSPACE){
-      if((UI.name).length() > 0){
-        UI.name = (UI.name).substring(0,(UI.name).length() - 1);
-    }
-    }else{
-      if((key >= 'a')&&(key <= 'z')){
-    UI.name += key;
-    print(1);
-      
+  if (typing) {
+    if (key == BACKSPACE) {
+      if ((UI.name).length() > 0) {
+        UI.name = (UI.name).substring(0, (UI.name).length() - 1);
+      }
+    } else {
+      if ((key >= 'a')&&(key <= 'z')) {
+        UI.name += key;
+        print(1);
       }
     }
   }
-  if (mode == 1){
-  keyboardInput.press(keyCode);
-  if (key == ' ') {
-    if ((toMove != null)&&(!toMove.shootYet)) {
-      Bullets.add(toMove.shoot(angle, power, projID));
-      toMove.shootYet = true;
+  if (mode == 1) {
+    keyboardInput.press(keyCode);
+    if (key == ' ') {
+      if ((toMove != null)&&(!toMove.shootYet)) {
+        Bullets.add(toMove.shoot(angle, power, projID));
+        toMove.shootYet = true;
+      }
     }
-  }
   }
   if (key == CODED) {
     if (keyCode == UP) {
-      if(mode == 1){
-      if (angle < 360) {
-        angle++;
+      if (mode == 1) {
+        if (angle < 360) {
+          angle++;
+        }
+      } else if (mode == 3) {
+        if (UIradius < 70) {
+          UIradius += 5;
+        }
       }
-    }else if(mode == 3){
-      if(UIradius < 70){
-      UIradius += 5;
-      }
-    }
     }
 
     if (keyCode == DOWN) {
-      if(mode == 1){
-      if (angle > 0) {
-        angle--;
-      }
-    }else if(mode == 3){
-      if(UIradius > 0){
-      UIradius -= 5;
-      }
-    }
-    }
-      if (keyCode == RIGHT) {
-        if (power<100) {
-          power++;
+      if (mode == 1) {
+        if (angle > 0) {
+          angle--;
         }
-      }
-      if (keyCode == LEFT) {
-        if (power > 0) {
-          power--;
+      } else if (mode == 3) {
+        if (UIradius > 0) {
+          UIradius -= 5;
         }
       }
     }
+    if (keyCode == RIGHT) {
+      if (power<100) {
+        power++;
+      }
+    }
+    if (keyCode == LEFT) {
+      if (power > 0) {
+        power--;
+      }
+    }
+  }
   if (key == 27) {
     key = 0;
     if (mode == 1) {
@@ -202,11 +196,7 @@ void keyReleased() {
   }
 }
 void mouseReleased() {
-<<<<<<< HEAD
   if (mode == 3) {
-=======
-    if(mode == 3){
->>>>>>> Kevin
     drag = false;
   }
   if (mode == 1) {
@@ -239,13 +229,13 @@ void draw() {
   cp5.hide();
   background(255);
   while (mode == 1 && !music.isPlaying()) {
-    music.play(1,0.5);
+    music.play(1, 0.5);
   }
   //UI.d1.hide();
-  if(mode == 3){
+  if (mode == 3) {
     frameRate(10);
     UI.mapScreen(0, 0, setupMode3);
-  }else if (mode == 0) {
+  } else if (mode == 0) {
     frameRate(10);
     UI.startScreen(0, 0);
     if (hoveringButton(BeginX, BeginY, BeginRectX, BeginRectY)) {
@@ -261,7 +251,7 @@ void draw() {
       mode2 = -4;
     }
   } else if (mode == -2) {
-    textSize(100); //<>//
+    textSize(100);
     fill(0);
     text("Player 1 Wins", width/2 - 300, height/2);
     textSize(50);
@@ -269,12 +259,12 @@ void draw() {
     if (hoveringButton(0, 0, 1500, 600)) {
       mode2 = -4;
     }
-  } else if(mode == 4){
+  } else if (mode == 4) {
     cp5.show();
     //UI.d1.setBarVisible(true);
-  UI.mapSelection(0,0, MapSetUp);
-  MapSetUp = false;
-}else{
+    UI.mapSelection(0, 0, MapSetUp);
+    MapSetUp = false;
+  } else {
     textAlign(LEFT);
     if ((player1.team).size() == 0) {
       mode = -1;
@@ -340,7 +330,7 @@ void draw() {
             }
           }
           if (a.getType() != 2) {
-            animationList.add(new Animation(a.x,a.y,a.radius));
+            animationList.add(new Animation(a.x, a.y, a.radius));
           }
           a.playSound(blast);
           Bullets2.remove(a);
@@ -365,13 +355,13 @@ void draw() {
         toMove.y -= upMove;
         upMove--;
       }
-      if(setupSnake){
-      for (Snake a : EverySnake) {
-        while(!(a.highestBlock())) {
-          a.y += 5;
+      if (setupSnake) {
+        for (Snake a : EverySnake) {
+          while (!(a.highestBlock())) {
+            a.y += 5;
+          }
         }
-      }
-      setupSnake = false;
+        setupSnake = false;
       }
       for (Snake a : EverySnake) {
         if (!(a.highestBlock())) {
@@ -404,40 +394,40 @@ void draw() {
           P2Team.add(a);
         }
       }
-    player2.team = P2Team;
-    UI.basicUI(1200, 0);
-    text("Player " +turn.id + "'s turn", 1210, 12);
-    text("Power: " + power, 1210, 30);
-    text("Angle: " + angle, 1210, 40);
-    text("MODE: " + mode, 1210, 60);
-    text("Selected weapon: " + weaponName, 1210, 50);
-    fill(255);
-    rect(endX, endY, endRectX, endRectY);
-    rect(selectX, selectY, selectRectX, selectRectY);
-    rect(shootX, shootY, shootRectX, shootRectY);
-    fill(0);
-    text("END TURN", (endX) + 65, endY + 55);
-    text("CHANGE WEAPON", (selectX) + 55, selectY + 55);
-    text("SHOOT", (shootX) + 75, shootY + 55);
-     if(mode == -3){
-         noLoop();
-         fill(0);
-         rect(width/2 - 150, 75, 300, 425);
-         fill(255);
-         rect(width/2 - 125, 100, 250, 75);
-         rect(width/2 - 125, 200, 250, 75);
-         rect(width/2 - 125, 300, 250, 75);
-         rect(width/2 - 125, 400, 250, 75);
-         fill(0);
-         textSize(25);
-         text("Resume", width/2 - 50, 145);
-         if(hoveringButton(width/2 - 150, 75, 300, 425)){
-           mode2 = 1;
-     }else{
-       mode2 = 100000;
-     }
-     }
-}
+      player2.team = P2Team;
+      UI.basicUI(1200, 0);
+      text("Player " +turn.id + "'s turn", 1210, 12);
+      text("Power: " + power, 1210, 30);
+      text("Angle: " + angle, 1210, 40);
+      text("MODE: " + mode, 1210, 60);
+      text("Selected weapon: " + weaponName, 1210, 50);
+      fill(255);
+      rect(endX, endY, endRectX, endRectY);
+      rect(selectX, selectY, selectRectX, selectRectY);
+      rect(shootX, shootY, shootRectX, shootRectY);
+      fill(0);
+      text("END TURN", (endX) + 65, endY + 55);
+      text("CHANGE WEAPON", (selectX) + 55, selectY + 55);
+      text("SHOOT", (shootX) + 75, shootY + 55);
+      if (mode == -3) {
+        noLoop();
+        fill(0);
+        rect(width/2 - 150, 75, 300, 425);
+        fill(255);
+        rect(width/2 - 125, 100, 250, 75);
+        rect(width/2 - 125, 200, 250, 75);
+        rect(width/2 - 125, 300, 250, 75);
+        rect(width/2 - 125, 400, 250, 75);
+        fill(0);
+        textSize(25);
+        text("Resume", width/2 - 50, 145);
+        if (hoveringButton(width/2 - 150, 75, 300, 425)) {
+          mode2 = 1;
+        } else {
+          mode2 = 100000;
+        }
+      }
+    }
   }
 }
 void mousePressed() {
@@ -479,10 +469,10 @@ void mousePressed() {
       loop();
     }
   }
-  if(mode2 == 4){
+  if (mode2 == 4) {
     mode = 1;
   }
-  if(mode2 == 3){
+  if (mode2 == 3) {
     mode = 3;
   }
   if (mode2 == 1) {
@@ -498,46 +488,51 @@ void mousePressed() {
     }
     setup();
   }
-  if(mode == 3){
-    if(UI.dirt){
+  if (mode == 3) {
+    if (UI.dirt) {
       UI.blockType = 1;
     }
-    if(UI.stone){
+    if (UI.stone) {
       UI.blockType = 2;
     }
-    if(UI.delete){
+    if (UI.delete) {
       UI.blockType = 0;
     }
-    if(UI.tosave){
+    if (UI.tosave) {
       save = true;
     }
-    if(UI.totype){
+    if (UI.totype) {
       typing = true;
       print("hello");
     }
-    if((mouseX < 1200)&&(mouseY<600)){
-     drag = true;
+    if ((mouseX < 1200)&&(mouseY<600)) {
+      drag = true;
       //print("t");
     }
-    if(toexit){
+    if (toexit) {
       mode = 0;
     }
   }
 }
 void controlEvent(ControlEvent theEvent) {
-  if(theEvent.isGroup()){
-       println("event from group : "+theEvent.getGroup().getValue()+" from "+theEvent.getGroup());
-      
-    }else if (theEvent.isController()) {
+  if (theEvent.isGroup()) {
+    println("event from group : "+theEvent.getGroup().getValue()+" from "+theEvent.getGroup());
+  } else if (theEvent.isController()) {
     println("event from controller : "+theEvent.getController().getStringValue()+" from "+theEvent.getController());
     RealMapName = (String)((UI.d1.getItem(int(theEvent.getValue()))).get("value"));
-    if(RealMapName.equals("Random")){
+    if (RealMapName.equals("Random")) {
       print(RealMapName);
-    }else{
+    } else {
       blocks = UI.openMap(RealMapName);
-       print(RealMapName + "1");
+      print(RealMapName + "1");
     }
-}
+    for (Snake a : EverySnake) {
+      a.display();
+      while (!(a.highestBlock())) {
+        a.y += 1;
+      }
+    }
+  }
 }
 void update() {
   if ( hoveringButton(endX, endY, endRectX, endRectY) ) {
