@@ -102,7 +102,7 @@ void scanEffectRadius(int x, int y) {
     {
     if(!(MapName.contains(name))){
       print(3);
-      FileOutputStream file = new FileOutputStream("Snakes-Game/Game/MAP/" + name);
+      FileOutputStream file = new FileOutputStream(sketchPath("") + "MAP/" + name);
             print(4);
       ObjectOutputStream output = new ObjectOutputStream(file);
       print(5);
@@ -112,8 +112,8 @@ void scanEffectRadius(int x, int y) {
       //OutputStream os = Files.newOutputStream(Paths.get("Snakes-Game/Game/MAPNAME.txt"), APPEND);
       //PrintWriter writer = new PrintWriter(os);
       //writer.write(name);
-      Path path = Paths.get("Snakes-Game/Game/MAPNAME.txt");
-      Files.write(path, (name += "\n").getBytes(), APPEND);
+      Path path = Paths.get(sketchPath("")+"MAPNAME.txt");
+      Files.write(path, ("\n" + name).getBytes(), APPEND);
       MapName.add(name);
       name = "";
       mode = 0;
@@ -128,7 +128,7 @@ ArrayList<Terrain> openMap(String name){
   ArrayList<Terrain> map = new ArrayList<Terrain>();
   try
     {
-       FileInputStream file = new FileInputStream("Snakes-Game/Game/MAP/" + name);
+       FileInputStream file = new FileInputStream(sketchPath("") + "/MAP/" + name);
        ObjectInputStream input = new ObjectInputStream(file);
        Object map2 = input.readObject();
        input.close();

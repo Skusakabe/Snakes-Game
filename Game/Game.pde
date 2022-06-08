@@ -57,7 +57,7 @@ Player turn;
 ControlP5 cp5;
 void updateMapList(){
   try{
-  Scanner scan = new Scanner(new File("Snakes-Game/Game/MAPNAME.txt"));
+  Scanner scan = new Scanner(new File(sketchPath("")+"MAPNAME.txt"));
   while(scan.hasNextLine()){
     MapName.add(scan.nextLine());
   }
@@ -189,6 +189,9 @@ void keyReleased() {
   }
 }
 void mouseReleased() {
+    if(mode == 3){
+    drag = false;
+  }
   if (mode == 1) {
     if (move) {
       for (Snake a : turn.team) {
@@ -222,8 +225,7 @@ void draw() {
   if(mode == 3){
     frameRate(10);
     UI.mapScreen(0, 0, setupMode3);
-  }else
-  if (mode == 0) {
+  }else if (mode == 0) {
     frameRate(10);
     UI.startScreen(0, 0);
     if (hoveringButton(BeginX, BeginY, BeginRectX, BeginRectY)) {
@@ -247,12 +249,12 @@ void draw() {
     if (hoveringButton(0, 0, 1500, 600)) {
       mode2 = -4;
     }
-  } if(mode == 4){
+  } else if(mode == 4){
     cp5.show();
     //UI.d1.setBarVisible(true);
   UI.mapSelection(0,0, MapSetUp);
   MapSetUp = false;
-}else if(mode == 1){
+}else{
     textAlign(LEFT);
     if ((player1.team).size() == 0) {
       mode = -1;
