@@ -85,8 +85,8 @@ void scanEffectRadius(int x, int y) {
     if (y < UIradius) {
       yStart = 0;
     }
-    if (y + UIradius >= GAMEHEIGHT) {
-      yEnd = GAMEHEIGHT;
+    if (y + UIradius >= GAMEHEIGHT - 5) {
+      yEnd = GAMEHEIGHT - 5;
     }
     for (int j = yStart; j < yEnd; j+=5) {
       for (int i = xStart; i < xEnd; i+=5) {
@@ -168,9 +168,16 @@ bol = false;
 }
 void mapScreen(int x, int y, boolean setup){
   if(setup){
-  for (int j = 0; j < 600; j+=5) {
+  for (int j = 0; j < 595; j+=5) {
     for (int k = 0; k < GAMEWIDTH; k+=5) {
       Terrain block = new Terrain(0, k, j);
+      block.display();
+      newblocks.add(block);
+    }
+  }
+  for(int j = 595; j < 600; j+=5){
+     for (int k = 0; k < GAMEWIDTH; k+=5) {
+      Terrain block = new Terrain(2, k, j);
       block.display();
       newblocks.add(block);
     }
