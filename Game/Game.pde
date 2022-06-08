@@ -202,11 +202,7 @@ void keyReleased() {
   }
 }
 void mouseReleased() {
-<<<<<<< HEAD
   if (mode == 3) {
-=======
-    if(mode == 3){
->>>>>>> Kevin
     drag = false;
   }
   if (mode == 1) {
