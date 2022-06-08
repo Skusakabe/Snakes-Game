@@ -23,6 +23,19 @@ Kevin Work Log:
 5/31/22: Made a title screen for the game, added modes, and button that switches them to rotate between which screen is shown.
 
 6/1/22: Made the pause Menu.
+
+6/2/22: Started work on the save menu, started setting up save and open function.
+
+6/3/22: Finish working on map editing screen, along with GUI. This allows us to draw our map and then upload it.
+
+6/4/22: Worked on File saving method, researched libraries that could be used.
+
+6/5/22: Worked on File Saving and file opening, file saving now can create a file. Also created a map loading screen.
+
+6/6/22: Found Error with PImage not being able to be serializable. Fixed issue. Now both load map and save map work. Along with all the GUI involved. Added a dropdown list to pick map.
+
+6/7/22: fixed issue with local pathing. Found issue with math and highestblock method. Fixed pause button being broken. 
+
 Shinji work log:
 
 5/23/22: Made a little bit of projectile and started the project. Got projectile to display itself and do the physics/move.
