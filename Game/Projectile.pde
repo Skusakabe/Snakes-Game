@@ -42,8 +42,8 @@ public abstract class Projectile implements Cloneable {
     if (y < 15) {
       return false;
     }
-    for (int j = (y / tileSize) * tileSize; j < (y / tileSize) * tileSize + 3 * tileSize; j+=tileSize) { 
-      for (int i = (x / tileSize) * tileSize; i < (x / tileSize) * 5 + 5 * tileSize; i+=tileSize) {
+    for (int j = (y / tileSize) * tileSize; j < (y / tileSize) * tileSize + 2 * tileSize; j+=tileSize) { 
+      for (int i = (x / tileSize) * tileSize; i < (x / tileSize) * 5 + 3 * tileSize; i+=tileSize) {
         if (blocks.get((j / tileSize) * (GAMEWIDTH / tileSize) + (i / tileSize)).x == i && blocks.get((j / tileSize) * (GAMEWIDTH / tileSize) + (i / tileSize)).y == j) {
           if (blocks.get((j / tileSize) * (GAMEWIDTH / tileSize) + (i / tileSize)).getType() > 0) {
             scanEffectRadius();
