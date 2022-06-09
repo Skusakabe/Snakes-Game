@@ -13,6 +13,7 @@ static float GRAV = 0.75;
 static int tileSize = 5;
 int mode;
 int mode2;
+boolean unlimitedProjectiles;
 Snake toMove;
 String weaponName;
 ArrayList<String> MapName = new ArrayList<String>();
@@ -75,6 +76,7 @@ void updateMapList() {
 }
 void setup() {
   size(1500, 600);
+  unlimitedProjectiles = false;
   blast = new SoundFile(this, "explosion.wav");
   PEW = new SoundFile(this, "PEWsfx.wav");
   hit = new SoundFile(this, "hitsfx.mp3");
