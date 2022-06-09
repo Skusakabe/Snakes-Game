@@ -42,51 +42,51 @@ class Snake {
     health -= dam;
   }
 
-  public void displayRad(){  //<>// //<>// //<>// //<>//
-    stroke(color(0,200,0)); //<>// //<>// //<>// //<>// //<>//
+  public void displayRad(){  //<>// //<>// //<>//
+    stroke(color(0,200,0)); //<>// //<>// //<>// //<>//
     tint(255,255);
     circle(x-10, y-10, movement_Radius);
-  } //<>// //<>// //<>// //<>// //<>// //<>//
-  boolean isin(int m1, int m2){ //<>// //<>// //<>// //<>// //<>// //<>//
+  } //<>// //<>// //<>// //<>// //<>//
+  boolean isin(int m1, int m2){ //<>// //<>// //<>// //<>// //<>//
     return(((m1 >= x)&&(m1 <= x+20))&&((m2 >= y)&&(m2 <= y+20)));
   }
-  public void display() { //<>// //<>// //<>//
-    image(model, x, y); //<>// //<>// //<>// //<>//
+  public void display() { //<>// //<>//
+    image(model, x, y); //<>// //<>// //<>//
   }
    boolean highestBlock(){
      for(int k = 0; k < tileSize * 4; k+= tileSize){
        Terrain temp = blocks.get((((y+tileSize * 4)/tileSize)*(GAMEWIDTH/tileSize))+((x + k)/tileSize));
        if(temp.id > 0){
-         return true; //<>// //<>// //<>// //<>//
+         return true; //<>// //<>// //<>//
        }
-     } //<>// //<>// //<>// //<>//
+     } //<>// //<>// //<>//
      return false;
   }
   boolean rightBlock(){
      for(int k = 0; k < tileSize * 4; k+= tileSize){
-       Terrain temp = blocks.get((((y+k)/tileSize)*(GAMEWIDTH/tileSize))+((x + tileSize * 4)/tileSize)); //<>// //<>// //<>//
-       if(temp.id > 0){ //<>// //<>// //<>// //<>//
-         return true; //<>// //<>// //<>// //<>// //<>//
-       } //<>// //<>// //<>// //<>//
-     } //<>// //<>// //<>// //<>//
+       Terrain temp = blocks.get((((y+k)/tileSize)*(GAMEWIDTH/tileSize))+((x + tileSize * 4)/tileSize)); //<>// //<>//
+       if(temp.id > 0){ //<>// //<>// //<>//
+         return true; //<>// //<>// //<>// //<>//
+       } //<>// //<>// //<>//
+     } //<>// //<>// //<>//
      return false;
   } 
   boolean leftBlock(){
      for(int k = 0; k < tileSize * 4; k+= tileSize){
        Terrain temp = blocks.get((((y+k)/tileSize)*(GAMEWIDTH/tileSize))+((x)/tileSize));
        if(temp.id > 0){
-         return true; //<>// //<>// //<>//
+         return true; //<>// //<>//
        }
-     } //<>// //<>// //<>//
+     } //<>// //<>//
      return false;
   }//<>//
   // Returns a projectile based on the parameters, this will be added to the active
-  // projectile ArrayList, where draw() will make the projectile do its stuff. //<>// //<>//
-  /* //<>// //<>// //<>//
-  ProjectileID's: //<>// //<>// //<>//
-  1) BasicShot //<>// //<>// //<>//
-  2) DirtShot //<>// //<>// //<>//
-  3) BigShot //<>// //<>//
+  // projectile ArrayList, where draw() will make the projectile do its stuff. //<>//
+  /* //<>// //<>//
+  ProjectileID's: //<>// //<>//
+  1) BasicShot //<>// //<>//
+  2) DirtShot //<>// //<>//
+  3) BigShot //<>//
   4) GroundRemover
   5) ScatterShot
   6) DrillShot
@@ -94,17 +94,17 @@ class Snake {
   8) TrailShot
   9) CarpetBomber
   10) Nuke
-  11) SpiderShot //<>//
+  11) SpiderShot
   12) Blunderbuss
-  */ //<>// //<>// //<>//
-  public Projectile shoot(int angle, int power, int ProjectileID) {  //<>// //<>//
+  */ //<>// //<>//
+  public Projectile shoot(int angle, int power, int ProjectileID) {  //<>//
     if (ProjectileID == 12) {
       PEW.play(1, 0.4);
     }
     else {
       PEW.play(1, 0.9);
     }
-    if (ProjectileID == 1) {  //<>//
+    if (ProjectileID == 1) { 
       return new BasicShot(x, y, angle, power, 30, 25, 0.35); 
     }
     if (ProjectileID == 2) {

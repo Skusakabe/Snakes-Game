@@ -187,7 +187,7 @@ void keyPressed() {
 void keyReleased() {
   if (mode == 1) {
     keyboardInput.release(keyCode);
-    if (key == 'w') {
+    if (key == 'w' && toMove != null) {
       if ((upMove == 0)&&(toMove.spotLeft>=10)) {
         upMove += 4;
         toMove.spotLeft = toMove.spotLeft - 10;
@@ -246,7 +246,7 @@ void draw() {
     fill(0);
     text("Player 2 Wins", width/2 - 300, height/2);
     textSize(50);
-    text("Click Anywhere to Continue, wait 5 seconds", width/2 - 500, height/2 + 100);
+    text("Click Anywhere to Continue, wait 5 seconds", width/2 - 500, height/2 + 100); //<>//
     if (hoveringButton(0, 0, 1500, 600)) {
       mode2 = -4;
     }
