@@ -158,7 +158,7 @@ void mapSelection(int x, int y, boolean bol){
 bol = false;
   back.resize(1500, 600);
   image(back, x, y);
-  PImage start = loadImage("Start.png");
+  PImage start = loadImage("start.png");
   image(start, 900, 250);
   if(hoveringButton(900, 250, 200, 100)){
     mode2 = 4;

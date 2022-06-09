@@ -1,4 +1,4 @@
-import controlP5.*;  //<>// //<>// //<>//
+import controlP5.*;  //<>// //<>// //<>// //<>//
 import processing.sound.*;
 UI UI; 
 Controller keyboardInput;
@@ -186,6 +186,7 @@ void keyPressed() {
 }
 void keyReleased() {
   if (mode == 1) {
+    if(toMove != null){
     keyboardInput.release(keyCode);
     if (key == 'w') {
       if ((upMove == 0)&&(toMove.spotLeft>=10)) {
@@ -193,6 +194,7 @@ void keyReleased() {
         toMove.spotLeft = toMove.spotLeft - 10;
       }
     }
+  }
   }
 }
 void mouseReleased() {
@@ -255,7 +257,7 @@ void draw() {
     fill(0);
     text("Player 1 Wins", width/2 - 300, height/2);
     textSize(50);
-    text("Click Anywhere to Continue, wait 5 seconds", width/2 - 500, height/2 + 100);
+    text("Click Anywhere to Continue, wait 5 seconds", width/2 - 500, height/2 + 100); //<>//
     if (hoveringButton(0, 0, 1500, 600)) {
       mode2 = -4;
     }
@@ -426,6 +428,15 @@ void draw() {
         } else {
           mode2 = 100000;
         }
+      }
+      if(toMove != null){
+        //print(1);
+        fill(0);
+        strokeWeight(1);
+        line(toMove.x, toMove.y, toMove.x + power/5*(sin((angle+90)*PI/180)), toMove.y + power/5*(cos((angle+90)*PI/180)));
+       // print(2);
+      //rect(toMove.x, toMove.y, 10, 10);
+      fill(255);
       }
     }
   }
