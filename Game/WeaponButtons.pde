@@ -15,5 +15,12 @@ class WeaponButtons{
     textAlign(CENTER);
     fill(0);
     text(name, x + 50, y + 25);
+    textAlign(LEFT);
+  }
+  void onhit(){
+    if(hoveringButton(x, y, 100, 50)){
+      toproj = id;
+      arsenalButton = true;
+    }
   }
 }
