@@ -133,6 +133,7 @@ void setup() {
   mode = 0;
   mode2 = 0;
   image(Loading4,0,0);
+    loop();
 }
 
 void keyPressed() {
@@ -455,7 +456,7 @@ void draw() {
         noLoop();
       }
       if(toMove != null){
-        //print(1);
+        print("test");
         fill(0);
         strokeWeight(1);
         line(toMove.x, toMove.y, toMove.x + power/5*(sin((angle+90)*PI/180)), toMove.y + power/5*(cos((angle+90)*PI/180)));
