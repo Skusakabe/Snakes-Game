@@ -128,7 +128,7 @@ void setup() {
   rect(endX, endY, endRectX, endRectY);
   rect(selectX, selectY, selectRectX, selectRectY);
   rect(shootX, shootY, shootRectX, shootRectY);
-  mode = 1;
+  mode = 0;
   mode2 = 0;
   image(Loading4,0,0);
 }
@@ -522,9 +522,11 @@ void mousePressed() {
   }
   if (mode2 == 4) {
     mode = 1;
+    mode2 = 1000000;
   }
   if (mode2 == 3) {
     mode = 3;
+    mode2 = 1000000;
   }
   if (mode2 == 1) {
     mode = 4;
@@ -540,6 +542,7 @@ void mousePressed() {
     image(Loading1, 0, 0);
     noLoop();
     thread("setup");
+    mode2 = 1000000;
   }
   if (mode == 3) {
     if (UI.dirt) {
