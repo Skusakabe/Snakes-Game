@@ -18,6 +18,7 @@ import static java.nio.file.StandardOpenOption.*;
  class UI implements Serializable{
    DropdownList d1;
   PImage back = loadImage("MapBackground.png");
+  PImage Arsenal = loadImage("Arsenal.png");
   PImage background;
   PImage[] StartAni = new PImage[12];
   Terrain Terrbackground = new Terrain(-1, 0, 0);
@@ -44,6 +45,20 @@ import static java.nio.file.StandardOpenOption.*;
     StartAni[9] = loadImage("pixil-frame-9.png");
     StartAni[10] = loadImage("pixil-frame-10.png");
     StartAni[11] = loadImage("pixil-frame-11.png");
+  }
+  void arsenalUI(){
+    Arsenal.resize(1000, 500);
+    image(Arsenal, 100, 50);
+    for(int x = 0; x < weaponList.length; x++){
+      int y = x;
+      int z = x%6;
+      if(x == 0){
+        y = 1;
+      }
+      WeaponButtons butt = new WeaponButtons(200 + (125*z), 150+(75*(y/6)), x, weaponList[x]);
+      butt.display();
+       butt.onhit();
+    }
   }
   void basicUI(int x, int y) {
     image(background, x, y);
@@ -158,7 +173,7 @@ void mapSelection(int x, int y, boolean bol){
 bol = false;
   back.resize(1500, 600);
   image(back, x, y);
-  PImage start = loadImage("Start.png");
+  PImage start = loadImage("start.png");
   image(start, 900, 250);
   if(hoveringButton(900, 250, 200, 100)){
     mode2 = 4;

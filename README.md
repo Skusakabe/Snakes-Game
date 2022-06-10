@@ -26,8 +26,6 @@ Kevin Work Log:
 
 6/1/22: Made the pause Menu.
 
-<<<<<<< HEAD
-=======
 6/2/22: Started work on the save menu, started setting up save and open function.
 
 6/3/22: Finish working on map editing screen, along with GUI. This allows us to draw our map and then upload it.
@@ -40,7 +38,9 @@ Kevin Work Log:
 
 6/7/22: fixed issue with local pathing. Found issue with math and highestblock method. Fixed pause button being broken. 
 
->>>>>>> Kevin
+6/8/22: Fixed issues with pause button. 
+
+6/9/22: added arsenal Menu. Made a new WeaponButton class, allowing for automation of button.
 Shinji work log:
 
 5/23/22: Made a little bit of projectile and started the project. Got projectile to display itself and do the physics/move.

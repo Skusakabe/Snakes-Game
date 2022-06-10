@@ -1,6 +1,8 @@
-import controlP5.*;  //<>// //<>// //<>//
+import controlP5.*;  //<>// //<>// //<>// //<>// //<>//
 import processing.sound.*;
 UI UI; 
+int toproj;
+boolean arsenalButton;
 Controller keyboardInput;
 Terrain background;
 boolean drag, setupSnake;
@@ -62,6 +64,7 @@ Player player1;
 Player player2;
 Player turn;
 ControlP5 cp5;
+PImage Loading1, Loading2, Loading3, Loading4;
 void updateMapList() {
   try {
     Scanner scan = new Scanner(new File(sketchPath("")+"MAPNAME.txt"));
@@ -77,6 +80,16 @@ void updateMapList() {
 void setup() {
   size(1500, 600);
   unlimitedProjectiles = false;
+  arsenalButton = false;
+  toproj = 0;
+  Loading1 = loadImage("Loading1.png");
+  Loading1.resize(1500, 600);
+  Loading2 = loadImage("Loading2.png");
+  Loading2.resize(1500, 600);
+  Loading3 = loadImage("Loading3.png");
+  Loading3.resize(1500, 600);
+  Loading4 = loadImage("Loading4.png");
+  Loading4.resize(1500, 600);
   blast = new SoundFile(this, "explosion.wav");
   PEW = new SoundFile(this, "PEWsfx.wav");
   hit = new SoundFile(this, "hitsfx.mp3");
@@ -91,6 +104,7 @@ void setup() {
   save = false;
   typing = false;
   gameMap = new MapGenerator(GAMEWIDTH, GAMEHEIGHT);
+  image(Loading2,0,0);
   EverySnake = new ArrayList<Snake>();
   blocks = new ArrayList<Terrain>();
   animationList = new ArrayList<Animation>();
@@ -105,6 +119,7 @@ void setup() {
   move = true;
   player1 = new Player(1);
   player2 = new Player(2);
+  image(Loading3,0,0);
   player1.addSnake(1, "SnakeRed.png");
   player2.addSnake(1, "SnakeBlue.png");
   turn = player1;
@@ -117,6 +132,7 @@ void setup() {
   rect(shootX, shootY, shootRectX, shootRectY);
   mode = 0;
   mode2 = 0;
+  image(Loading4,0,0);
 }
 
 void keyPressed() {
@@ -188,6 +204,7 @@ void keyPressed() {
 }
 void keyReleased() {
   if (mode == 1) {
+    if(toMove != null){
     keyboardInput.release(keyCode);
     if (key == 'w' && toMove != null) {
       if ((upMove == 0)&&(toMove.spotLeft>=10)) {
@@ -195,6 +212,7 @@ void keyReleased() {
         toMove.spotLeft = toMove.spotLeft - 10;
       }
     }
+  }
   }
 }
 void mouseReleased() {
@@ -230,12 +248,13 @@ void mouseReleased() {
 void draw() {
   cp5.hide();
   background(255);
-  while (mode == 1 && !music.isPlaying()) {
-    music.play(1, 0.5);
-  }
+  //while (mode == 1 && !music.isPlaying()) {
+  //  music.play(1, 0.5);
+  //}
   //UI.d1.hide();
   if (mode == 3) {
     frameRate(10);
+     image(Loading2,0,0);
     UI.mapScreen(0, 0, setupMode3);
   } else if (mode == 0) {
     frameRate(10);
@@ -255,13 +274,14 @@ void draw() {
   } else if (mode == -2) {
     textSize(100);
     fill(0);
-    text("Player 1 Wins", width/2 - 300, height/2);
+    text("Player 1 Wins", width/2 - 300, height/2); //<>//
     textSize(50);
-    text("Click Anywhere to Continue, wait 5 seconds", width/2 - 500, height/2 + 100);
+    text("Click Anywhere to Continue, wait 5 seconds", width/2 - 500, height/2 + 100); //<>//
     if (hoveringButton(0, 0, 1500, 600)) {
       mode2 = -4;
     }
   } else if (mode == 4) {
+     image(Loading1,0,0);
     cp5.show();
     //UI.d1.setBarVisible(true);
     UI.mapSelection(0, 0, MapSetUp);
@@ -402,7 +422,7 @@ void draw() {
       text("Power: " + power, 1210, 30);
       text("Angle: " + angle, 1210, 40);
       text("MODE: " + mode, 1210, 60);
-      text("Selected weapon: " + weaponName, 1210, 50);
+      text("Selected weapon: " + weaponList[projID - 1], 1210, 50);
       fill(255);
       rect(endX, endY, endRectX, endRectY);
       rect(selectX, selectY, selectRectX, selectRectY);
@@ -429,11 +449,42 @@ void draw() {
           mode2 = 100000;
         }
       }
+      if(mode == -5){
+        print("hello");
+        UI.arsenalUI();
+        noLoop();
+      }
+      if(toMove != null){
+        //print(1);
+        fill(0);
+        strokeWeight(1);
+        line(toMove.x, toMove.y, toMove.x + power/5*(sin((angle+90)*PI/180)), toMove.y + power/5*(cos((angle+90)*PI/180)));
+       // print(2);
+      //rect(toMove.x, toMove.y, 10, 10);
+      fill(255);
+      }
     }
   }
+  //print(mode);
 }
 void mousePressed() {
-  if (mode == 1) {
+  if(mode == -5){
+    for(int x = 0; x < weaponList.length; x++){
+      int y = x;
+      int z = x%6;
+      if(x == 0){
+        y = 1;
+      }
+      WeaponButtons butt = new WeaponButtons(200 + (125*z), 150+(75*(y/6)), x, weaponList[x]);
+       butt.onhit();
+    }
+  if(arsenalButton){
+    projID = toproj + 1;
+      print(projID);
+    mode = 1;
+    loop();
+  }
+  }
     if (overEndTurn) {
       for (Snake a : turn.team) {
         a.reset();
@@ -446,12 +497,13 @@ void mousePressed() {
       }
     }
     if (overSelect) {
-      if (projID == 12) {
-        projID = 1;
-      } else {
-        projID++;
-      }
-      weaponName = weaponList[projID - 1];
+      //if (projID == 12) {
+      //  projID = 1;
+      //} else {
+      //  projID++;
+      //}
+      //weaponName = weaponList[projID - 1];
+      mode = -5;
     }
     if (overShoot) {
       if ((toMove != null)&&(!toMove.shootYet)) {
@@ -464,7 +516,6 @@ void mousePressed() {
         toMove.shootYet = true;
       }
     }
-  }
   if (mode == -3) {
     if (hoveringButton(width/2 - 125, 100, 250, 75)) {
       mode = 1;
@@ -473,9 +524,11 @@ void mousePressed() {
   }
   if (mode2 == 4) {
     mode = 1;
+    mode2 = 1000000;
   }
   if (mode2 == 3) {
     mode = 3;
+    mode2 = 1000000;
   }
   if (mode2 == 1) {
     mode = 4;
@@ -488,7 +541,10 @@ void mousePressed() {
     while (Bullets.size() > 0) {
       Bullets.remove(0);
     }
-    setup();
+    image(Loading1, 0, 0);
+    noLoop();
+    thread("setup");
+    mode2 = 1000000;
   }
   if (mode == 3) {
     if (UI.dirt) {
@@ -539,19 +595,19 @@ void controlEvent(ControlEvent theEvent) {
 void update() {
   if ( hoveringButton(endX, endY, endRectX, endRectY) ) {
     overEndTurn = true;
-    overSelect = false;
-    overShoot = false;
-  } else if ( hoveringButton(selectX, selectY, selectRectX, selectRectY) ) {
+  }else{
     overEndTurn = false;
-    overSelect = true;
-    overShoot = false;
-  } else if ( hoveringButton(shootX, shootY, shootRectX, shootRectY) ) {
-    overEndTurn = false;
-    overSelect = false;
-    overShoot = true;
-  } else {
-    overEndTurn = overSelect = overShoot = false;
   }
+  if ( hoveringButton(selectX, selectY, selectRectX, selectRectY) ) {
+    overSelect = true;
+  } else{
+    overSelect = false;
+  }
+  if ( hoveringButton(shootX, shootY, shootRectX, shootRectY) ) {
+    overShoot = true;
+  } else{
+    overShoot = false;
+}
 }
 
 Snake getTarget(SpiderShot s) {
