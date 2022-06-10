@@ -33,6 +33,7 @@ public class Animation {
     fill(255, 128, 0);
     ellipse(x, y, radius*1/5, radius*1/5);
     timer++;
+    stroke(0);
   }
   
   int getTimer() {

@@ -1,4 +1,4 @@
-import controlP5.*;  //<>// //<>// //<>// //<>// //<>//
+import controlP5.*;  //<>// //<>// //<>// //<>// //<>// //<>//
 import processing.sound.*;
 UI UI; 
 int toproj;
@@ -153,17 +153,19 @@ void keyPressed() {
     keyboardInput.press(keyCode);
     if (key == ' ') {
       if ((toMove != null)&&(!toMove.shootYet)) {
-        Bullets.add(toMove.shoot(angle, power, projID));
+        Bullets.add(toMove.shoot(toMove.angle, toMove.power, projID));
         toMove.shootYet = true;
       }
     }
   }
   if (key == CODED) {
     if (keyCode == UP) {
+      if(toMove != null)
       if (mode == 1) {
-        if (angle < 360) {
-          angle++;
+        if (toMove.angle < 360) {
+          toMove.angle++;
         }
+      }
       } else if (mode == 3) {
         if (UIradius < 70) {
           UIradius += 5;
@@ -173,8 +175,10 @@ void keyPressed() {
 
     if (keyCode == DOWN) {
       if (mode == 1) {
-        if (angle > 0) {
-          angle--;
+        if(toMove != null){
+        if (toMove.angle > 0) {
+          toMove.angle--;
+        }
         }
       } else if (mode == 3) {
         if (UIradius > 0) {
@@ -183,14 +187,17 @@ void keyPressed() {
       }
     }
     if (keyCode == RIGHT) {
-      if (power<100) {
-        power++;
+       if(toMove != null){
+      if (toMove.power<100) {
+        toMove.power++;
       }
-    }
+       }
     if (keyCode == LEFT) {
+             if(toMove != null){
       if (power > 0) {
         power--;
       }
+             }
     }
   }
   if (key == 27) {
@@ -261,16 +268,16 @@ void draw() {
     frameRate(10);
     UI.startScreen(0, 0);
     if (hoveringButton(BeginX, BeginY, BeginRectX, BeginRectY)) {
-      mode2 = 1;
+      mode2 = 1; //<>//
     }
   } else if (mode == -1) {
     textSize(100);
     fill(0);
     text("Player 2 Wins", width/2 - 300, height/2);
     textSize(50);
-    text("Click Anywhere to Continue, wait 5 seconds", width/2 - 500, height/2 + 100); //<>//
+    text("Click Anywhere to Continue, wait 5 seconds", width/2 - 500, height/2 + 100); //<>// //<>//
     if (hoveringButton(0, 0, 1500, 600)) {
-      mode2 = -4;
+      mode2 = -4; //<>//
     }
   } else if (mode == -2) {
     textSize(100);
@@ -420,8 +427,10 @@ void draw() {
       player2.team = P2Team;
       UI.basicUI(1200, 0);
       text("Player " +turn.id + "'s turn", 1210, 12);
-      text("Power: " + power, 1210, 30);
-      text("Angle: " + angle, 1210, 40);
+      if(toMove != null){
+      text("Power: " + toMove.power, 1210, 30);
+      text("Angle: " + toMove.angle, 1210, 40);
+      }
       text("MODE: " + mode, 1210, 60);
       text("Selected weapon: " + weaponList[projID - 1], 1210, 50);
       fill(255);
@@ -456,13 +465,10 @@ void draw() {
         noLoop();
       }
       if(toMove != null){
-        print("test");
         fill(0);
         strokeWeight(1);
-        line(toMove.x, toMove.y, toMove.x + power/5*(sin((angle+90)*PI/180)), toMove.y + power/5*(cos((angle+90)*PI/180)));
-       // print(2);
-      //rect(toMove.x, toMove.y, 10, 10);
-      fill(255);
+        line(toMove.x, toMove.y, toMove.x + (toMove.power+40)/5*(sin((toMove.angle+90)*PI/180)), toMove.y + (toMove.power+40)/5*(cos((toMove.angle+90)*PI/180)));
+        fill(255);
       }
     }
   }
@@ -510,10 +516,10 @@ void mousePressed() {
       if ((toMove != null)&&(!toMove.shootYet)) {
         if (projID == 12) {
           for (int i = 0; i < 11; i++) {
-            Bullets.add(toMove.shoot(angle, power, projID));
+            Bullets.add(toMove.shoot(toMove.angle, toMove.power, projID));
           }
         }
-        Bullets.add(toMove.shoot(angle, power, projID));
+        Bullets.add(toMove.shoot(toMove.angle, toMove.power, projID));
         toMove.shootYet = true;
       }
     }

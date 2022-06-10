@@ -1,4 +1,5 @@
 class Snake {
+  int angle, power;
   private int health, movement_Radius, x, y, spotLeft;
   private boolean dead;
   private PImage model;
@@ -16,6 +17,8 @@ class Snake {
     moveYet = false;
     shootYet = false;
     spotLeft = movement_Radius;
+    angle = 45;
+    power = 50;
   }
   public Snake(int x, int y, int team, String mod){
       model = loadImage(mod);
@@ -29,6 +32,8 @@ class Snake {
      moveYet = false;
      shootYet = false;
      spotLeft = movement_Radius;
+     angle = 45;
+     power = 50;
     }
   public void reset(){
     moveYet = false;
