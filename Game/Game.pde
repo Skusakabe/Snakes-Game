@@ -61,6 +61,7 @@ Player player1;
 Player player2;
 Player turn;
 ControlP5 cp5;
+PImage Loading1, Loading2, Loading3, Loading4;
 void updateMapList() {
   try {
     Scanner scan = new Scanner(new File(sketchPath("")+"MAPNAME.txt"));
@@ -75,6 +76,14 @@ void updateMapList() {
 }
 void setup() {
   size(1500, 600);
+  Loading1 = loadImage("Loading1.png");
+  Loading1.resize(1500, 600);
+  Loading2 = loadImage("Loading2.png");
+  Loading2.resize(1500, 600);
+  Loading3 = loadImage("Loading3.png");
+  Loading3.resize(1500, 600);
+  Loading4 = loadImage("Loading4.png");
+  Loading4.resize(1500, 600);
   blast = new SoundFile(this, "explosion.wav");
   PEW = new SoundFile(this, "PEWsfx.wav");
   hit = new SoundFile(this, "hitsfx.mp3");
@@ -89,6 +98,7 @@ void setup() {
   save = false;
   typing = false;
   gameMap = new MapGenerator(GAMEWIDTH, GAMEHEIGHT);
+  image(Loading2,0,0);
   EverySnake = new ArrayList<Snake>();
   blocks = new ArrayList<Terrain>();
   animationList = new ArrayList<Animation>();
@@ -103,6 +113,7 @@ void setup() {
   move = true;
   player1 = new Player(1);
   player2 = new Player(2);
+  image(Loading3,0,0);
   player1.addSnake(1, "SnakeRed.png");
   player2.addSnake(1, "SnakeBlue.png");
   turn = player1;
@@ -115,6 +126,7 @@ void setup() {
   rect(shootX, shootY, shootRectX, shootRectY);
   mode = 0;
   mode2 = 0;
+  image(Loading4,0,0);
 }
 
 void keyPressed() {
@@ -236,6 +248,7 @@ void draw() {
   //UI.d1.hide();
   if (mode == 3) {
     frameRate(10);
+     image(Loading2,0,0);
     UI.mapScreen(0, 0, setupMode3);
   } else if (mode == 0) {
     frameRate(10);
@@ -262,6 +275,7 @@ void draw() {
       mode2 = -4;
     }
   } else if (mode == 4) {
+     image(Loading1,0,0);
     cp5.show();
     //UI.d1.setBarVisible(true);
     UI.mapSelection(0, 0, MapSetUp);
@@ -455,12 +469,14 @@ void mousePressed() {
       }
     }
     if (overSelect) {
-      if (projID == 12) {
-        projID = 1;
-      } else {
-        projID++;
-      }
-      weaponName = weaponList[projID - 1];
+    //  if (projID == 12) {
+    //    projID = 1;
+    //  } else {
+    //    projID++;
+    //  }
+    //  weaponName = weaponList[projID - 1];
+    UI.arsenalUI();
+    noLoop();
     }
     if (overShoot) {
       if ((toMove != null)&&(!toMove.shootYet)) {
@@ -497,7 +513,9 @@ void mousePressed() {
     while (Bullets.size() > 0) {
       Bullets.remove(0);
     }
-    setup();
+    image(Loading1, 0, 0);
+    noLoop();
+    thread("setup");
   }
   if (mode == 3) {
     if (UI.dirt) {
