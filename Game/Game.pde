@@ -458,10 +458,10 @@ void draw() {
         //print(1);
         fill(0);
         strokeWeight(1);
-        line(toMove.x, toMove.y, toMove.x + power/5*(sin((angle+90)*PI/180)), toMove.y + power/5*(cos((angle+90)*PI/180)));
+        line(toMove.x, toMove.y, toMove.x + (power+40)/5*(sin((angle+90)*PI/180)), toMove.y + (power+40)/5*(cos((angle+90)*PI/180)));
        // print(2);
       //rect(toMove.x, toMove.y, 10, 10);
-      fill(255);
+        fill(255);
       }
     }
   }
