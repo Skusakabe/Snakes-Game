@@ -69,4 +69,14 @@ class Player{
       }
     }
   }
+  
+  int getAmmo(int weapID) {
+    int result = 0;
+    for (int i = 0; i < arsenal.size(); i++) {
+      if (arsenal.get(i) == weapID) {
+        result++;
+      }
+    }
+    return result;
+  }
 }

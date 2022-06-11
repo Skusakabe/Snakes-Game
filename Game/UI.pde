@@ -49,15 +49,15 @@ import static java.nio.file.StandardOpenOption.*;
   void arsenalUI(){
     Arsenal.resize(1000, 500);
     image(Arsenal, 100, 50);
-    for(int x = 0; x < weaponList.length; x++){
-      int y = x;
-      int z = x%6;
-      if(x == 0){
+    for(int x = 1; x <= weaponList.length; x++){
+      int y = x-1;
+      int z = (x-1)%6;
+      if(x == 1){
         y = 1;
       }
-      WeaponButtons butt = new WeaponButtons(200 + (125*z), 150+(75*(y/6)), x, weaponList[x]);
+      WeaponButtons butt = new WeaponButtons(200 + (125*z), 150+(75*(y/6)), x, weaponList[x-1]);
       butt.display();
-       butt.onhit();
+      butt.onhit();
     }
   }
   void basicUI(int x, int y) {
