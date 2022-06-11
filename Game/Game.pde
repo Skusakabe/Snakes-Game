@@ -524,7 +524,6 @@ void mousePressed() {
       }
     } else {
       if ((toMove != null)&&(!toMove.shootYet)) {
-        print(turn.arsenal);
         if (turn.arsenal.contains(projID)) {
           if (projID == 12) {
             for (int i = 0; i < 11; i++) {
