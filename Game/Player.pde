@@ -56,7 +56,16 @@ class Player{
         }
       }
       else {
-        
+        choice2 = (int)random(3);
+        if (choice2 == 0) {
+          arsenal.add(9);
+        }
+        else if (choice2 == 1) {
+          arsenal.add(10);
+        }
+        else {
+          arsenal.add(11);
+        }
       }
     }
   }
