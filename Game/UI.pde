@@ -55,7 +55,7 @@ import static java.nio.file.StandardOpenOption.*;
       if(x == 0){
         y = 1;
       }
-      WeaponButtons butt = new WeaponButtons(200 + (125*z), 150+(75*(y/6)), x, weaponList[x]);
+      WeaponButtons butt = new WeaponButtons(200 + (125*z), 150+(75*(y/6)), x, weaponList[x], turn.getAmmo(x));
       butt.display();
        butt.onhit();
     }
