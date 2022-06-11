@@ -482,7 +482,7 @@ void mousePressed() {
       if (x == 0) {
         y = 1;
       }
-      WeaponButtons butt = new WeaponButtons(200 + (125*z), 150+(75*(y/6)), x, weaponList[x], turn.getAmmo(x));
+      WeaponButtons butt = new WeaponButtons(200 + (125*z), 150+(75*(y/6)), x, weaponList[x]);
       butt.onhit();
     }
     if (arsenalButton) {
@@ -524,19 +524,19 @@ void mousePressed() {
         toMove.shootYet = true;
       }
     } else {
-      if (turn.arsenal.contains(projID)) {
-        if ((toMove != null)&&(!toMove.shootYet)) {
+      if ((toMove != null)&&(!toMove.shootYet)) {
+        if (turn.arsenal.contains(projID)) {
           if (projID == 12) {
             for (int i = 0; i < 11; i++) {
               Bullets.add(toMove.shoot(angle, power, projID));
             }
           }
           Bullets.add(toMove.shoot(angle, power, projID));
+          turn.arsenal.remove(Integer.valueOf(projID));
           toMove.shootYet = true;
+        } else {
+          println("You don't have any ammo of this type left!");
         }
-      }
-      else {
-        print("You don't have any ammo of this type left!");
       }
     }
   }
