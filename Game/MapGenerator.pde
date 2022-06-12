@@ -2,6 +2,7 @@ public class MapGenerator {
   ArrayList<Terrain> map;
 
   MapGenerator(int mapWidth, int mapHeight) {
+    noiseSeed((int)random(100000));
     ArrayList<Terrain> result = new ArrayList<Terrain>();
     for (int y = 0; y < mapHeight / tileSize; y++) {
       for (int x = 0; x < mapWidth / tileSize; x++) {

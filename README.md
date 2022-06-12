@@ -3,6 +3,15 @@ Worms like game: PvP, shoot projectiles at your opponent and modify power and an
 
 Necessary processing libaries: ControlP5 and Sound.
 
+HOW TO PLAY: 
+1) Click start and then choose the options that you like in the start screen.
+2) Two teams of snakes, indicated by their color.
+3) Click on a snake on the team of the current player's turn. Move the snake with the WAD keys. Adjust angle(up and down arrows) and power(left and right arrows) to aim. Choose projectiles by clicking on the change weapon screen and aim at the snakes on the enemy team. You can damage your own snakes if they get hit by your own attacks.
+4) After you have made your moves with all of the snakes on your team, click the end turn button and it will switch to the other players turn.
+5) Once all the snakes in a player's team die, the other player wins.
+6) Click escape to open the pause screen.
+
+
 https://docs.google.com/document/d/1AoIARfXN8U-7Oqtji3RhJ8SQPpH15UtG0l1z0YM3ohg/edit?usp=sharing
 
 Kevin Work Log:
@@ -72,3 +81,11 @@ Shinji work log:
 6/6/22: Created blunderbuss and improved radius of projectiles.
 
 6/7/22: Added sound effects and bgm.
+
+6/8/22: More adjustments to sound.
+
+6/9/22: bug fixing, improvements and made the start of arsenal to keep track of the players weapons.
+
+6/10/22: Finished making the arsenal functional and more bug fixing.
+
+6/12/22: A lot of bug fixing and small qol changes like an indicator over the selected snake and made main menu reset the game.

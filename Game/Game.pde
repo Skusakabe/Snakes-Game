@@ -1,4 +1,4 @@
-import controlP5.*; //<>// //<>// //<>// //<>// //<>// //<>// //<>//
+import controlP5.*;        //<>//
 import processing.sound.*;
 UI UI; 
 int option1;
@@ -92,7 +92,7 @@ void setup() {
   snakeCount = 3;
   spawnSnake = true;
   option1 = -1;
-  soundonoff = false;
+  soundonoff = true;
   unlimitedProjectiles = false;
   arsenalButton = false;
   toproj = 0;
@@ -180,6 +180,9 @@ void keyPressed() {
           if (toMove.angle < 360) {
             toMove.angle++;
           }
+          else {
+            toMove.angle = 0;
+          }
         }
     } else if (mode == 3) {
       if (UIradius < 70) {
@@ -207,11 +210,11 @@ void keyPressed() {
         toMove.power++;
       }
     }
-    if (keyCode == LEFT) {
-      if (toMove != null) {
-        if (toMove.power > 0) {
-          toMove.power--;
-        }
+  }
+  if (keyCode == LEFT) {
+    if (toMove != null) {
+      if (toMove.power > 0) {
+        toMove.power--;
       }
     }
   }
@@ -272,9 +275,9 @@ void draw() {
   cp5.hide();
   background(255);
   if(soundonoff){
-  while (mode <= 1 && !music.isPlaying()) {
-    music.play(1, 0.5);
-  }
+    while (mode <= 1 && !music.isPlaying()) {
+      music.play(1, 0.4);
+    }
   }else{
     music.stop();
   }
@@ -290,21 +293,21 @@ void draw() {
   if (mode == 3) {
     frameRate(10);
     image(Loading2, 0, 0);
-    UI.mapScreen(0, 0, setupMode3);
+    UI.mapScreen(0, 0, setupMode3); //<>//
   } else if (mode == 0) {
     frameRate(10);
-    UI.startScreen(0, 0);  //<>//
+    UI.startScreen(0, 0);  
     if (hoveringButton(BeginX, BeginY, BeginRectX, BeginRectY)){
-      mode2 = 1; //<>//
+      mode2 = 1; 
     }
-  } else if (mode == -1) {
+  } else if (mode == -1) { //<>//
     textSize(100);
-    fill(0);
-    text("Player 2 Wins", width/2 - 300, height/2); //<>// //<>//
-    textSize(50); //<>//
-    text("Click Anywhere to Continue, wait 5 seconds", width/2 - 500, height/2 + 100); //<>// //<>// //<>// //<>//
-    if (hoveringButton(0, 0, 1500, 600)) { //<>//
-      mode2 = -4; //<>//
+    fill(0); //<>//
+    text("Player 2 Wins", width/2 - 300, height/2);  
+    textSize(50); 
+    text("Click Anywhere to Continue, wait 5 seconds", width/2 - 500, height/2 + 100);    
+    if (hoveringButton(0, 0, 1500, 600)) { 
+      mode2 = -4; 
     }
   } else if (mode == -2) {
     textSize(100);
@@ -474,9 +477,11 @@ void draw() {
       text("CHANGE WEAPON", (selectX) + 55, selectY + 55);
       text("SHOOT", (shootX) + 75, shootY + 55);
       if (toMove != null) {
+        strokeWeight(2);
+        fill(50,255,50);
+        ellipse(toMove.x + 10, toMove.y - 10, 10, 10);
         fill(0);
-        strokeWeight(1);
-        line(toMove.x, toMove.y, toMove.x + (toMove.power+40)/5*(sin((toMove.angle+90)*PI/180)), toMove.y + (toMove.power+40)/5*(cos((toMove.angle+90)*PI/180)));
+        line(toMove.x + 10, toMove.y - 10, toMove.x + 10 + (toMove.power+40)/5*(sin((toMove.angle+90)*PI/180)), toMove.y - 10 + (toMove.power+40)/5*(cos((toMove.angle+90)*PI/180)));
         fill(255);
       }
       if (mode == -3) {
@@ -528,7 +533,7 @@ void draw() {
     }
   }
 }
-  //print(mode);
+
 void mousePressed() {
   if (mode == -5) {
     for (int x = 0; x < weaponList.length; x++) {
@@ -542,7 +547,6 @@ void mousePressed() {
     }
     if (arsenalButton) {
       projID = toproj + 1;
-      print(projID);
       mode = 1;
       loop();
     }
@@ -605,6 +609,9 @@ void mousePressed() {
     loop();
     mode = 0;
     mode2 = 1000000;
+    image(Loading1, 0, 0);
+    noLoop();
+    thread("setup");
   }
   if (mode2 == 4) {
     mode = 1;
@@ -645,11 +652,9 @@ void mousePressed() {
     }
     if (UI.totype) {
       typing = true;
-      print("hello");
     }
     if ((mouseX < 1200)&&(mouseY<600)) {
       drag = true;
-      //print("t");
     }
     if (toexit) {
       mode = 0;

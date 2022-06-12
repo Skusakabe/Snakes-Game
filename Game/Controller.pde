@@ -13,7 +13,6 @@ class Controller {
     }
 
     void press(int code) {
-      println(code);
       if(code == 'W')
       inputs[W] = true;
       if(code == 'A')
