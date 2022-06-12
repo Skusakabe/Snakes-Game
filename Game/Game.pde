@@ -1,4 +1,4 @@
-import controlP5.*; //<>// //<>// //<>// //<>// //<>// //<>//
+import controlP5.*; //<>// //<>// //<>// //<>// //<>// //<>// //<>//
 import processing.sound.*;
 UI UI; 
 int option1;
@@ -289,16 +289,16 @@ void draw() {
     UI.mapScreen(0, 0, setupMode3);
   } else if (mode == 0) {
     frameRate(10);
-    UI.startScreen(0, 0); //<>//
-    if (hoveringButton(BeginX, BeginY, BeginRectX, BeginRectY)) { //<>//
+    UI.startScreen(0, 0);  //<>//
+    if (hoveringButton(BeginX, BeginY, BeginRectX, BeginRectY)){
       mode2 = 1; //<>//
     }
   } else if (mode == -1) {
     textSize(100);
     fill(0);
-    text("Player 2 Wins", width/2 - 300, height/2); //<>//
+    text("Player 2 Wins", width/2 - 300, height/2); //<>// //<>//
     textSize(50); //<>//
-    text("Click Anywhere to Continue, wait 5 seconds", width/2 - 500, height/2 + 100); //<>// //<>// //<>//
+    text("Click Anywhere to Continue, wait 5 seconds", width/2 - 500, height/2 + 100); //<>// //<>// //<>// //<>//
     if (hoveringButton(0, 0, 1500, 600)) { //<>//
       mode2 = -4; //<>//
     }
@@ -488,7 +488,7 @@ void draw() {
         textSize(25);
         String onoff = "on";
         if(!soundonoff){
-          onoff = "false";
+          onoff = "off";
         }
         text("Resume", width/2 - 50, 145);
         text("Main Menu", width/2 - 70, 245);
@@ -523,8 +523,8 @@ void draw() {
       }
     }
   }
-  //print(mode);
 }
+  //print(mode);
 void mousePressed() {
   if (mode == -5) {
     for (int x = 0; x < weaponList.length; x++) {
