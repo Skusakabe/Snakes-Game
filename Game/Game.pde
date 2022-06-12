@@ -565,9 +565,9 @@ void mousePressed() {
             Bullets.add(toMove.shoot(angle, power, projID));
           }
         }
-      }
       Bullets.add(toMove.shoot(toMove.angle, toMove.power, projID));
       toMove.shootYet = true;
+      }
     } else {
       if ((toMove != null)&&(!toMove.shootYet)) {
         if (turn.arsenal.contains(projID)) {
