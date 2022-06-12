@@ -176,6 +176,9 @@ void keyPressed() {
           if (toMove.angle < 360) {
             toMove.angle++;
           }
+          else {
+            toMove.angle = 0;
+          }
         }
     } else if (mode == 3) {
       if (UIradius < 70) {
@@ -286,19 +289,19 @@ void draw() {
   if (mode == 3) {
     frameRate(10);
     image(Loading2, 0, 0);
-    UI.mapScreen(0, 0, setupMode3);
+    UI.mapScreen(0, 0, setupMode3); //<>//
   } else if (mode == 0) {
     frameRate(10);
-    UI.startScreen(0, 0);   //<>//
+    UI.startScreen(0, 0);  
     if (hoveringButton(BeginX, BeginY, BeginRectX, BeginRectY)){
       mode2 = 1; 
     }
-  } else if (mode == -1) {
+  } else if (mode == -1) { //<>//
     textSize(100);
-    fill(0);
-    text("Player 2 Wins", width/2 - 300, height/2);   //<>//
+    fill(0); //<>//
+    text("Player 2 Wins", width/2 - 300, height/2);  
     textSize(50); 
-    text("Click Anywhere to Continue, wait 5 seconds", width/2 - 500, height/2 + 100);     //<>//
+    text("Click Anywhere to Continue, wait 5 seconds", width/2 - 500, height/2 + 100);    
     if (hoveringButton(0, 0, 1500, 600)) { 
       mode2 = -4; 
     }
@@ -470,9 +473,11 @@ void draw() {
       text("CHANGE WEAPON", (selectX) + 55, selectY + 55);
       text("SHOOT", (shootX) + 75, shootY + 55);
       if (toMove != null) {
+        strokeWeight(2);
+        fill(50,255,50);
+        ellipse(toMove.x + 10, toMove.y - 10, 10, 10);
         fill(0);
-        strokeWeight(1);
-        line(toMove.x, toMove.y, toMove.x + (toMove.power+40)/5*(sin((toMove.angle+90)*PI/180)), toMove.y + (toMove.power+40)/5*(cos((toMove.angle+90)*PI/180)));
+        line(toMove.x + 10, toMove.y - 10, toMove.x + 10 + (toMove.power+40)/5*(sin((toMove.angle+90)*PI/180)), toMove.y - 10 + (toMove.power+40)/5*(cos((toMove.angle+90)*PI/180)));
         fill(255);
       }
       if (mode == -3) {
