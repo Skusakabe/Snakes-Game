@@ -68,6 +68,9 @@ import static java.nio.file.StandardOpenOption.*;
     image(StartAni[frameCount%12], 0, 0);
     }else{
       image(StartAni[11], 0, 0);
+      fill(255, 0, 0);
+      textSize(50);
+      text("By Kevin and Shinji", 700, 500);
        fill(255);
       rect(BeginX, BeginY, BeginRectX, BeginRectY);
       rect(SnakeX, BeginY, BeginRectX, BeginRectY);

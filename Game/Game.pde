@@ -1,4 +1,4 @@
-import controlP5.*;        //<>//
+import controlP5.*;        //<>// //<>//
 import processing.sound.*;
 UI UI; 
 int option1;
@@ -108,6 +108,7 @@ void setup() {
   PEW = new SoundFile(this, "PEWsfx.wav");
   hit = new SoundFile(this, "hitsfx.mp3");
   music = new SoundFile(this, "bgm1.mp3");
+  music.stop();
   MapName = new ArrayList<String>();
   MapSetUp = true;
   setupMode3 = true;
@@ -292,18 +293,18 @@ void draw() {
   }
   if (mode == 3) {
     frameRate(10);
-    image(Loading2, 0, 0);
+    image(Loading2, 0, 0); //<>//
     UI.mapScreen(0, 0, setupMode3); //<>//
-  } else if (mode == 0) {
+  } else if (mode == 0) { //<>//
     frameRate(10);
     UI.startScreen(0, 0);  
     if (hoveringButton(BeginX, BeginY, BeginRectX, BeginRectY)){
       mode2 = 1; 
-    }
-  } else if (mode == -1) { //<>//
-    textSize(100);
-    fill(0); //<>//
-    text("Player 2 Wins", width/2 - 300, height/2);  
+    } //<>//
+  } else if (mode == -1) { //<>// //<>//
+    textSize(100); //<>//
+    fill(0); //<>// //<>//
+    text("Player 2 Wins", width/2 - 300, height/2);   //<>//
     textSize(50); 
     text("Click Anywhere to Continue, wait 5 seconds", width/2 - 500, height/2 + 100);    
     if (hoveringButton(0, 0, 1500, 600)) { 
@@ -466,7 +467,11 @@ void draw() {
         text("Power: " + toMove.power, 1210, 30);
         text("Angle: " + toMove.angle, 1210, 40);
       }
-      text("MODE: " + mode, 1210, 60);
+      if(toMove != null){
+      text("Health: " + toMove.health, 1210, 60);
+      }else{
+        text("Health: ", 1210, 60);
+      }
       text("Selected weapon: " + weaponList[projID - 1], 1210, 50);
       fill(255);
       rect(endX, endY, endRectX, endRectY);
