@@ -14,7 +14,12 @@ class WeaponButtons{
     rect(x, y, 100, 50);
     textAlign(CENTER);
     fill(0);
-    text(name + ": " + turn.getAmmo(id), x + 50, y + 25);
+    if (!unlimitedProjectiles) {
+      text(name + ": " + turn.getAmmo(id), x + 50, y + 25);
+    }
+    else {
+      text(name, x + 50, y + 25);
+    }
     textAlign(LEFT);
   }
   void onhit(){
