@@ -13,18 +13,6 @@ public class MapGenerator {
     }
     map = result;
   }
-  
-  void regenMap(int mapWidth, int mapHeight) {
-    ArrayList<Terrain> result = new ArrayList<Terrain>();
-    for (int y = 0; y < mapHeight / tileSize; y++) {
-      for (int x = 0; x < mapWidth / tileSize; x++) {
-        Terrain block = new Terrain(getType(x,y),x*tileSize,y*tileSize);
-        block.display();
-        result.add(block);
-      }
-    }
-    map = result;
-  }
 
   int getType(int x, int y) {
     float value = noise(x * 0.03, y * 0.03);
