@@ -552,6 +552,9 @@ void mousePressed() {
     }
     if (arsenalButton) {
       projID = toproj + 1;
+      if (projID > 12) {
+        projID = 12;
+      }
       mode = 1;
       loop();
     }
@@ -568,12 +571,6 @@ void mousePressed() {
     }
   }
   if (overSelect) {
-    //if (projID == 12) {
-    //  projID = 1;
-    //} else {
-    //  projID++;
-    //}
-    //weaponName = weaponList[projID - 1];
     mode = -5;
   }
   if (overShoot) {
