@@ -1,7 +1,10 @@
-import controlP5.*;  //<>// //<>// //<>// //<>// //<>// //<>//
+import controlP5.*; //<>// //<>//
 import processing.sound.*;
 UI UI; 
+int option1;
+int option2;
 int toproj;
+boolean soundonoff;
 boolean arsenalButton;
 Controller keyboardInput;
 Terrain background;
@@ -18,7 +21,7 @@ int mode2;
 boolean unlimitedProjectiles;
 Snake toMove;
 String weaponName;
-ArrayList<String> MapName = new ArrayList<String>();
+ArrayList<String> MapName;
 static String[] weaponList = {"Basic shot", "Dirt shot", "Big shot", "Ground remover", "Scatter shot", "Drill shot", "Homing shot", "Trail shot", "Carpet bomber", 
   "Nuke", "Spider shot", "Blunderbuss"};
 boolean move, readyToMove;
@@ -79,6 +82,8 @@ void updateMapList() {
 }
 void setup() {
   size(1500, 600);
+  option1 = -1;
+  soundonoff = false;
   unlimitedProjectiles = false;
   arsenalButton = false;
   toproj = 0;
@@ -94,6 +99,7 @@ void setup() {
   PEW = new SoundFile(this, "PEWsfx.wav");
   hit = new SoundFile(this, "hitsfx.mp3");
   music = new SoundFile(this, "bgm1.mp3");
+  MapName = new ArrayList<String>();
   MapSetUp = true;
   setupMode3 = true;
   setupSnake = true;
@@ -122,6 +128,8 @@ void setup() {
   image(Loading3, 0, 0);
   player1.addSnake(1, "SnakeRed.png");
   player2.addSnake(1, "SnakeBlue.png");
+  player1.randomizeArsenal();
+  player2.randomizeArsenal();
   turn = player1;
   timer = 0;
   keyboardInput = new Controller();
@@ -256,10 +264,22 @@ void mouseReleased() {
 void draw() {
   cp5.hide();
   background(255);
-  //while (mode == 1 && !music.isPlaying()) {
-  //  music.play(1, 0.5);
-  //}
+  if(soundonoff){
+  while (mode <= 1 && !music.isPlaying()) {
+    music.play(1, 0.5);
+  }
+  }else{
+    music.stop();
+  }
   //UI.d1.hide();
+  if (!(unlimitedProjectiles)) {
+    if (player1.arsenal.size() == 0) {
+      player1.randomizeArsenal();
+    }
+    if (player2.arsenal.size() == 0) {
+      player2.randomizeArsenal();
+    }
+  }
   if (mode == 3) {
     frameRate(10);
     image(Loading2, 0, 0);
@@ -282,9 +302,9 @@ void draw() {
   } else if (mode == -2) {
     textSize(100);
     fill(0);
-    text("Player 1 Wins", width/2 - 300, height/2); //<>//
+    text("Player 1 Wins", width/2 - 300, height/2);
     textSize(50);
-    text("Click Anywhere to Continue, wait 5 seconds", width/2 - 500, height/2 + 100); //<>//
+    text("Click Anywhere to Continue, wait 5 seconds", width/2 - 500, height/2 + 100);
     if (hoveringButton(0, 0, 1500, 600)) {
       mode2 = -4;
     }
@@ -441,8 +461,14 @@ void draw() {
       text("END TURN", (endX) + 65, endY + 55);
       text("CHANGE WEAPON", (selectX) + 55, selectY + 55);
       text("SHOOT", (shootX) + 75, shootY + 55);
+      if (toMove != null) {
+        fill(0);
+        strokeWeight(1);
+        line(toMove.x, toMove.y, toMove.x + (toMove.power+40)/5*(sin((toMove.angle+90)*PI/180)), toMove.y + (toMove.power+40)/5*(cos((toMove.angle+90)*PI/180)));
+        fill(255);
+      }
       if (mode == -3) {
-        noLoop();
+        //noLoop();
         fill(0);
         rect(width/2 - 150, 75, 300, 425);
         fill(255);
@@ -452,23 +478,40 @@ void draw() {
         rect(width/2 - 125, 400, 250, 75);
         fill(0);
         textSize(25);
+        String onoff = "on";
+        if(!soundonoff){
+          onoff = "false";
+        }
         text("Resume", width/2 - 50, 145);
-        if (hoveringButton(width/2 - 150, 75, 300, 425)) {
-          mode2 = 1;
-        } else {
+        text("Main Menu", width/2 - 70, 245);
+        text("Music-" + onoff, width/2 - 70, 345);
+        text("Exit", width/2 - 40, 445);
+        
+        if (hoveringButton(width/2 - 125, 100, 250, 75)) {
+          mode2 = 4;
+        } 
+        else {
           mode2 = 100000;
         }
       }
+      if(hoveringButton(width/2 - 125, 300, 250, 75)){
+        option2 = 1;
+      }else{
+        option2 = -1;
+      }
+      if(hoveringButton(width/2 - 125, 200, 250, 75)){
+        mode2 = 0;
+      }else{
+        mode2 = 1000000;
+      }
+      if(hoveringButton(width/2 - 125, 400, 250, 75)){
+        option1 = 2;
+      }else{
+        option1 = -1;
+      }
       if (mode == -5) {
-        print("hello");
         UI.arsenalUI();
         noLoop();
-      }
-      if (toMove != null) {
-        fill(0);
-        strokeWeight(1);
-        line(toMove.x, toMove.y, toMove.x + (toMove.power+40)/5*(sin((toMove.angle+90)*PI/180)), toMove.y + (toMove.power+40)/5*(cos((toMove.angle+90)*PI/180)));
-        fill(255);
       }
     }
   }
@@ -513,14 +556,31 @@ void mousePressed() {
     mode = -5;
   }
   if (overShoot) {
-    if ((toMove != null)&&(!toMove.shootYet)) {
-      if (projID == 12) {
-        for (int i = 0; i < 11; i++) {
-          Bullets.add(toMove.shoot(toMove.angle, toMove.power, projID));
+    if (unlimitedProjectiles) {
+      if ((toMove != null)&&(!toMove.shootYet)) {
+        if (projID == 12) {
+          for (int i = 0; i < 11; i++) {
+            Bullets.add(toMove.shoot(angle, power, projID));
+          }
         }
       }
       Bullets.add(toMove.shoot(toMove.angle, toMove.power, projID));
       toMove.shootYet = true;
+    } else {
+      if ((toMove != null)&&(!toMove.shootYet)) {
+        if (turn.arsenal.contains(projID)) {
+          if (projID == 12) {
+            for (int i = 0; i < 11; i++) {
+              Bullets.add(toMove.shoot(angle, power, projID));
+            }
+          }
+          Bullets.add(toMove.shoot(angle, power, projID));
+          turn.arsenal.remove(Integer.valueOf(projID));
+          toMove.shootYet = true;
+        } else {
+          println("You don't have any ammo of this type left!");
+        }
+      }
     }
   }
   if (mode == -3) {
@@ -528,6 +588,11 @@ void mousePressed() {
       mode = 1;
       loop();
     }
+  }
+  if(mode2 == 0){
+    loop();
+    mode = 0;
+    mode2 = 1000000;
   }
   if (mode2 == 4) {
     mode = 1;
@@ -577,6 +642,12 @@ void mousePressed() {
     if (toexit) {
       mode = 0;
     }
+  }
+  if(option2 == 1){
+      soundonoff = !soundonoff;
+  }
+  if(option1 == 2){
+    exit();
   }
 }
 void controlEvent(ControlEvent theEvent) {

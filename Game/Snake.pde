@@ -116,7 +116,7 @@ class Snake {
       return new DirtShot(x, y, angle, power, 45, 0, 0.35);
     }
     if (ProjectileID == 3) {
-      return new BigShot(x, y, angle, power, 50, 35, 0.35);
+      return new BigShot(x, y, angle, power, 50, 30, 0.35);
     }
     if (ProjectileID == 4) {
       return new GroundRemover(x, y, angle, power, 60, 0, 0.35);
@@ -137,7 +137,7 @@ class Snake {
       return new CarpetBomber(x, y, angle, power, 30, 20, 0.35);
     }
     if (ProjectileID == 10) {
-      return new Nuke(x, y, angle, power, 90, 40, 0.6);
+      return new Nuke(x, y, angle, power, 90, 35, 0.6);
     }
     if (ProjectileID == 11) {
       return new SpiderShot(x, y, angle, power, 20, 10, 0.35);

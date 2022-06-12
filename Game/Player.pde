@@ -19,44 +19,64 @@ class Player{
   // maybe add another way to fill arsenal later, such as a weapon selection screen
   void randomizeArsenal() {
     double choice = 0;
+    int choice2 = 0;
     for (int i = 0; i < team.size() * 10; i++) {
       choice = random(1);
-      if (choice < 0.2) {
-        arsenal.add(1);
+      if (choice < 0.35) {
+        choice2 = (int)random(3);
+        if (choice2 == 0) {
+          arsenal.add(1);
+        }
+        else if (choice2 == 1) {
+          arsenal.add(2);
+        }
+        else {
+          arsenal.add(4);
+        }
       }
-      if (choice < 0.285) {
-        arsenal.add(2);
+      else if (choice < 0.8) {
+        choice2 = (int)random(6);
+        if (choice2 == 0) {
+          arsenal.add(3);
+        }
+        else if (choice2 == 1) {
+          arsenal.add(5);
+        }
+        else if (choice2 == 2) {
+          arsenal.add(6);
+        }
+        else if (choice2 == 3) {
+          arsenal.add(7);
+        }
+        else if (choice2 == 4) {
+          arsenal.add(8);
+        }
+        else {
+          arsenal.add(12);
+        }
       }
-      if (choice < 0.37) {
-        arsenal.add(3);
-      }
-      if (choice < 0.455) {
-        arsenal.add(4);
-      }
-      if (choice < 0.54) {
-        arsenal.add(5);
-      }
-      if (choice < 0.625) {
-        arsenal.add(6);
-      }
-      if (choice < 0.71) {
-        arsenal.add(7);
-      }
-      if (choice < 0.795) {
-        arsenal.add(8);
-      }
-      if (choice < 0.835) {
-        arsenal.add(9);
-      }
-      if (choice < 0.875) {
-        arsenal.add(10);
-      }
-      if (choice < 0.915) {
-        arsenal.add(11);
-      }
-      if (choice < 1) {
-        arsenal.add(12);
+      else {
+        choice2 = (int)random(3);
+        if (choice2 == 0) {
+          arsenal.add(9);
+        }
+        else if (choice2 == 1) {
+          arsenal.add(10);
+        }
+        else {
+          arsenal.add(11);
+        }
       }
     }
+  }
+  
+  int getAmmo(int weapID) {
+    int result = 0;
+    for (int i = 0; i < arsenal.size(); i++) {
+      if (arsenal.get(i) == weapID) {
+        result++;
+      }
+    }
+    return result;
   }
 }
