@@ -15,7 +15,13 @@ class Player{
       EverySnake.add(member);
     }
   }
-  
+  void addSnake(int num, String mod, int H, int M){
+    for(int i = 0; i < num; i++){
+      Snake member = new Snake(H, M, int(random(1100)), 0, id, mod);
+      team.add(member);
+      EverySnake.add(member);
+    }
+  }
   // maybe add another way to fill arsenal later, such as a weapon selection screen
   void randomizeArsenal() {
     double choice = 0;

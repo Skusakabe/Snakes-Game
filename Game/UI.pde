@@ -186,6 +186,55 @@ bol = false;
     ammo = "Off";
   }
   text("Unlimited Ammo-" + ammo, 250, 360); 
+  textSize(15);
+  text("Snake Count-" + snakeCount, 105, 180); 
+  text("Snake Health-" + H, 115, 430);
+  text("Snake Move-" + M, 107, 505);
+  fill(255);
+  rect(50, 200, 50, 25);
+  rect(150, 200, 50, 25);
+  rect(50, 450, 50, 25);
+  rect(150, 450, 50, 25);
+  rect(50, 525, 50, 25);
+  rect(150, 525, 50, 25);
+  fill(0);
+  textSize(10);
+  text("down", 75, 215);
+  if(hoveringButton(50, 200, 50, 25)){
+    snakedown = true;
+  }else{
+    snakedown = false;
+  }
+  text("up", 175, 215);
+  if(hoveringButton(150, 200, 50, 25)){
+    snakeup = true;
+  }else{
+    snakeup = false;
+  }
+  text("down", 75, 465);
+  if(hoveringButton(50, 450, 50, 25)){
+    healthdown = true;
+  }else{
+    healthdown = false;
+  }
+  text("up", 175, 465);
+  if(hoveringButton(150, 450, 50, 25)){
+    healthup = true;
+  }else{
+    healthup = false;
+  }
+  text("down", 75, 540);
+  if(hoveringButton(50, 525, 50, 25)){
+    movedown = true;
+  }else{
+    movedown = false;
+  }
+  text("up", 175, 540);
+  if(hoveringButton(150, 525, 50, 25)){
+    moveup = true;
+  }else{
+    moveup = false;
+  }
   if(hoveringButton(50, 300, 400, 100)){
     option3 = 1;
   }else{

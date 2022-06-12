@@ -5,6 +5,8 @@ int option1;
 int option2;
 int option3;
 int option4;
+int H, M;
+boolean snakeup, snakedown, healthup, healthdown, moveup, movedown;
 int snakeCount;
 int toproj;
 boolean soundonoff, spawnSnake;
@@ -85,6 +87,8 @@ void updateMapList() {
 }
 void setup() {
   size(1500, 600);
+  H = 100;
+  M = 20;
   snakeCount = 3;
   spawnSnake = true;
   option1 = -1;
@@ -319,8 +323,8 @@ void draw() {
     MapSetUp = false;
   } else {
     if(spawnSnake){
-        player1.addSnake(snakeCount, "SnakeRed.png");
-        player2.addSnake(snakeCount, "SnakeBlue.png");
+        player1.addSnake(snakeCount, "SnakeRed.png", H, M*5);
+        player2.addSnake(snakeCount, "SnakeBlue.png", H, M*5);
         spawnSnake = false;
       }
     textAlign(LEFT);
@@ -664,6 +668,36 @@ void mousePressed() {
   } 
   if(option3 == 1){
     unlimitedProjectiles = !unlimitedProjectiles;
+  }
+  if(moveup){
+    if(M < 100){
+    M++;
+    }
+  }
+   if(movedown){
+     if(M > 0){
+    M--;
+     }
+  }
+  if(healthup){
+    if(H < 1000){
+    H+=5;
+    }
+  }
+    if(healthdown){
+      if(H > 5){
+    H-=5;
+      }
+  }
+  if(snakeup){
+    if(snakeCount < 10){
+    snakeCount++;
+    }
+  }
+  if(snakedown){
+    if(snakeCount > 1){
+    snakeCount--;
+    }
   }
 }
 void controlEvent(ControlEvent theEvent) {
