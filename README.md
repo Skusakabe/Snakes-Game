@@ -41,6 +41,8 @@ Kevin Work Log:
 6/8/22: Fixed issues with pause button. 
 
 6/9/22: added arsenal Menu. Made a new WeaponButton class, allowing for automation of button.
+6/10/22: worked on minor bug fixes.
+6/11/22: made more option for pause menu and started work on tiding up the game.
 Shinji work log:
 
 5/23/22: Made a little bit of projectile and started the project. Got projectile to display itself and do the physics/move.

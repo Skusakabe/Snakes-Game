@@ -7,7 +7,7 @@ class Snake {
   boolean moveYet;
   boolean shootYet;
   public Snake(int H, int M, int x, int y, int team, String mod){
-    health = maxHealth;
+    health = H;
     movement_Radius = M;
     this.x = x;
     this.y = y; 
@@ -22,7 +22,7 @@ class Snake {
   }
   public Snake(int x, int y, int team, String mod){
       model = loadImage(mod);
-    health = maxHealth;
+    health = H;
     movement_Radius = 100;
      this.x = x;
      this.y = y;

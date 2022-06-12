@@ -175,6 +175,21 @@ bol = false;
   image(back, x, y);
   PImage start = loadImage("Start.png");
   image(start, 900, 250);
+  fill(255);
+  rect(50, 300, 250, 100);
+  fill(0);
+  textSize(50);
+  String ammo = "Off";
+  if(unlimitedProjectiles){
+    ammo = "On";
+  }else{
+    ammo = "Off"
+  }
+  text("Unlimited Ammo-" + ammo", 100, 425); 
+  if(hoveringButton(50,300,250,100){
+    option3 = 1;
+  }else{
+    option3 = -1;
   if(hoveringButton(900, 250, 200, 100)){
     mode2 = 4;
   }else{

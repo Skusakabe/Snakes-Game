@@ -3,6 +3,7 @@ import processing.sound.*;
 UI UI; 
 int option1;
 int option2;
+int option3;
 int toproj;
 boolean soundonoff;
 boolean arsenalButton;
@@ -505,7 +506,7 @@ void draw() {
         mode2 = 1000000;
       }
       if(hoveringButton(width/2 - 125, 400, 250, 75)){
-        option1 = 2;
+        option1 = 1;
       }else{
         option1 = -1;
       }
@@ -649,6 +650,10 @@ void mousePressed() {
   if(option1 == 2){
     exit();
   }
+  if(option3 == 1){
+    unlimitedProjectiles = !unlimitedProjectiles;
+  }
+    
 }
 void controlEvent(ControlEvent theEvent) {
   if (theEvent.isGroup()) {
