@@ -601,6 +601,9 @@ void mousePressed() {
     loop();
     mode = 0;
     mode2 = 1000000;
+    image(Loading1, 0, 0);
+    noLoop();
+    thread("setup");
   }
   if (mode2 == 4) {
     mode = 1;
