@@ -72,3 +72,11 @@ Shinji work log:
 6/6/22: Created blunderbuss and improved radius of projectiles.
 
 6/7/22: Added sound effects and bgm.
+
+6/8/22: More adjustments to sound.
+
+6/9/22: bug fixing, improvements and made the start of arsenal to keep track of the players weapons.
+
+6/10/22: Finished making the arsenal functional and more bug fixing.
+
+6/12/22: A lot of bug fixing and small qol changes like an indicator over the selected snake and made main menu reset the game.
