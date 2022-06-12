@@ -2,6 +2,19 @@ public class MapGenerator {
   ArrayList<Terrain> map;
 
   MapGenerator(int mapWidth, int mapHeight) {
+    noiseSeed((int)random(100000));
+    ArrayList<Terrain> result = new ArrayList<Terrain>();
+    for (int y = 0; y < mapHeight / tileSize; y++) {
+      for (int x = 0; x < mapWidth / tileSize; x++) {
+        Terrain block = new Terrain(getType(x,y),x*tileSize,y*tileSize);
+        block.display();
+        result.add(block);
+      }
+    }
+    map = result;
+  }
+  
+  void regenMap(int mapWidth, int mapHeight) {
     ArrayList<Terrain> result = new ArrayList<Terrain>();
     for (int y = 0; y < mapHeight / tileSize; y++) {
       for (int x = 0; x < mapWidth / tileSize; x++) {

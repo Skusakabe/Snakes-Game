@@ -1,4 +1,4 @@
-import controlP5.*; //<>// //<>// //<>// //<>// //<>// //<>// //<>//
+import controlP5.*; //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
 import processing.sound.*;
 UI UI; 
 int option1;
@@ -203,11 +203,11 @@ void keyPressed() {
         toMove.power++;
       }
     }
-    if (keyCode == LEFT) {
-      if (toMove != null) {
-        if (toMove.power > 0) {
-          toMove.power--;
-        }
+  }
+  if (keyCode == LEFT) {
+    if (toMove != null) {
+      if (toMove.power > 0) {
+        toMove.power--;
       }
     }
   }
@@ -289,16 +289,16 @@ void draw() {
     UI.mapScreen(0, 0, setupMode3);
   } else if (mode == 0) {
     frameRate(10);
-    UI.startScreen(0, 0);  //<>//
+    UI.startScreen(0, 0);  //<>// //<>//
     if (hoveringButton(BeginX, BeginY, BeginRectX, BeginRectY)){
       mode2 = 1; //<>//
     }
   } else if (mode == -1) {
     textSize(100);
     fill(0);
-    text("Player 2 Wins", width/2 - 300, height/2); //<>// //<>//
+    text("Player 2 Wins", width/2 - 300, height/2); //<>// //<>// //<>//
     textSize(50); //<>//
-    text("Click Anywhere to Continue, wait 5 seconds", width/2 - 500, height/2 + 100); //<>// //<>// //<>// //<>//
+    text("Click Anywhere to Continue, wait 5 seconds", width/2 - 500, height/2 + 100); //<>// //<>// //<>// //<>// //<>//
     if (hoveringButton(0, 0, 1500, 600)) { //<>//
       mode2 = -4; //<>//
     }
