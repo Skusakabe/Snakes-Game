@@ -448,7 +448,7 @@ void draw() {
       for (Animation a : animationList) {
         animations.add(a);
         a.animate();
-        if (a.getTimer() >= 35) {
+        if (a.getTimer() >= 32) {
           animations.remove(a);
         }
       }
@@ -613,6 +613,7 @@ void mousePressed() {
     mode2 = 1000000;
     image(Loading1, 0, 0);
     noLoop();
+    music.stop();
     thread("setup");
   }
   if (mode2 == 4) {
@@ -636,6 +637,7 @@ void mousePressed() {
     }
     image(Loading1, 0, 0);
     noLoop();
+    music.stop();
     thread("setup");
     mode2 = 1000000;
   }
