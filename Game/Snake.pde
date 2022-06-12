@@ -1,13 +1,13 @@
 class Snake {
   int angle, power;
-  private int health, movement_Radius, x, y, spotLeft;
+  private int health, movement_Radius, x, y, spotLeft, maxHealth;
   private boolean dead;
   private PImage model;
   int team;
   boolean moveYet;
   boolean shootYet;
   public Snake(int H, int M, int x, int y, int team, String mod){
-    health = H;
+    health = maxHealth;
     movement_Radius = M;
     this.x = x;
     this.y = y; 
@@ -22,7 +22,7 @@ class Snake {
   }
   public Snake(int x, int y, int team, String mod){
       model = loadImage(mod);
-    health = 100;
+    health = maxHealth;
     movement_Radius = 100;
      this.x = x;
      this.y = y;
@@ -35,6 +35,11 @@ class Snake {
      angle = 45;
      power = 50;
     }
+  public void setRadius(int x){
+    movement_Radius = x;
+  }
+  public void setHealth(int x){
+  health = x;}
   public void reset(){
     moveYet = false;
     shootYet = false;
