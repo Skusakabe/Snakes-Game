@@ -1,11 +1,12 @@
-import controlP5.*; //<>// //<>//
+import controlP5.*; //<>// //<>// //<>// //<>//
 import processing.sound.*;
 UI UI; 
 int option1;
 int option2;
 int option3;
+int option4;
 int toproj;
-boolean soundonoff;
+boolean soundonoff, spawnSnake;
 boolean arsenalButton;
 Controller keyboardInput;
 Terrain background;
@@ -288,16 +289,16 @@ void draw() {
   } else if (mode == 0) {
     frameRate(10);
     UI.startScreen(0, 0);
-    if (hoveringButton(BeginX, BeginY, BeginRectX, BeginRectY)) {
+    if (hoveringButton(BeginX, BeginY, BeginRectX, BeginRectY)) { //<>//
       mode2 = 1; //<>//
     }
   } else if (mode == -1) {
     textSize(100);
     fill(0);
     text("Player 2 Wins", width/2 - 300, height/2);
-    textSize(50);
+    textSize(50); //<>//
     text("Click Anywhere to Continue, wait 5 seconds", width/2 - 500, height/2 + 100); //<>// //<>//
-    if (hoveringButton(0, 0, 1500, 600)) {
+    if (hoveringButton(0, 0, 1500, 600)) { //<>//
       mode2 = -4; //<>//
     }
   } else if (mode == -2) {
@@ -489,12 +490,11 @@ void draw() {
         text("Exit", width/2 - 40, 445);
         
         if (hoveringButton(width/2 - 125, 100, 250, 75)) {
-          mode2 = 4;
+          option4 = 1;
         } 
         else {
-          mode2 = 100000;
+         option4 = -1;
         }
-      }
       if(hoveringButton(width/2 - 125, 300, 250, 75)){
         option2 = 1;
       }else{
@@ -509,6 +509,7 @@ void draw() {
         option1 = 1;
       }else{
         option1 = -1;
+      }
       }
       if (mode == -5) {
         UI.arsenalUI();
@@ -644,16 +645,20 @@ void mousePressed() {
       mode = 0;
     }
   }
+  if(mode == -3){
   if(option2 == 1){
       soundonoff = !soundonoff;
   }
-  if(option1 == 2){
+  if(option1 == 1){
     exit();
   }
   if(option3 == 1){
     unlimitedProjectiles = !unlimitedProjectiles;
   }
-    
+  if(option4 == 1){
+    mode = 0;
+  }
+  } 
 }
 void controlEvent(ControlEvent theEvent) {
   if (theEvent.isGroup()) {
