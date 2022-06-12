@@ -176,17 +176,17 @@ bol = false;
   PImage start = loadImage("Start.png");
   image(start, 900, 250);
   fill(255);
-  rect(50, 300, 250, 100);
+  rect(50, 300, 400, 100);
   fill(0);
-  textSize(50);
+  textSize(30);
   String ammo = "Off";
   if(unlimitedProjectiles){
     ammo = "On";
   }else{
-    ammo = "Off"
+    ammo = "Off";
   }
-  text("Unlimited Ammo-" + ammo", 100, 425); 
-  if(hoveringButton(50,300,250,100){
+  text("Unlimited Ammo-" + ammo, 250, 360); 
+  if(hoveringButton(50, 300, 400, 100)){
     option3 = 1;
   }else{
     option3 = -1;
@@ -195,6 +195,7 @@ bol = false;
   }else{
     mode2 = 100000;
   }
+}
 }
 void mapScreen(int x, int y, boolean setup){
   if(setup){
