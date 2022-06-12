@@ -88,7 +88,7 @@ void setup() {
   snakeCount = 3;
   spawnSnake = true;
   option1 = -1;
-  soundonoff = false;
+  soundonoff = true;
   unlimitedProjectiles = false;
   arsenalButton = false;
   toproj = 0;
@@ -271,9 +271,9 @@ void draw() {
   cp5.hide();
   background(255);
   if(soundonoff){
-  while (mode <= 1 && !music.isPlaying()) {
-    music.play(1, 0.5);
-  }
+    while (mode <= 1 && !music.isPlaying()) {
+      music.play(1, 0.4);
+    }
   }else{
     music.stop();
   }
