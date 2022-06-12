@@ -1,10 +1,11 @@
-import controlP5.*; //<>// //<>// //<>// //<>//
+import controlP5.*; //<>// //<>// //<>// //<>// //<>// //<>//
 import processing.sound.*;
 UI UI; 
 int option1;
 int option2;
 int option3;
 int option4;
+int snakeCount;
 int toproj;
 boolean soundonoff, spawnSnake;
 boolean arsenalButton;
@@ -84,6 +85,8 @@ void updateMapList() {
 }
 void setup() {
   size(1500, 600);
+  snakeCount = 3;
+  spawnSnake = true;
   option1 = -1;
   soundonoff = false;
   unlimitedProjectiles = false;
@@ -128,8 +131,6 @@ void setup() {
   player1 = new Player(1);
   player2 = new Player(2);
   image(Loading3, 0, 0);
-  player1.addSnake(1, "SnakeRed.png");
-  player2.addSnake(1, "SnakeBlue.png");
   player1.randomizeArsenal();
   player2.randomizeArsenal();
   turn = player1;
@@ -288,16 +289,16 @@ void draw() {
     UI.mapScreen(0, 0, setupMode3);
   } else if (mode == 0) {
     frameRate(10);
-    UI.startScreen(0, 0);
+    UI.startScreen(0, 0); //<>//
     if (hoveringButton(BeginX, BeginY, BeginRectX, BeginRectY)) { //<>//
       mode2 = 1; //<>//
     }
   } else if (mode == -1) {
     textSize(100);
     fill(0);
-    text("Player 2 Wins", width/2 - 300, height/2);
+    text("Player 2 Wins", width/2 - 300, height/2); //<>//
     textSize(50); //<>//
-    text("Click Anywhere to Continue, wait 5 seconds", width/2 - 500, height/2 + 100); //<>// //<>//
+    text("Click Anywhere to Continue, wait 5 seconds", width/2 - 500, height/2 + 100); //<>// //<>// //<>//
     if (hoveringButton(0, 0, 1500, 600)) { //<>//
       mode2 = -4; //<>//
     }
@@ -317,6 +318,11 @@ void draw() {
     UI.mapSelection(0, 0, MapSetUp);
     MapSetUp = false;
   } else {
+    if(spawnSnake){
+        player1.addSnake(snakeCount, "SnakeRed.png");
+        player2.addSnake(snakeCount, "SnakeBlue.png");
+        spawnSnake = false;
+      }
     textAlign(LEFT);
     if ((player1.team).size() == 0) {
       mode = -1;
@@ -562,7 +568,7 @@ void mousePressed() {
       if ((toMove != null)&&(!toMove.shootYet)) {
         if (projID == 12) {
           for (int i = 0; i < 11; i++) {
-            Bullets.add(toMove.shoot(angle, power, projID));
+            Bullets.add(toMove.shoot(toMove.angle, toMove.power, projID));
           }
         }
       Bullets.add(toMove.shoot(toMove.angle, toMove.power, projID));
@@ -573,10 +579,10 @@ void mousePressed() {
         if (turn.arsenal.contains(projID)) {
           if (projID == 12) {
             for (int i = 0; i < 11; i++) {
-              Bullets.add(toMove.shoot(angle, power, projID));
+              Bullets.add(toMove.shoot(toMove.angle, toMove.power, projID));
             }
           }
-          Bullets.add(toMove.shoot(angle, power, projID));
+          Bullets.add(toMove.shoot(toMove.angle, toMove.power, projID));
           turn.arsenal.remove(Integer.valueOf(projID));
           toMove.shootYet = true;
         } else {
@@ -652,13 +658,13 @@ void mousePressed() {
   if(option1 == 1){
     exit();
   }
+  if(option4 == 1){
+    setup();
+  }
+  } 
   if(option3 == 1){
     unlimitedProjectiles = !unlimitedProjectiles;
   }
-  if(option4 == 1){
-    mode = 0;
-  }
-  } 
 }
 void controlEvent(ControlEvent theEvent) {
   if (theEvent.isGroup()) {
