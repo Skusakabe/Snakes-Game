@@ -1,4 +1,4 @@
-import controlP5.*; //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
+import controlP5.*;        //<>//
 import processing.sound.*;
 UI UI; 
 int option1;
@@ -289,18 +289,18 @@ void draw() {
     UI.mapScreen(0, 0, setupMode3);
   } else if (mode == 0) {
     frameRate(10);
-    UI.startScreen(0, 0);  //<>// //<>//
+    UI.startScreen(0, 0);   //<>//
     if (hoveringButton(BeginX, BeginY, BeginRectX, BeginRectY)){
-      mode2 = 1; //<>//
+      mode2 = 1; 
     }
   } else if (mode == -1) {
     textSize(100);
     fill(0);
-    text("Player 2 Wins", width/2 - 300, height/2); //<>// //<>// //<>//
-    textSize(50); //<>//
-    text("Click Anywhere to Continue, wait 5 seconds", width/2 - 500, height/2 + 100); //<>// //<>// //<>// //<>// //<>//
-    if (hoveringButton(0, 0, 1500, 600)) { //<>//
-      mode2 = -4; //<>//
+    text("Player 2 Wins", width/2 - 300, height/2);   //<>//
+    textSize(50); 
+    text("Click Anywhere to Continue, wait 5 seconds", width/2 - 500, height/2 + 100);     //<>//
+    if (hoveringButton(0, 0, 1500, 600)) { 
+      mode2 = -4; 
     }
   } else if (mode == -2) {
     textSize(100);
@@ -524,7 +524,7 @@ void draw() {
     }
   }
 }
-  //print(mode);
+
 void mousePressed() {
   if (mode == -5) {
     for (int x = 0; x < weaponList.length; x++) {
@@ -538,7 +538,6 @@ void mousePressed() {
     }
     if (arsenalButton) {
       projID = toproj + 1;
-      print(projID);
       mode = 1;
       loop();
     }
@@ -644,11 +643,9 @@ void mousePressed() {
     }
     if (UI.totype) {
       typing = true;
-      print("hello");
     }
     if ((mouseX < 1200)&&(mouseY<600)) {
       drag = true;
-      //print("t");
     }
     if (toexit) {
       mode = 0;
