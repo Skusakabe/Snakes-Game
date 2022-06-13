@@ -396,7 +396,12 @@ void draw() {
             }
           }
           if (a.getType() != 2) {
-            animationList.add(new Animation(a.x, a.y, a.radius));
+            if (a.getType() == 10) {
+              animationList.add(new Animation(a.x, a.y, (int)(a.radius * 1.1)));
+            }
+            else {
+              animationList.add(new Animation(a.x, a.y, a.radius));
+            }
           }
           a.playSound(blast);
           Bullets2.remove(a);
