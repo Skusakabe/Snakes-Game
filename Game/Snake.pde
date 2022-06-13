@@ -1,7 +1,6 @@
 class Snake {
   int angle, power;
-  private int health, movement_Radius, x, y, spotLeft, maxHealth;
-  private boolean dead;
+  private int health, movement_Radius, x, y, spotLeft;
   private PImage model;
   int team;
   boolean moveYet;
@@ -11,7 +10,6 @@ class Snake {
     movement_Radius = M;
     this.x = x;
     this.y = y; 
-    dead = false;
     model = loadImage(mod);
     model.resize(20, 20);
     moveYet = false;
@@ -27,7 +25,6 @@ class Snake {
      this.x = x;
      this.y = y;
      this.team = team;
-     dead = false;
      model.resize(20, 20);
      moveYet = false;
      shootYet = false;
