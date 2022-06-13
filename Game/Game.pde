@@ -1,4 +1,4 @@
-import controlP5.*;        //<>// //<>//
+import controlP5.*;        //<>// //<>// //<>//
 import processing.sound.*;
 UI UI; 
 int option1;
@@ -168,15 +168,37 @@ void keyPressed() {
   if (mode == 1) {
     keyboardInput.press(keyCode);
     if (key == ' ') {
+       if (unlimitedProjectiles) {
       if ((toMove != null)&&(!toMove.shootYet)) {
-        Bullets.add(toMove.shoot(toMove.angle, toMove.power, projID));
-        toMove.shootYet = true;
+        if (projID == 12) {
+          for (int i = 0; i < 11; i++) {
+            Bullets.add(toMove.shoot(toMove.angle, toMove.power, projID));
+          }
+        }
+      Bullets.add(toMove.shoot(toMove.angle, toMove.power, projID));
+      toMove.shootYet = true;
       }
+    } else {
+      if ((toMove != null)&&(!toMove.shootYet)) {
+        if (turn.arsenal.contains(projID)) {
+          if (projID == 12) {
+            for (int i = 0; i < 11; i++) {
+              Bullets.add(toMove.shoot(toMove.angle, toMove.power, projID));
+            }
+          }
+          Bullets.add(toMove.shoot(toMove.angle, toMove.power, projID));
+          turn.arsenal.remove(Integer.valueOf(projID));
+          toMove.shootYet = true;
+        } else {
+          println("You don't have any ammo of this type left!");
+        }
+      }
+    }
     }
   }
   if (key == CODED) {
     if (keyCode == UP) {
-      if (toMove != null)
+      if (toMove != null){
         if (mode == 1) {
           if (toMove.angle < 360) {
             toMove.angle++;
@@ -218,6 +240,7 @@ void keyPressed() {
         toMove.power--;
       }
     }
+  }
   }
   if (key == 27) {
     key = 0;
@@ -270,18 +293,18 @@ void mouseReleased() {
 //MODE 0 = startscreen
 //MODE 1 = GAME
 //MODE 2 = Team Editing
-//MODE 3 = Terrain editing
+//MODE 3 = Terrain editing //<>//
 //MODE 4 = MAPSELECTION
-void draw() {
+void draw() { //<>//
   cp5.hide();
   background(255);
   if(soundonoff){
     while (mode <= 1 && !music.isPlaying()) {
-      music.play(1, 0.4);
-    }
-  }else{
-    music.stop();
-  }
+      music.play(1, 0.4); //<>//
+    } //<>//
+  }else{ //<>//
+    music.stop(); //<>//
+  } //<>//
   //UI.d1.hide();
   if (!(unlimitedProjectiles)) {
     if (player1.arsenal.size() == 0) {
@@ -721,7 +744,7 @@ void controlEvent(ControlEvent theEvent) {
     println("event from controller : "+theEvent.getController().getStringValue()+" from "+theEvent.getController());
     RealMapName = (String)((UI.d1.getItem(int(theEvent.getValue()))).get("value"));
     if (RealMapName.equals("Random")) {
-      print(RealMapName);
+      blocks = gameMap.map;
     } else {
       blocks = UI.openMap(RealMapName);
       print(RealMapName + "1");

@@ -10,7 +10,9 @@ HOW TO PLAY:
 4) After you have made your moves with all of the snakes on your team, click the end turn button and it will switch to the other players turn.
 5) Once all the snakes in a player's team die, the other player wins.
 6) Click escape to open the pause screen.
-
+7) When pressing Make map, please give the application a couple seconds to load data and open the map making screen.
+8) pressing up or down in Make-Map changes the size of your pen. 
+9) When done, please click on the text box, and type in what you want the map to be called, then press save. This will automatically bring you back to the main menu. 
 
 https://docs.google.com/document/d/1AoIARfXN8U-7Oqtji3RhJ8SQPpH15UtG0l1z0YM3ohg/edit?usp=sharing
 
@@ -52,6 +54,7 @@ Kevin Work Log:
 6/9/22: added arsenal Menu. Made a new WeaponButton class, allowing for automation of button.
 6/10/22: worked on minor bug fixes.
 6/11/22: made more option for pause menu and started work on tiding up the game.
+6/12/22: fixed a couple of minor bugs, added options to change snake stats on main menu. 
 Shinji work log:
 
 5/23/22: Made a little bit of projectile and started the project. Got projectile to display itself and do the physics/move.
